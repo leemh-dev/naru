@@ -1,11 +1,14 @@
 {
-  "name": "ai-workspace-preview",
-  "productName": "AI Workspace Preview",
-  "version": "0.1.0",
+  "name": "naru",
+  "productName": "Naru",
+  "version": "0.1.0-preview.1",
+  "userDataDirectory": "AI Workspace Preview",
   "private": true,
-  "description": "Desktop AI workspace with local diagnostic reports",
-  "author": "AI Workspace contributors",
-  "homepage": "https://github.com/leemh-dev",
+  "description": "Naru: a desktop workspace for AI services with private local diagnostics",
+  "author": "Naru contributors",
+  "homepage": "https://github.com/leemh-dev/naru",
+  "repository": {"type": "git", "url": "https://github.com/leemh-dev/naru.git"},
+  "bugs": {"url": "https://github.com/leemh-dev/naru/issues"},
   "main": "src/main.cjs",
   "engines": {"node": ">=22.12.0"},
   "scripts": {
@@ -24,9 +27,9 @@
     "files": ["src/**/*", "package.json"],
     "directories": {"output": "dist"},
     "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
-    "win": {"target": ["nsis"]},
+    "win": {"target": ["nsis", "zip"], "signExecutable": false},
     "nsis": {"oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true},
     "mac": {"target": ["dmg", "zip"], "category": "public.app-category.productivity", "identity": null},
-    "linux": {"target": ["AppImage", "deb"], "category": "Office", "maintainer": "AI Workspace contributors"}
+    "linux": {"target": ["AppImage", "deb"], "category": "Office", "maintainer": "Naru contributors"}
   }
 }

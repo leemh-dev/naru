@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-11-17T10:10:24.309Z",
+  "environment": {
+    "appVersion": "0.1.0-preview.1",
+    "electron": "45.3.3",
+    "chromium": "156.0.8078.100",
+    "osRelease": "6.18.57",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "storageError": false,
+  "privacy": "No prompts, page URLs, credentials, aliases, screenshots or remote console messages.",
+  "events": [
+    {
+      "event": "app.start",
+      "at": "2026-11-17T10:10:18.888Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "workspace.restore",
+      "count": 0,
+      "at": "2026-11-17T10:10:19.116Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "tab.open",
+      "service": "fixture",
+      "tab": 1,
+      "at": "2026-11-17T10:10:19.126Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "tab.open",
+      "service": "fixture",
+      "tab": 2,
+      "at": "2026-11-17T10:10:19.134Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "tab.open",
+      "service": "fixture",
+      "tab": 3,
+      "at": "2026-11-17T10:10:19.141Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "tab.open",
+      "service": "fixture",
+      "tab": 4,
+      "at": "2026-11-17T10:10:19.148Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "page.load",
+      "service": "fixture",
+      "status": "ok",
+      "tab": 3,
+      "elapsedMs": 133,
+      "at": "2026-11-17T10:10:19.273Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "page.load",
+      "service": "fixture",
+      "status": "ok",
+      "tab": 1,
+      "elapsedMs": 156,
+      "at": "2026-11-17T10:10:19.280Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "page.load",
+      "service": "fixture",
+      "status": "ok",
+      "tab": 4,
+      "elapsedMs": 134,
+      "at": "2026-11-17T10:10:19.280Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "page.load",
+      "service": "fixture",
+      "status": "ok",
+      "tab": 2,
+      "elapsedMs": 166,
+      "at": "2026-11-17T10:10:19.299Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "layout.change",
+      "layout": "grid",
+      "count": 4,
+      "at": "2026-11-17T10:10:19.549Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "layout.change",
+      "layout": "columns",
+      "count": 4,
+      "at": "2026-11-17T10:10:19.969Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "field.register",
+      "service": "fixture",
+      "status": "ok",
+      "field": "prompt",
+      "tab": 2,
+      "at": "2026-11-17T10:10:21.404Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "transfer.result",
+      "service": "fixture",
+      "status": "exact",
+      "field": "prompt",
+      "tab": 2,
+      "elapsedMs": 457,
+      "chars": 44,
+      "expectedNewlines": 2,
+      "actualNewlines": 2,
+      "at": "2026-11-17T10:10:23.219Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "field.register",
+      "service": "fixture",
+      "status": "ok",
+      "field": "lyrics",
+      "tab": 2,
+      "at": "2026-11-17T10:10:23.545Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "transfer.result",
+      "service": "fixture",
+      "status": "exact",
+      "field": "lyrics",
+      "tab": 2,
+      "elapsedMs": 455,
+      "chars": 33,
+      "expectedNewlines": 2,
+      "actualNewlines": 2,
+      "at": "2026-11-17T10:10:24.000Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "transfer.result",
+      "service": "fixture",
+      "status": "occupied",
+      "field": "lyrics",
+      "tab": 2,
+      "elapsedMs": 103,
+      "chars": 14,
+      "at": "2026-11-17T10:10:24.103Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "clip.saved",
+      "chars": 33,
+      "count": 1,
+      "at": "2026-11-17T10:10:24.106Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    },
+    {
+      "event": "layout.change",
+      "layout": "custom",
+      "count": 4,
+      "at": "2026-11-17T10:10:24.107Z",
+      "session": "09509639-3417-483f-ac6b-0edcc75e56b4"
+    }
+  ]
+}

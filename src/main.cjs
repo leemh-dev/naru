@@ -3,6 +3,9 @@ const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),{ran
 const workspace=require('./workspace.cjs'),layout=require('./layout.cjs'),{Diagnostics}=require('./diagnostics.cjs');
 const manifest=require('../package.json');
 const fixtureMode=process.argv.includes('--fixtures'),WORLD=1873,views=new Map();
+// Keep the initial preview's local workspace and normal browser session in place
+// when the product's display name changes. No credential/session copying occurs.
+app.setPath('userData',path.join(app.getPath('appData'),manifest.userDataDirectory));
 if(process.env.WORKSPACE_TEST_PROFILE&&fixtureMode)app.setPath('userData',process.env.WORKSPACE_TEST_PROFILE);
 const profile=app.getPath('userData'),stateFile=path.join(profile,fixtureMode?'fixture-workspace.json':'workspace.json');
 let state=workspace.load(stateFile),win,diag,modal=false,busy=false,nextNumber=0,lastReport=null,persistTimer;

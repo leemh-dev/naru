@@ -1,6 +1,6 @@
 # 2026-11-17 시험판 생성 결과
 
-프로젝트명은 아직 미정입니다. `AI Workspace Preview`는 임시 이름입니다. 로컬 Git 저장소를 만들고 첫 커밋을 완료했습니다. GitHub CLI는 `leemh-dev`로 인증돼 있지만 새 저장소 생성 요청은 `Resource not accessible by integration (createRepository)`로 거절됐습니다. **자동 승인 검토의 거절이 아니라 GitHub 연결 권한 제한**입니다. 원격 저장소 생성·소스 업로드·릴리스 공개는 완료되지 않았습니다. 사용자가 만든 빈 저장소의 주소가 필요합니다.
+이 문서는 프로젝트명을 확정하기 전 `AI Workspace Preview` 0.1.0에서 수행한 시험의 **과거 기록**입니다. 이후 이름을 **Naru**로 정하고 사용자가 [leemh-dev/naru](https://github.com/leemh-dev/naru) 저장소를 만들었습니다. 현재 사용 방법과 배포 현황은 [README](../README.md), [Releases](https://github.com/leemh-dev/naru/releases), [Actions](https://github.com/leemh-dev/naru/actions)에서 확인합니다. 아래 초기 빌드의 성공·실패를 이후 버전의 결과로 간주하지 않습니다.
 
 ## 생성한 파일
 
