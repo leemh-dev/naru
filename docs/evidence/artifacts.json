@@ -1,0 +1,27 @@
+[
+  {
+    "file": "ai-workspace-preview-0.1.0-linux-amd64.deb",
+    "bytes": 101899172,
+    "sha256": "2db319aa1b2fe102511e0a7bd6d889c867630e42291a08494d59b49d158b864e"
+  },
+  {
+    "file": "ai-workspace-preview-0.1.0-linux-x86_64.AppImage",
+    "bytes": 125815625,
+    "sha256": "db05d9fe3b3855139281210bb8eed69775c450d59ce1ce0b7fa920cb7c9ebd19"
+  },
+  {
+    "file": "ai-workspace-preview-0.1.0-mac-arm64.zip",
+    "bytes": 117364471,
+    "sha256": "89da01f0ce4bbdde4c47f8b898ba40d67aaaf1c1fac13f8f6e0a292587d72cae"
+  },
+  {
+    "file": "ai-workspace-preview-0.1.0-mac-x64.zip",
+    "bytes": 121479752,
+    "sha256": "8ce6b759baad401d0df40da0be9a342834ed0ca2d1e577b8ca14bf7c09cc5e7d"
+  },
+  {
+    "file": "ai-workspace-preview-0.1.0-win-x64.zip",
+    "bytes": 153275582,
+    "sha256": "6eb22ef8621a239de9c48dba68e0ae2c7c8c35f92ecebde605aa54b883e0f5d5"
+  }
+]

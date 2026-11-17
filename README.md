@@ -8,12 +8,14 @@ GitHub 저장소가 연결되면 **Releases**에서 운영체제에 맞는 파�
 
 | 운영체제 | 파일 | 사용 방법 |
 |---|---|---|
-| Windows x64 | `.exe` | NSIS 설치 프로그램으로 설치 |
+| Windows x64 | `.zip` / 향후 `.exe` | 현재 ZIP을 풀고 `AI Workspace Preview.exe` 실행. NSIS 설치판은 Windows 빌드 환경에서 추가 생성 필요 |
 | macOS Apple Silicon | `mac-arm64.zip` 또는 `.dmg` | ZIP을 풀고 `.app`을 Applications로 이동하거나 DMG에서 설치 |
 | macOS Intel | `mac-x64.zip` 또는 `.dmg` | 위와 동일. 자신의 Mac 칩에 맞는 파일 사용 |
 | Linux x64 | `.AppImage` 또는 `.deb` | AppImage에 실행 권한을 부여해 실행하거나 배포판의 패키지 설치기로 deb 설치 |
 
 아직 코드 서명·Apple 공증을 하지 않은 시험판입니다. 운영체제의 보안 정책 때문에 설치·실행이 차단될 수 있습니다. 이 경우 OS 경고와 단계만 기록하고, 시스템 보호 기능을 일괄 해제하지 마세요. 다른 OS용 파일이 만들어졌다는 것과 해당 OS에서 정상 실행된다는 것은 별도로 검증합니다.
+
+현재 파일별 생성·검증 상태와 GitHub 생성 권한 문제는 [빌드 결과](docs/build-results.md)에 기록했습니다.
 
 ## 첫 시험
 
