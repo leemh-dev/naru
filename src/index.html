@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:"><title>Naru</title><link rel="stylesheet" href="style.css"></head>
 <body>
-<header><div id="tabs" aria-label="작업 탭"></div><button id="add" title="작업 추가" aria-label="작업 추가">＋</button><div class="modes"><button data-mode="single" title="한 화면">▣</button><button data-mode="grid" title="가로 · 2×2">▦</button><button data-mode="columns" title="세로 · 좌우 4열">▥</button></div><button id="more" title="메뉴와 진단" aria-label="메뉴와 진단">···</button></header>
+<header><div id="tabs" role="tablist" aria-label="작업 탭"></div><button id="add" class="icon-button" title="작업 추가" aria-label="작업 추가"></button><div class="modes"><button id="single" class="icon-button" data-mode="single" title="한 화면으로 보기" aria-label="한 화면으로 보기"></button><button id="multiview" title="멀티뷰 구성 · 최대 4개" aria-label="멀티뷰 구성"></button></div><button id="more" class="icon-button" title="더보기" aria-label="더보기"></button></header>
 <main id="panels"></main>
-<section id="empty"><button id="empty-add" aria-label="첫 작업 추가">＋</button><h1>하던 작업을 한곳에서</h1><p>AI 서비스나 웹 주소를 추가하세요.</p><small>원본 웹사이트를 열며 서비스별 로그인이 필요합니다.</small></section>
+<section id="empty"><span class="eyebrow">NARU</span><button id="empty-add" aria-label="첫 작업 추가">＋</button><h1>다음 작업으로, 자연스럽게.</h1><p>AI 서비스나 웹 주소를 열어 시작하세요.</p><small>최대 30개 탭 · 함께 볼 화면은 멀티뷰로</small></section>
 <div id="toast" role="status"></div>
 <dialog id="dialog"><div id="dialog-body"></div><button id="dialog-close">닫기</button></dialog>
 <script src="renderer.js"></script></body></html>

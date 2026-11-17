@@ -10,3 +10,8 @@ __pycache__/
 .env*
 !.env.example
 .DS_Store
+
+# Android test signing material stays outside the repository
+*.keystore
+*.jks
+mobile/android/local.properties

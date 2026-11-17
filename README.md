@@ -22,7 +22,7 @@ Naru는 **진행 중인 작업을 찾느라 화면을 반복해서 넘기는 불
 
 현재는 **사용자 설치 시험을 위한 프리뷰**입니다. 실제 서비스의 로그인 허용 여부와 로그인 후 입력 호환성은 아직 확인이 필요합니다. 다른 회사의 네이티브 앱을 안에 실행하는 가상화 도구는 아닙니다.
 
-한 줄 시험 글을 ChatGPT 입력칸에서 Canva의 공개 입력칸으로 옮기는 것은 확인했습니다. **Suno·Canva의 로그인 후 실제 작업 화면에서의 전달, 이미지·음악·파일 전달, 기기 간 동기화까지 지원한다는 의미는 아닙니다.** 자세한 범위는 아래 기능과 검증 기록을 참고하세요.
+초기 프리뷰에서 한 줄 시험 글을 ChatGPT 입력칸에서 Canva의 공개 입력칸으로 옮기는 것은 확인했습니다. **Suno·Canva의 로그인 후 실제 작업 화면에서의 전달, 이미지·음악·파일 전달, 기기 간 동기화까지 지원한다는 의미는 아닙니다.** 자세한 범위는 아래 기능과 검증 기록을 참고하세요.
 
 [다운로드 · Releases](https://github.com/leemh-dev/naru/releases) · [빌드 상태](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [오류 제보](https://github.com/leemh-dev/naru/issues)
 
@@ -38,17 +38,20 @@ Releases에서 **Assets**를 펼쳐 운영체제와 CPU에 맞는 파일을 받�
 | Mac Intel | `naru-…-mac-x64.dmg` 또는 `.zip` | Intel용 앱을 위와 같은 방식으로 사용합니다. |
 | Linux x64 | `naru-…-linux-x86_64.AppImage` | 파일에 실행 권한을 부여한 뒤 실행합니다. |
 | Debian·Ubuntu x64 | `naru-…-linux-amd64.deb` | 배포판 패키지 설치기로 설치합니다. |
+| Android 호환성 시험용 | `naru-…-android-test.apk` | 디버그 서명 시험 앱입니다. 아래 검증 한계를 확인하세요. |
+
+Android APK는 데스크톱과 기능이 같지 않은 별도 시험 앱입니다. 에뮬레이터에서 앱 시작과 진단 기록은 확인했지만 WebView 종료·네트워크 오류로 **길게 누르기 전달과 로그인 완료는 미검증**입니다. [Android 범위와 빌드](mobile/android/README.md) · [실제 시험 결과](docs/preview.2-validation.md)
 
 릴리스에 실제로 첨부된 파일이 배포 완료된 파일입니다. 함께 제공하는 `SHA256SUMS.txt`로 다운로드 파일의 체크섬을 확인할 수 있습니다.
 
 Linux에서 `libfuse.so.2`가 없다는 오류가 나오면 AppImage 런타임의 추출 실행 옵션을 사용할 수 있습니다.
 
 ```sh
-chmod +x naru-0.1.0-preview.1-linux-x86_64.AppImage
-./naru-0.1.0-preview.1-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x naru-0.1.0-preview.2-linux-x86_64.AppImage
+./naru-0.1.0-preview.2-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
-이 방법으로 Debian 13의 사용자 폴더에 둔 **실제 릴리스 AppImage**를 실행해 확인했습니다. 시스템 전체에 deb를 설치한 시험은 아닙니다. [Linux 실행 시험과 화면 증거](docs/linux-installed-test-2026-11-17.md)를 참고하세요.
+이 방법으로 Debian 13의 사용자 폴더에 둔 **0.1.0-preview.1 릴리스 AppImage**를 실행해 확인했습니다. 시스템 전체에 deb를 설치한 시험은 아닙니다. [Linux 실행 시험과 화면 증거](docs/linux-installed-test-2026-11-17.md)를 참고하세요.
 
 프리뷰는 **코드 서명·Apple 공증을 하지 않았습니다.** 운영체제 보안 정책이 설치·실행을 제한할 수 있습니다. 이런 경우 경고와 발생 단계를 기록하고 시스템 보호 기능을 일괄 해제하지 마세요. 설치 파일 생성 성공과 해당 OS에서 앱이 정상 실행되는지는 별도의 검증 항목입니다.
 
@@ -65,19 +68,19 @@ chmod +x naru-0.1.0-preview.1-linux-x86_64.AppImage
 | 글 보관 | 선택한 글을 명시적으로 복사·보관하고 다른 작업에서 재사용 |
 | 진단 | 로컬 로그, 미리 보기, JSON 내보내기, 수집 중지·삭제 |
 
-최대 4개 패널을 동시에 표시하고 작업 탭은 최대 30개 유지합니다. 다섯 번째 작업을 표시하면 활성 패널 자리를 교체하며 기존 탭을 삭제하지 않습니다. 보관한 글은 최대 50개, 한 항목과 한 번의 전달은 최대 5만 자입니다.
+작업 탭은 최대 **30개**, 멀티뷰는 최대 **4개 패널**입니다. `멀티뷰`에서 함께 볼 탭을 직접 고릅니다. 구성에 없는 탭은 작업 영역 전체로 열리며, 구성원 탭을 다시 선택하면 저장된 멀티뷰와 조절한 너비로 돌아옵니다. 활성 탭은 은은하게 강조되며 글을 전달하면 대상 탭과 입력칸으로 이동합니다. 보관한 글은 최대 50개, 한 항목과 한 번의 전달은 최대 5만 자입니다.
 
 아래는 **비민감 합성 화면으로 실제 앱을 실행한 증거**입니다. 실제 AI 서비스 로그인 후 동작을 보여 주는 화면은 아닙니다.
 
 | 가로 2×2 | 세로 좌우 1×4 |
 |---|---|
-| ![합성 화면의 2×2 배치](docs/evidence/01-grid.png) | ![합성 화면의 좌우 4열 배치](docs/evidence/02-columns.png) |
+| ![합성 화면의 2×2 배치](docs/evidence/preview.2/01-grid.png) | ![합성 화면의 좌우 4열 배치](docs/evidence/preview.2/02-columns.png) |
 
 ## 첫 사용과 입력 시험
 
 1. 중앙 또는 상단의 `+`에서 서비스나 웹 주소를 추가합니다. 기존 비공개 대화 주소도 사용할 수 있습니다.
 2. 각 서비스 화면에서 본인이 직접 정상 로그인합니다. 동일 서비스의 탭들은 로그인 세션을 공유합니다. 다른 브라우저에서 쿠키·비밀번호를 가져오지 않습니다.
-3. 탭을 더블클릭해 별칭을 정합니다. 원본 대화 제목은 바꾸지 않습니다. 상단 배치 버튼으로 화면을 나눕니다.
+3. 탭을 더블클릭해 별칭을 정합니다. 원본 대화 제목은 바꾸지 않습니다. 상단 `멀티뷰`에서 최대 4개 탭과 배치를 선택합니다. `한 화면으로 보기`로 잠시 확대해도 멀티뷰 구성은 유지됩니다.
 4. 목적지의 **빈 텍스트 입력칸을 클릭한 다음 우클릭 → 받을 입력칸 지정 → 프롬프트·가사·스타일** 중 하나를 선택합니다.
 5. 원문에서 필요한 부분을 선택하고 **우클릭 → 다른 작업에 넣기 → 대상 탭·입력칸**을 선택합니다.
 6. 원문·줄바꿈 일치 여부와 실제 입력 결과를 확인합니다. **Naru는 메시지 전송·음악 생성·외부 게시 버튼을 자동으로 누르지 않습니다.**
@@ -113,7 +116,7 @@ Suno의 가사와 스타일은 각각 다른 칸으로 지정하고 시험하세
 - **클립보드:** 앱 밖 클립보드를 감시하지 않습니다. `복사하고 보관`을 선택한 글만 저장합니다.
 - **배치:** 좁은 창에서 패널 최소 폭에 따른 가로 스크롤, 배치 되돌리기는 아직 없습니다. 단일 패널 확대를 이용할 수 있습니다.
 - **권한:** 마이크·카메라 등 추가 권한은 이 시험판에서 허용하지 않습니다.
-- **플랫폼:** 데스크톱 대상입니다. Android·iOS 앱은 구현하지 않았습니다.
+- **플랫폼:** 주 앱은 데스크톱 대상입니다. [Android 호환성 시험 앱](mobile/android/README.md)을 별도로 추가했습니다. 데스크톱과 기능이 같지 않으며 모바일 멀티뷰·iOS 앱은 아직 구현하지 않았습니다.
 - **Codex:** Codex Cloud 웹 화면을 엽니다. 원격 데스크톱 Codex와 다르며, 모든 Codex 기능의 지원을 의미하지 않습니다.
 
 ## 검증 범위
@@ -121,7 +124,7 @@ Suno의 가사와 스타일은 각각 다른 칸으로 지정하고 시험하세
 | 항목 | 현재 근거 |
 |---|---|
 | 개인정보 제외·로그 순환·배치·복원 데이터 | 자동 검사 |
-| Linux 실제 Electron 창·네이티브 메뉴·원문 전달·재시작 | 합성 화면에서 확인 |
+| Linux 실제 Electron 창·네이티브 메뉴·원문 전달·재시작 | 0.1.0-preview.2 합성 화면 검사 30개·재시작 6개 통과 |
 | Linux 릴리스 AppImage의 실행·공개 서비스 화면 | Debian 13에서 실제 창 확인; FUSE 없이 추출 실행 옵션 사용 |
 | ChatGPT 입력칸의 시험 글 → Canva 공개 AI Image Generator 입력칸 | 한 줄 원문 일치 확인; 여러 줄은 줄바꿈 소실을 감지. 생성 답변·로그인 후 편집기 시험은 아님 |
 | 릴리스 앱의 배치·글 보관·진단 내보내기·정상 종료 후 복원 | 공개 서비스 화면에서 확인; 서비스 초안은 복원 결과가 서로 다름 |
@@ -132,6 +135,8 @@ Suno의 가사와 스타일은 각각 다른 칸으로 지정하고 시험하세
 | 일반 브라우저보다 줄어든 조작·시간, 시장 수요 | **미검증** |
 
 [Linux 릴리스 실행 기록](docs/linux-installed-test-2026-11-17.md)에 공개 서비스 시험과 한계를 기록했습니다. [초기 검증 기록](docs/build-results.md)에는 이름 확정 전 수행한 시험과 증거를 보존했습니다. 구현·패키징 성공만으로 실제 서비스 호환성이나 개발 가치가 입증되는 것은 아닙니다.
+
+[0.1.0-preview.2 변경·검증 기록](docs/preview.2-validation.md)에서 탭·멀티뷰 변경과 Android 시험 범위를 확인할 수 있습니다.
 
 ## 개발 환경
 
@@ -171,10 +176,11 @@ npm run dist -- --mac --x64 --arm64
 npm run dist -- --linux --x64
 ```
 
-[GitHub Actions](.github/workflows/build.yml)는 Windows·macOS·Linux에서 각각 검사와 빌드를 수행합니다. 수동 실행은 설치 파일을 Actions Artifacts에 올리고, `v*` 태그는 세 빌드가 모두 성공한 뒤 파일과 체크섬을 사전 릴리스에 올립니다. 자동 업데이트 기능은 없습니다.
+[GitHub Actions](.github/workflows/build.yml)는 Windows·macOS·Linux에서 각각 검사와 빌드를 수행하고, 별도 작업에서 Android 시험 APK를 빌드합니다. 수동 실행은 설치 파일을 Actions Artifacts에 올리고, `v*` 태그는 데스크톱 세 빌드와 Android 빌드가 모두 성공한 뒤 파일과 체크섬을 사전 릴리스에 올립니다. 자동 업데이트 기능은 없습니다.
 
 ```text
 src/                    Electron 앱, 탭·패널 UI, 입력 전달, 저장·진단
+mobile/android/         Android 호환성 시험 앱과 공식 SDK 빌드 스크립트
 tests/                  개인정보 검사와 합성 화면·패키지 시험
 docs/                   사용 기록 양식, 진단 명세, 검증 증거
 .github/workflows/      세 OS 빌드와 릴리스 자동화
@@ -208,7 +214,7 @@ For example, keep a writing screen next to the input screen for your next task, 
 
 This is a **preview for installation and compatibility testing**. Compatibility with each service's sign-in flow and input fields after sign-in still needs verification. Naru displays original websites; it does not run other companies' native apps inside a virtual machine.
 
-A single-line test draft was successfully transferred from a ChatGPT input field to Canva's public input field. **This does not establish support for authenticated Suno or Canva workflows, image/audio/file transfers, or synchronization between devices.** The scope and evidence are detailed below.
+In an earlier preview, a single-line test draft was successfully transferred from a ChatGPT input field to Canva's public input field. **This does not establish support for authenticated Suno or Canva workflows, image/audio/file transfers, or synchronization between devices.** The scope and evidence are detailed below.
 
 ### Download and run
 
@@ -222,17 +228,20 @@ Open **Assets** on the [Releases page](https://github.com/leemh-dev/naru/release
 | Mac, Intel | `naru-…-mac-x64.dmg` or `.zip` | Use the Intel build with the same steps. |
 | Linux x64 | `naru-…-linux-x86_64.AppImage` | Make the file executable and run it. |
 | Debian / Ubuntu x64 | `naru-…-linux-amd64.deb` | Install using your distribution's package installer. |
+| Android compatibility test | `naru-…-android-test.apk` | A debug-signed test app; see the verification limits below. |
+
+The Android APK is a separate compatibility preview, not a feature-equivalent mobile release. App startup and diagnostics were observed on the emulator, but WebView termination and network errors left **long-press transfer and completed sign-in unverified**. See the [Android scope and build instructions](mobile/android/README.md) and [test record](docs/preview.2-validation.md).
 
 Only files actually attached to a release are published downloads. Use the accompanying `SHA256SUMS.txt` to verify their checksums.
 
 If Linux reports that `libfuse.so.2` is missing, use the AppImage runtime's extraction option:
 
 ```sh
-chmod +x naru-0.1.0-preview.1-linux-x86_64.AppImage
-./naru-0.1.0-preview.1-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x naru-0.1.0-preview.2-linux-x86_64.AppImage
+./naru-0.1.0-preview.2-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
-The **actual released AppImage** was run this way from a user folder on Debian 13. This was not a system-wide deb installation test. See the [Linux runtime report and screenshots, in Korean](docs/linux-installed-test-2026-11-17.md).
+The **0.1.0-preview.1 released AppImage** was run this way from a user folder on Debian 13. This was not a system-wide deb installation test. See the [Linux runtime report and screenshots, in Korean](docs/linux-installed-test-2026-11-17.md).
 
 The preview is **not code-signed or notarized by Apple**. OS security policies may restrict installation or execution. Record the warning and the stage where it occurs; do not broadly disable system protections. Building an installer and running the app successfully on that OS are separate checks.
 
@@ -249,13 +258,13 @@ The preview is **not code-signed or notarized by Apple**. OS security policies m
 | Text collection | Explicitly copy and save selected text, then reuse it in another task |
 | Diagnostics | Local logs, preview, JSON export, collection toggle, and deletion |
 
-Naru keeps up to 30 task tabs, with up to four panels visible at once. Showing a fifth task replaces the active panel without deleting the previous tab. The text collection holds up to 50 items, with a limit of 50,000 characters per item or transfer.
+Naru keeps up to **30 task tabs**, with up to **four panels in a multiview**. Use `멀티뷰` to choose its members explicitly. Tabs outside the group open across the whole content area; selecting a member restores the saved arrangement and divider sizes. The active tab has a subtle highlight. Text transfer activates the destination and brings its tab and input field into view. The text collection holds up to 50 items, with a limit of 50,000 characters per item or transfer.
 
 These screenshots show **the actual app running non-sensitive synthetic test pages**. They are not evidence of authenticated AI service workflows.
 
 | 2×2 grid | Four columns, left to right |
 |---|---|
-| ![Grid layout with synthetic pages](docs/evidence/01-grid.png) | ![Four-column layout with synthetic pages](docs/evidence/02-columns.png) |
+| ![Grid layout with synthetic pages](docs/evidence/preview.2/01-grid.png) | ![Four-column layout with synthetic pages](docs/evidence/preview.2/02-columns.png) |
 
 ### First use and text transfer
 
@@ -263,7 +272,7 @@ The menu labels below are shown in Korean as they appear in the current app, wit
 
 1. Use `+` in the center or top bar to add a service or web URL. Existing private conversation URLs can be used without publishing them.
 2. Sign in yourself through each service's normal sign-in flow. Tabs for the same service share a session. Naru does not import passwords or cookies from other browsers.
-3. Double-click a tab to set its alias. This does not rename the original conversation. Use the layout buttons to arrange panels.
+3. Double-click a tab to set its alias. This does not rename the original conversation. Use `멀티뷰` to choose up to four tabs and a layout. Maximizing one panel preserves the saved multiview.
 4. Click an **empty destination text field**, then right-click → `받을 입력칸 지정` (register receiving field) → `프롬프트`, `가사`, or `스타일` (prompt, lyrics, or style).
 5. Select the source text, then right-click → `다른 작업에 넣기` (insert into another task) → choose the target tab and field.
 6. Check the actual inserted text and the comparison result, including line breaks. **Naru does not automatically send messages, generate music, or publish content.**
@@ -299,7 +308,7 @@ For continuity with the earlier `AI Workspace Preview` version, the internal app
 - **Clipboard:** Naru does not monitor the clipboard outside the app. Only text explicitly saved with `복사하고 보관` is stored.
 - **Layout:** Horizontal scrolling to enforce a minimum panel width in narrow windows, and layout undo, are not implemented. Switch to a single panel when needed.
 - **Permissions:** Additional permissions such as microphone and camera access are not enabled in this preview.
-- **Platforms:** Desktop only. Android and iOS apps are not implemented.
+- **Platforms:** The main app targets desktop. A separate [Android compatibility preview](mobile/android/README.md) is available in source. It is not feature-equivalent to the desktop app; mobile multiview and an iOS app are not implemented.
 - **Codex:** Opens the Codex Cloud website. This is separate from remote desktop Codex and does not imply support for every Codex capability.
 
 ### What has been verified
@@ -307,7 +316,7 @@ For continuity with the earlier `AI Workspace Preview` version, the internal app
 | Item | Evidence |
 |---|---|
 | Diagnostic exclusions, log rotation, layout, and restoration data | Automated checks |
-| Actual Linux Electron window, native menus, text transfer, and restart | Verified with synthetic pages |
+| Actual Linux Electron window, native menus, text transfer, and restart | 0.1.0-preview.2: 30 synthetic-page checks and six restart checks passed |
 | Released Linux AppImage and public service pages | Actual window on Debian 13 using extraction mode without FUSE |
 | ChatGPT test draft → Canva public AI Image Generator input | Exact single-line transfer; multiline newline loss detected. Not a generated answer or an authenticated editor test |
 | Released app's layout, saved text, diagnostic export, and restart restoration | Verified with public service pages; draft restoration varied by service |
@@ -318,6 +327,8 @@ For continuity with the earlier `AI Workspace Preview` version, the internal app
 | Fewer actions or less time than a regular browser; market demand | **Unverified** |
 
 The [Linux release runtime report](docs/linux-installed-test-2026-11-17.md) records public-page tests and their limits. The [initial test record](docs/build-results.md) preserves results from before the Naru name was chosen. Both reports are in Korean. Successful implementation and packaging alone do not establish service compatibility or product value.
+
+See the [0.1.0-preview.2 change and validation record, in Korean](docs/preview.2-validation.md) for tab behavior and Android test scope.
 
 ### Development
 
@@ -357,10 +368,11 @@ npm run dist -- --mac --x64 --arm64
 npm run dist -- --linux --x64
 ```
 
-[GitHub Actions](.github/workflows/build.yml) runs checks and builds on Windows, macOS, and Linux. Manual runs upload installers to Actions Artifacts. Tags matching `v*` publish a prerelease with files and checksums after all three builds succeed. Automatic app updates are not implemented.
+[GitHub Actions](.github/workflows/build.yml) runs checks and builds on Windows, macOS, and Linux, with a separate Android compatibility APK build. Manual runs upload installers to Actions Artifacts. Tags matching `v*` publish a prerelease with files and checksums after the three desktop builds and Android build succeed. Automatic app updates are not implemented.
 
 ```text
 src/                    Electron app, tabs/panels, text transfer, storage, diagnostics
+mobile/android/         Android compatibility preview and official SDK build script
 tests/                  Privacy checks and synthetic-page/package tests
 docs/                   Test templates, diagnostics specification, test evidence
 .github/workflows/      Builds and release automation for three operating systems
