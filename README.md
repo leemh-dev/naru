@@ -1,10 +1,28 @@
 # Naru · 나루
 
-**여러 AI 작업을 한곳에서 열고, 선택한 글을 다음 작업으로 옮기는 데스크톱 워크스페이스입니다.**
+[한국어](#naru--나루) · [English](#english)
 
-ChatGPT·Codex Cloud·Claude·Suno·Midjourney·Canva의 원본 웹 화면을 탭과 분할 패널로 사용합니다. 작업별로 별칭을 붙이고, 웹 주소와 배치를 로컬에 저장하며, 선택한 글을 다른 탭의 지정한 입력칸에 넣을 수 있습니다.
+**Naru는 여러 AI의 대화·작업 화면과 다시 쓸 글을 한곳에 모아, 다음 작업을 이어 가도록 돕는 데스크톱 앱입니다.**
+
+## 왜 만들었나요?
+
+여러 AI를 함께 쓰다 보면 하나의 작업도 여러 화면에 흩어집니다. ChatGPT의 일반 대화와 프로젝트 대화, Codex 작업을 오가고, 필요한 모델이 있으면 다른 서비스를 엽니다. 작성한 가사나 프롬프트를 Suno·Canva에서 쓰려면 원문을 다시 찾고, 복사하고, 목적지의 입력칸으로 이동해야 합니다.
+
+Naru는 **진행 중인 작업을 찾느라 화면을 반복해서 넘기는 불편과, 서비스 사이에서 같은 글을 다시 찾아 옮기는 불편**을 줄이기 위해 만들었습니다. 휴대폰에서 여러 AI를 오가며 느낀 불편에서 출발했으며, 현재는 Windows·macOS·Linux용 데스크톱 프리뷰부터 구현하고 있습니다.
+
+목표는 작업 화면과 필요한 글을 한곳에 두고 이어서 사용하는 것입니다. 실제로 일반 브라우저나 개별 앱보다 얼마나 편리한지는 비교 사용 시험이 필요합니다.
+
+## Naru로 무엇을 할 수 있나요?
+
+- **진행 중인 작업을 나란히 볼 수 있습니다.** ChatGPT·Codex Cloud·Claude·Suno·Midjourney·Canva의 원본 웹 화면을 탭으로 열고, 작업별 별칭을 붙이며, 최대 4개 화면을 나란히 배치합니다. 같은 서비스를 여러 탭으로 열 수도 있습니다.
+- **선택한 글을 다음 작업의 입력칸에 넣을 수 있습니다.** 받을 칸을 먼저 지정한 뒤, 원문을 선택하고 우클릭 메뉴에서 대상 탭을 고릅니다. 입력 결과가 원문과 같은지 확인하며, 기존 내용이 있는 칸에는 덮어쓰지 않습니다.
+- **자주 쓰는 글과 작업 구성을 다시 사용할 수 있습니다.** 선택한 글을 보관해 다른 작업에서 꺼내 쓰고, 앱을 다시 열면 저장된 탭 주소·별칭·화면 배치를 복원합니다.
+
+예를 들어 글을 다듬는 화면과 다음 작업의 입력 화면을 함께 띄워 놓고, 필요한 문구만 골라 전달할 수 있습니다. 반복해서 쓰는 스타일 지시나 작성 규칙은 보관함에 넣어 두었다가 다시 사용할 수 있습니다.
 
 현재는 **사용자 설치 시험을 위한 프리뷰**입니다. 실제 서비스의 로그인 허용 여부와 로그인 후 입력 호환성은 아직 확인이 필요합니다. 다른 회사의 네이티브 앱을 안에 실행하는 가상화 도구는 아닙니다.
+
+한 줄 시험 글을 ChatGPT 입력칸에서 Canva의 공개 입력칸으로 옮기는 것은 확인했습니다. **Suno·Canva의 로그인 후 실제 작업 화면에서의 전달, 이미지·음악·파일 전달, 기기 간 동기화까지 지원한다는 의미는 아닙니다.** 자세한 범위는 아래 기능과 검증 기록을 참고하세요.
 
 [다운로드 · Releases](https://github.com/leemh-dev/naru/releases) · [빌드 상태](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [오류 제보](https://github.com/leemh-dev/naru/issues)
 
@@ -163,3 +181,189 @@ docs/                   사용 기록 양식, 진단 명세, 검증 증거
 ```
 
 현재 별도의 오픈소스 라이선스는 지정하지 않았습니다. 공개 저장소라는 사실만으로 자유로운 재배포 라이선스를 부여하지 않습니다.
+
+---
+
+## English
+
+[한국어로 돌아가기](#naru--나루) · [Download](https://github.com/leemh-dev/naru/releases) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [Report an issue](https://github.com/leemh-dev/naru/issues)
+
+**Naru is a desktop app that brings your AI conversations, task screens, and reusable text into one place so you can continue your work across services.**
+
+### Why Naru exists
+
+A single task can span several AI services. You may switch between regular ChatGPT conversations, project conversations, and Codex tasks, then open another service for a particular model. To reuse lyrics or a prompt in Suno or Canva, you have to find the source text, copy it, and locate the right destination field.
+
+Naru was created to reduce two recurring frustrations: **switching screens to find an ongoing task, and repeatedly finding and moving text between services.** The idea grew out of using multiple AI tools on a phone. The current implementation starts with a desktop preview for Windows, macOS, and Linux.
+
+The goal is to keep task screens and useful text together so you can pick up where you left off. Whether this is more convenient than a regular browser or separate apps still needs comparative user testing.
+
+### What you can do with Naru
+
+- **Keep ongoing tasks in view.** Open the original websites of ChatGPT, Codex Cloud, Claude, Suno, Midjourney, and Canva in tabs. Give each task an alias and arrange up to four panels side by side or in a grid. You can open the same service in multiple tabs.
+- **Insert selected text into another task's input field.** Register the destination field, select the source text, and choose a target tab from the context menu. Naru compares the inserted text with the source and stops if the destination already contains text.
+- **Reuse text and restore your setup.** Save selected text for later use in other tasks. When you reopen the app, it restores saved tab URLs, aliases, and panel layout.
+
+For example, keep a writing screen next to the input screen for your next task, then select only the text you want to transfer. Save recurring style instructions or writing rules in the text collection to reuse them later.
+
+This is a **preview for installation and compatibility testing**. Compatibility with each service's sign-in flow and input fields after sign-in still needs verification. Naru displays original websites; it does not run other companies' native apps inside a virtual machine.
+
+A single-line test draft was successfully transferred from a ChatGPT input field to Canva's public input field. **This does not establish support for authenticated Suno or Canva workflows, image/audio/file transfers, or synchronization between devices.** The scope and evidence are detailed below.
+
+### Download and run
+
+Open **Assets** on the [Releases page](https://github.com/leemh-dev/naru/releases) and choose the file for your operating system and CPU. `Source code.zip` contains source code, not an installer.
+
+| Platform | Release file | How to run |
+|---|---|---|
+| Windows x64 | `naru-…-win-x64.exe` | Run the installer. |
+| Windows x64, portable | `naru-…-win-x64.zip` | Extract the entire folder and run `Naru.exe`. |
+| Mac, Apple Silicon | `naru-…-mac-arm64.dmg` or `.zip` | Move the app from the DMG, or the extracted `Naru.app`, into Applications. |
+| Mac, Intel | `naru-…-mac-x64.dmg` or `.zip` | Use the Intel build with the same steps. |
+| Linux x64 | `naru-…-linux-x86_64.AppImage` | Make the file executable and run it. |
+| Debian / Ubuntu x64 | `naru-…-linux-amd64.deb` | Install using your distribution's package installer. |
+
+Only files actually attached to a release are published downloads. Use the accompanying `SHA256SUMS.txt` to verify their checksums.
+
+If Linux reports that `libfuse.so.2` is missing, use the AppImage runtime's extraction option:
+
+```sh
+chmod +x naru-0.1.0-preview.1-linux-x86_64.AppImage
+./naru-0.1.0-preview.1-linux-x86_64.AppImage --appimage-extract-and-run
+```
+
+The **actual released AppImage** was run this way from a user folder on Debian 13. This was not a system-wide deb installation test. See the [Linux runtime report and screenshots, in Korean](docs/linux-installed-test-2026-11-17.md).
+
+The preview is **not code-signed or notarized by Apple**. OS security policies may restrict installation or execution. Record the warning and the stage where it occurs; do not broadly disable system protections. Building an installer and running the app successfully on that OS are separate checks.
+
+### Implemented features
+
+| Feature | Current behavior |
+|---|---|
+| Task tabs | Multiple tabs for the same service, fixed service indicator, editable aliases, horizontal scrolling and dragging |
+| Layout | Single panel, **2×2 grid**, or **1×4 columns from left to right**; automatic layout for one to three panels |
+| Panel arrangement | Drag headers to swap panels or split at an edge; drag dividers to resize |
+| Workspace restoration | Save URLs, aliases, visible panels, layout, and saved text locally on this computer |
+| Text transfer | Register a receiving field, then right-click selected text and choose a target tab and field |
+| Text checks | Compare inserted text with the source; stop rather than overwrite a nonempty destination |
+| Text collection | Explicitly copy and save selected text, then reuse it in another task |
+| Diagnostics | Local logs, preview, JSON export, collection toggle, and deletion |
+
+Naru keeps up to 30 task tabs, with up to four panels visible at once. Showing a fifth task replaces the active panel without deleting the previous tab. The text collection holds up to 50 items, with a limit of 50,000 characters per item or transfer.
+
+These screenshots show **the actual app running non-sensitive synthetic test pages**. They are not evidence of authenticated AI service workflows.
+
+| 2×2 grid | Four columns, left to right |
+|---|---|
+| ![Grid layout with synthetic pages](docs/evidence/01-grid.png) | ![Four-column layout with synthetic pages](docs/evidence/02-columns.png) |
+
+### First use and text transfer
+
+The menu labels below are shown in Korean as they appear in the current app, with English explanations.
+
+1. Use `+` in the center or top bar to add a service or web URL. Existing private conversation URLs can be used without publishing them.
+2. Sign in yourself through each service's normal sign-in flow. Tabs for the same service share a session. Naru does not import passwords or cookies from other browsers.
+3. Double-click a tab to set its alias. This does not rename the original conversation. Use the layout buttons to arrange panels.
+4. Click an **empty destination text field**, then right-click → `받을 입력칸 지정` (register receiving field) → `프롬프트`, `가사`, or `스타일` (prompt, lyrics, or style).
+5. Select the source text, then right-click → `다른 작업에 넣기` (insert into another task) → choose the target tab and field.
+6. Check the actual inserted text and the comparison result, including line breaks. **Naru does not automatically send messages, generate music, or publish content.**
+7. To keep text for later, right-click → `복사하고 보관` (copy and save). Open `··· → 보관한 글` (saved text) to copy it or insert it into a registered field.
+
+For Suno, register and test lyrics and style fields separately. For Canva, use the prompt field for the feature you actually intend to use. Inserting text into a search field is not proof of successful design editing. Re-register the receiving field after navigation or replacement of the input element.
+
+Use non-sensitive test text and stop at verifying insertion, without consuming generation credits. There is no need to publish existing conversations or change their content or settings. Record sign-in, CAPTCHA, or plan restrictions at the point they occur; do not bypass them.
+
+### Diagnostic reports
+
+Open **`··· → 진단 보고서` (diagnostic report)**, review the preview, and choose **`이 내용으로 파일 저장` (save this content to a file)** to export JSON. Reports are not uploaded automatically.
+
+- **Included:** App, Electron, and OS versions; service type; tab number within a run; error codes; loading and transfer timing; text comparison results; character and line-break counts.
+- **Excluded:** Conversation and prompt text, private URLs, tab aliases, passwords, tokens, cookies, screenshots, service console messages, and raw error stacks.
+- Collection is enabled by default and can be disabled or cleared from the menu. Logs rotate across four files of roughly 512 KiB each.
+- Naru does not automatically interpret service error messages or sign-in success. Describe the failed step and any non-sensitive error message separately.
+
+[Diagnostics specification](docs/diagnostics.md) · [Test report template](docs/test-template.md) · [Diagnostic screen](docs/evidence/03-diagnostics.png). The linked documents are in Korean.
+
+This repository and its Issues are public. Review reports before posting, and **do not attach browser profiles, entire app data folders, or screenshots of private conversations**.
+
+### Storage and current limitations
+
+Task URLs, aliases, layout, and explicitly saved text are stored locally in `workspace.json`. Sign-in sessions use Electron's service session storage. These data are not included in diagnostic exports.
+
+For continuity with the earlier `AI Workspace Preview` version, the internal app identifier and profile folder name remain unchanged. The displayed app name is Naru, but the default data folder is still named `AI Workspace Preview`; its parent location depends on your OS and user account.
+
+- **Naru accounts and cloud sync:** Not implemented. One workspace is stored on this computer.
+- **Restoration after exit:** URLs, aliases, and layout reopen. Naru does not save or guarantee restoration of unsent drafts, scroll positions, or generation progress. Individual services may restore some drafts themselves.
+- **Input automation:** Receiving fields must be registered manually. Registration inside iframes or new popup windows, automatic prompt classification, and natural-language app commands are not supported.
+- **Content types:** Text transfer and storage only. Image, music, and file transfer are not implemented.
+- **Clipboard:** Naru does not monitor the clipboard outside the app. Only text explicitly saved with `복사하고 보관` is stored.
+- **Layout:** Horizontal scrolling to enforce a minimum panel width in narrow windows, and layout undo, are not implemented. Switch to a single panel when needed.
+- **Permissions:** Additional permissions such as microphone and camera access are not enabled in this preview.
+- **Platforms:** Desktop only. Android and iOS apps are not implemented.
+- **Codex:** Opens the Codex Cloud website. This is separate from remote desktop Codex and does not imply support for every Codex capability.
+
+### What has been verified
+
+| Item | Evidence |
+|---|---|
+| Diagnostic exclusions, log rotation, layout, and restoration data | Automated checks |
+| Actual Linux Electron window, native menus, text transfer, and restart | Verified with synthetic pages |
+| Released Linux AppImage and public service pages | Actual window on Debian 13 using extraction mode without FUSE |
+| ChatGPT test draft → Canva public AI Image Generator input | Exact single-line transfer; multiline newline loss detected. Not a generated answer or an authenticated editor test |
+| Released app's layout, saved text, diagnostic export, and restart restoration | Verified with public service pages; draft restoration varied by service |
+| Early Linux deb executable | Window opened after temporary extraction; not a system package installation test |
+| Platform installer builds | See the corresponding release and Actions results |
+| Actual app execution on Windows and macOS | User testing still needed |
+| Authenticated ChatGPT → Suno / Canva transfer | **Unverified** |
+| Fewer actions or less time than a regular browser; market demand | **Unverified** |
+
+The [Linux release runtime report](docs/linux-installed-test-2026-11-17.md) records public-page tests and their limits. The [initial test record](docs/build-results.md) preserves results from before the Naru name was chosen. Both reports are in Korean. Successful implementation and packaging alone do not establish service compatibility or product value.
+
+### Development
+
+Requires Node.js **22.12 or later**. CI uses Node.js 24.
+
+```sh
+git clone https://github.com/leemh-dev/naru.git
+cd naru
+npm ci
+npm run setup
+npm start
+```
+
+`npm run setup` downloads the Electron 45 executable as a separate step. Development dependency versions are pinned in the lockfile.
+
+```sh
+npm test                 # Diagnostic, layout, and storage checks
+npm run fixtures         # Synthetic pages without contacting real services
+```
+
+Linux window tests require Xvfb, Python, Pillow, and the X11/Xtst libraries.
+
+```sh
+python tests/run-desktop-linux.py
+python tests/check-packaged-linux.py  # Build the current version's deb first
+```
+
+Automatic screenshots are limited to the synthetic-page test scripts. The regular app does not automatically capture your screen.
+
+### Builds and releases
+
+Build on each target operating system:
+
+```sh
+npm run dist -- --win --x64
+npm run dist -- --mac --x64 --arm64
+npm run dist -- --linux --x64
+```
+
+[GitHub Actions](.github/workflows/build.yml) runs checks and builds on Windows, macOS, and Linux. Manual runs upload installers to Actions Artifacts. Tags matching `v*` publish a prerelease with files and checksums after all three builds succeed. Automatic app updates are not implemented.
+
+```text
+src/                    Electron app, tabs/panels, text transfer, storage, diagnostics
+tests/                  Privacy checks and synthetic-page/package tests
+docs/                   Test templates, diagnostics specification, test evidence
+.github/workflows/      Builds and release automation for three operating systems
+```
+
+No open-source license has been assigned yet. A public repository does not itself grant permission for unrestricted redistribution.
