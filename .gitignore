@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.npm-cache/
+.electron-cache/
+.test-profile*/
+test-output/
+__pycache__/
+*.log
+*.dmp
+.env*
+!.env.example
+.DS_Store

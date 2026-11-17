@@ -1,0 +1,60 @@
+const api=window.workspace,$=s=>document.querySelector(s);let state,toastTimer,drag=null,resize=null,suppressClick=false;
+const el=(tag,className,text)=>{const n=document.createElement(tag);if(className)n.className=className;if(text!==undefined)n.textContent=text;return n;};
+const button=(text,fn,className)=>{const n=el('button',className,text);n.addEventListener('click',fn);return n;};
+function flash(text){const n=$('#toast');n.textContent=text;n.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>n.style.display='none',6500);}
+function sendBounds(){api.bounds([...document.querySelectorAll('.web-slot')].map(n=>{const r=n.getBoundingClientRect();return {id:n.dataset.id,x:r.x,y:r.y,width:r.width,height:r.height};}));}
+const obs=new ResizeObserver(sendBounds);obs.observe($('#panels'));
+async function openDialog(title){await api.action('modal',{open:true});const body=$('#dialog-body');body.replaceChildren(el('h2','',title));if(!$('#dialog').open)$('#dialog').showModal();return body;}
+async function closeDialog(){$('#dialog').close();await api.action('modal',{open:false});requestAnimationFrame(sendBounds);}
+$('#dialog-close').onclick=closeDialog;$('#dialog').addEventListener('cancel',e=>{e.preventDefault();closeDialog();});
+function icon(service){return el('span','icon',state.services[service]?.icon||'◎');}
+function ids(t){return !t?[]:t.id?[t.id]:[...ids(t.a),...ids(t.b)];}
+function render(next){
+  state=next;if(drag||resize)return;const bar=$('#tabs'),scroll=bar.scrollLeft;bar.replaceChildren();const shown=state.mode==='single'?[state.active]:ids(state.tree);
+  for(const t of state.tabs){const n=el('div','tab'+(t.id===state.active?' active':'')+(shown.includes(t.id)?' visible':''));n.title=t.alias;n.append(icon(t.service),el('span','tab-name',t.alias));n.setAttribute('role','tab');n.setAttribute('tabindex','0');n.setAttribute('aria-selected',t.id===state.active);
+    n.addEventListener('click',()=>{if(!suppressClick)api.action('activate',{id:t.id});});n.addEventListener('keydown',e=>{if(e.key==='Enter')api.action('activate',{id:t.id});});n.addEventListener('dblclick',()=>rename(t));n.addEventListener('contextmenu',e=>{e.preventDefault();tabOptions(t);});
+    const close=button('×',e=>{e.stopPropagation();api.action('close',{id:t.id});},'tab-close');close.setAttribute('aria-label',t.alias+' 닫기');n.append(close);bar.append(n);
+  }bar.scrollLeft=scroll;
+  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===state.mode));
+  $('#empty').classList.toggle('hidden',state.tabs.length>0);$('#panels').replaceChildren();
+  const tree=state.mode==='single'&&state.active?{id:state.active}:state.tree;if(tree)$('#panels').append(renderNode(tree));
+  requestAnimationFrame(sendBounds);
+}
+function renderNode(tree,route=''){
+  if(tree.id){
+    const t=state.tabs.find(t=>t.id===tree.id);if(!t)return el('div');
+    const pane=el('section','pane'+(t.id===state.active?' focused':''));pane.dataset.id=t.id;
+    const bar=el('div','pane-bar'),handle=el('span','handle','⠿');handle.title='드래그해서 위치 교환·가장자리 분할';
+    handle.onpointerdown=async e=>{if(e.button!==0)return;e.preventDefault();drag={from:t.id};await api.action('modal',{open:true});};
+    const title=el('span','pane-title',t.alias+(t.loading?' · 로딩':''));title.onclick=()=>api.action('activate',{id:t.id});
+    bar.append(handle,title,button('↗',()=>{api.action('activate',{id:t.id});api.action('layout',{mode:'single'});}),button('···',()=>tabOptions(t)));
+    const slot=el('div','web-slot');slot.dataset.id=t.id;pane.append(bar,slot,el('div','drop-text','여기에 놓기'));return pane;
+  }
+  const n=el('div','split '+tree.axis),a=el('div','branch'),b=el('div','branch'),d=el('div','divider');a.style.flex=tree.ratio+' 1 0';b.style.flex=(1-tree.ratio)+' 1 0';a.append(renderNode(tree.a,route+'a'));b.append(renderNode(tree.b,route+'b'));
+  d.onpointerdown=async e=>{if(e.button!==0)return;e.preventDefault();resize={path:route,axis:tree.axis,rect:n.getBoundingClientRect(),a,b,ratio:tree.ratio};await api.action('modal',{open:true});};n.append(a,d,b);return n;
+}
+function dropAt(e){const pane=document.elementFromPoint(e.clientX,e.clientY)?.closest('.pane');if(!pane)return null;const r=pane.getBoundingClientRect(),x=(e.clientX-r.x)/r.width,y=(e.clientY-r.y)/r.height;return {to:pane.dataset.id,edge:x<.22?'left':x>.78?'right':y<.22?'top':y>.78?'bottom':'center',pane};}
+document.addEventListener('pointermove',e=>{
+  if(resize){const r=resize.rect;resize.ratio=Math.max(.15,Math.min(.85,resize.axis==='x'?(e.clientX-r.x)/r.width:(e.clientY-r.y)/r.height));resize.a.style.flex=resize.ratio+' 1 0';resize.b.style.flex=(1-resize.ratio)+' 1 0';}
+  if(drag){document.querySelectorAll('.pane.drop').forEach(p=>p.classList.remove('drop'));const d=dropAt(e);if(d&&d.to!==drag.from){d.pane.classList.add('drop');d.pane.querySelector('.drop-text').textContent={center:'위치 교환',left:'왼쪽에 배치',right:'오른쪽에 배치',top:'위에 배치',bottom:'아래에 배치'}[d.edge];}}
+});
+document.addEventListener('pointerup',async e=>{
+  if(resize){const {path,ratio}=resize;resize=null;await api.action('resize',{path,ratio});await api.action('modal',{open:false});sendBounds();}
+  if(drag){const d=dropAt(e),from=drag.from;drag=null;document.querySelectorAll('.pane.drop').forEach(p=>p.classList.remove('drop'));if(d)await api.action('move',{from,to:d.to,edge:d.edge});await api.action('modal',{open:false});sendBounds();}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(drag||resize)){drag=null;resize=null;api.action('modal',{open:false});render(state);}});
+$('#tabs').addEventListener('wheel',e=>{e.preventDefault();$('#tabs').scrollLeft+=e.deltaY||e.deltaX;},{passive:false});
+$('#tabs').addEventListener('pointerdown',e=>{
+  if(e.button!==0||e.target.closest('.tab-close'))return;const start=e.clientX,initial=$('#tabs').scrollLeft;let moved=false;
+  const move=ev=>{if(Math.abs(ev.clientX-start)>6)moved=true;if(moved){suppressClick=true;$('#tabs').classList.add('dragging');$('#tabs').scrollLeft=initial-(ev.clientX-start);}};
+  const up=()=>{document.removeEventListener('pointermove',move);$('#tabs').classList.remove('dragging');setTimeout(()=>suppressClick=false,0);};document.addEventListener('pointermove',move);document.addEventListener('pointerup',up,{once:true});
+});
+async function addDialog(){const body=await openDialog('작업 추가');body.append(el('p','',state.fixtureMode?'현재는 합성 화면 시험 모드입니다. 실제 서비스에 접속하지 않습니다.':'서비스의 원본 웹 화면을 엽니다. 같은 서비스를 여러 번 추가할 수 있습니다.'));const grid=el('div','service-grid');for(const [id,s]of Object.entries(state.services)){if(id==='web')continue;const b=button(s.name,async()=>{await api.action('add',{service:id});closeDialog();});b.prepend(icon(id));grid.append(b);}body.append(grid);const input=el('input');input.placeholder='https://… 웹 주소 또는 비공개 대화 주소';input.type='url';body.append(input,button('웹 주소로 추가',async()=>{if(await api.action('add',{service:'web',url:input.value}))closeDialog();},'primary'));}
+async function rename(t){const body=await openDialog('탭 별칭 바꾸기');body.append(el('p','','원본 서비스의 대화 제목은 바꾸지 않습니다.'));const input=el('input');input.value=t.alias;input.maxLength=60;body.append(input,button('저장',async()=>{await api.action('rename',{id:t.id,name:input.value});closeDialog();},'primary'));input.focus();input.select();}
+async function tabOptions(t){const body=await openDialog(t.alias);const input=el('input');input.type='url';input.value=t.url;body.append(el('p','','이 주소는 로컬 작업 복원에 사용되며 진단 로그에는 포함되지 않습니다.'),input);const buttons=el('div','actions');buttons.append(button('이 주소 열기',async()=>{closeDialog();await api.action('navigate',{id:t.id,url:input.value});}),button('별칭 바꾸기',()=>rename(t)),button('이 탭 닫기',async()=>{await api.action('close',{id:t.id});closeDialog();}));body.append(buttons);const other=state.tabs.filter(x=>x.id!==t.id&&ids(state.tree).includes(x.id));if(other.length){const select=el('select');for(const x of other){const opt=el('option','',x.alias);opt.value=x.id;select.append(opt);}body.append(el('p','','드래그 대신 다른 패널과 위치를 교환할 수도 있습니다.'),select,button('위치 교환',async()=>{await api.action('move',{from:t.id,to:select.value,edge:'center'});closeDialog();}));}}
+async function menu(){const body=await openDialog(state.name);body.append(el('p','','웹 주소·별칭·배치와 보관한 글은 이 PC에 자동 저장됩니다. 재시작 시 입력 중인 글과 스크롤 위치까지 복원되지는 않습니다.'));const actions=el('div','actions');actions.append(button('보관한 글',clipsDialog),button('진단 보고서',diagnosticsDialog),button('새로고침',()=>{api.action('reload');closeDialog();}),button('뒤로',()=>{api.action('back');closeDialog();}));body.append(actions);const input=el('input');input.value=state.name;input.maxLength=60;body.append(input,button('워크스페이스 이름 저장',async()=>{await api.action('workspace-name',{name:input.value});closeDialog();}));body.append(el('p','meta',state.fixtureMode?'합성 화면 시험 모드':'시험판 · 실제 서비스의 로그인과 기능 지원 여부를 확인 중입니다.'));}
+async function clipsDialog(){const body=await openDialog('보관한 글');body.append(el('p','','원문 선택 → 우클릭 → 복사하고 보관으로 추가합니다. 최대 50개를 로컬에 저장하며 진단 보고서에는 원문을 넣지 않습니다.'));if(!state.clips.length)body.append(el('p','','아직 보관한 글이 없습니다.'));for(const c of state.clips){const card=el('div','clip');card.append(el('p','',c.preview+(c.chars>100?'…':'')));const actions=el('div','actions');actions.append(button('복사',()=>api.action('clip-copy',{id:c.id})),button('삭제',async()=>{await api.action('clip-delete',{id:c.id});clipsDialog();}));const select=el('select');for(const tab of state.tabs)for(const field of tab.registered){const option=el('option','',tab.alias+' · '+{prompt:'프롬프트',lyrics:'가사',style:'스타일'}[field]);option.value=JSON.stringify({target:tab.id,field});select.append(option);}if(select.options.length){card.append(select);actions.append(button('선택한 칸에 넣기',async()=>{const dest=JSON.parse(select.value);await closeDialog();api.action('clip-send',{id:c.id,...dest});}));}card.append(actions);body.append(card);}}
+async function diagnosticsDialog(){const body=await openDialog('진단 보고서');body.append(el('p','','이 PC에서만 수집합니다. 대화·프롬프트 원문, 페이지 주소, 별칭, 쿠키, 비밀번호, 화면 캡처는 포함하지 않습니다. 내보내기도 자동 업로드하지 않습니다.'));const report=await api.action('report');body.append(el('p','meta',`기록 ${report.events.length}개 · ${state.diagnostics?'수집 중':'수집 꺼짐'}${report.storageError?' · 저장 오류 있음':''}`));const pre=el('pre','diagnostics-preview',JSON.stringify(report,null,2));body.append(pre);const actions=el('div','actions');actions.append(button('이 내용으로 파일 저장',()=>api.action('report-export'),'primary'),button(state.diagnostics?'수집 끄기':'수집 켜기',async()=>{await api.action('diagnostics-toggle',{enabled:!state.diagnostics});diagnosticsDialog();}),button('기록 지우기',async()=>{await api.action('diagnostics-clear');diagnosticsDialog();}));body.append(actions);}
+$('#add').onclick=addDialog;$('#empty-add').onclick=addDialog;$('#more').onclick=menu;
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>api.action('layout',{mode:b.dataset.mode}));
+api.onState(render);api.onNotice(flash);api.action('get').then(render);

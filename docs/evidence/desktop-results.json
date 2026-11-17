@@ -1,0 +1,55 @@
+{
+  "scope": "Linux offline fixtures only; real authenticated services untested",
+  "electron": "45.3.3",
+  "chromium": "156.0.8078.100",
+  "checks": [
+    {
+      "name": "four-webviews-created",
+      "passed": true
+    },
+    {
+      "name": "grid-is-two-by-two",
+      "passed": true
+    },
+    {
+      "name": "columns-are-left-to-right",
+      "passed": true
+    },
+    {
+      "name": "native-menu-registers-prompt",
+      "passed": true
+    },
+    {
+      "name": "native-menu-transfers-selection",
+      "passed": true
+    },
+    {
+      "name": "destination-exact",
+      "passed": true
+    },
+    {
+      "name": "existing-input-preserved",
+      "passed": true
+    },
+    {
+      "name": "other-target-still-empty",
+      "passed": true
+    },
+    {
+      "name": "moving-keeps-existing-webcontents",
+      "passed": true
+    },
+    {
+      "name": "moving-keeps-input",
+      "passed": true
+    },
+    {
+      "name": "report-has-transfer-outcomes",
+      "passed": true
+    },
+    {
+      "name": "report-excludes-content-and-alias",
+      "passed": true
+    }
+  ]
+}

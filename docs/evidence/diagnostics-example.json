@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-11-17T07:35:39.082Z",
+  "environment": {
+    "appVersion": "0.1.0",
+    "electron": "45.3.3",
+    "chromium": "156.0.8078.100",
+    "osRelease": "6.18.57",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "storageError": false,
+  "privacy": "No prompts, page URLs, credentials, aliases, screenshots or remote console messages.",
+  "events": [
+    {
+      "event": "app.start",
+      "at": "2026-11-17T07:35:33.775Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "workspace.restore",
+      "count": 0,
+      "at": "2026-11-17T07:35:33.917Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "tab.open",
+      "service": "fixture",
+      "tab": 1,
+      "at": "2026-11-17T07:35:33.925Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "tab.open",
+      "service": "fixture",
+      "tab": 2,
+      "at": "2026-11-17T07:35:33.929Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "tab.open",
+      "service": "fixture",
+      "tab": 3,
+      "at": "2026-11-17T07:35:33.933Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "tab.open",
+      "service": "fixture",
+      "tab": 4,
+      "at": "2026-11-17T07:35:33.943Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "page.load",
+      "service": "fixture",
+      "status": "ok",
+      "tab": 1,
+      "elapsedMs": 132,
+      "at": "2026-11-17T07:35:34.056Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "page.load",
+      "service": "fixture",
+      "status": "ok",
+      "tab": 4,
+      "elapsedMs": 114,
+      "at": "2026-11-17T07:35:34.057Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "page.load",
+      "service": "fixture",
+      "status": "ok",
+      "tab": 3,
+      "elapsedMs": 132,
+      "at": "2026-11-17T07:35:34.064Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "page.load",
+      "service": "fixture",
+      "status": "ok",
+      "tab": 2,
+      "elapsedMs": 137,
+      "at": "2026-11-17T07:35:34.065Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "layout.change",
+      "layout": "grid",
+      "count": 4,
+      "at": "2026-11-17T07:35:34.347Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "layout.change",
+      "layout": "columns",
+      "count": 4,
+      "at": "2026-11-17T07:35:34.758Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "field.register",
+      "service": "fixture",
+      "status": "ok",
+      "field": "prompt",
+      "tab": 2,
+      "at": "2026-11-17T07:35:36.157Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "transfer.result",
+      "service": "fixture",
+      "status": "exact",
+      "field": "prompt",
+      "tab": 2,
+      "elapsedMs": 456,
+      "chars": 44,
+      "expectedNewlines": 2,
+      "actualNewlines": 2,
+      "at": "2026-11-17T07:35:37.994Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "field.register",
+      "service": "fixture",
+      "status": "ok",
+      "field": "lyrics",
+      "tab": 2,
+      "at": "2026-11-17T07:35:38.320Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "transfer.result",
+      "service": "fixture",
+      "status": "exact",
+      "field": "lyrics",
+      "tab": 2,
+      "elapsedMs": 454,
+      "chars": 33,
+      "expectedNewlines": 2,
+      "actualNewlines": 2,
+      "at": "2026-11-17T07:35:38.775Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "transfer.result",
+      "service": "fixture",
+      "status": "occupied",
+      "field": "lyrics",
+      "tab": 2,
+      "elapsedMs": 101,
+      "chars": 14,
+      "at": "2026-11-17T07:35:38.877Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "clip.saved",
+      "chars": 33,
+      "count": 1,
+      "at": "2026-11-17T07:35:38.880Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    },
+    {
+      "event": "layout.change",
+      "layout": "custom",
+      "count": 4,
+      "at": "2026-11-17T07:35:38.881Z",
+      "session": "c183f7d1-3e12-4c56-b1e5-3fa5be61f31e"
+    }
+  ]
+}
