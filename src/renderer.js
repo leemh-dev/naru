@@ -4,10 +4,10 @@ const button=(text,fn,className)=>{const n=el('button',className,text);n.addEven
 function flash(text){const n=$('#toast');n.textContent=text;n.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>n.style.display='none',6500);}
 function sendBounds(){if(!state)return;api.bounds({revision:state.revision,boxes:[...document.querySelectorAll('.web-slot')].map(n=>{const r=n.getBoundingClientRect();return {id:n.dataset.id,x:r.x,y:r.y,width:r.width,height:r.height};})});}
 const obs=new ResizeObserver(sendBounds);obs.observe($('#panels'));
-async function openDialog(title){await api.action('modal',{open:true});const body=$('#dialog-body');body.replaceChildren(el('h2','',title));if(!$('#dialog').open)$('#dialog').showModal();return body;}
+async function openDialog(title){await api.action('modal',{open:true});$('#dialog').classList.remove('service-dialog');const body=$('#dialog-body');body.replaceChildren(el('h2','',title));if(!$('#dialog').open)$('#dialog').showModal();return body;}
 async function closeDialog(){$('#dialog').close();await api.action('modal',{open:false});requestAnimationFrame(sendBounds);}
 $('#dialog-close').onclick=closeDialog;$('#dialog').addEventListener('cancel',e=>{e.preventDefault();closeDialog();});
-function icon(service){const n=el('span','icon '+service,{chatgpt:'G',codex:'Cx',claude:'Cl',suno:'S',midjourney:'M',canva:'C',web:'↗'}[service]||'↗');n.title=state.services[service]?.name||'웹';n.setAttribute('aria-hidden','true');return n;}
+function icon(service){const info=state.services[service]||state.services.web;const n=el('span','icon category-'+(info.categories?.[0]||'web')+' '+service,info.icon||'↗');n.title=info.name;n.setAttribute('aria-hidden','true');return n;}
 function glyph(name){const paths={plus:'M12 5v14M5 12h14',close:'m6 6 12 12M6 18 18 6',single:'M4 4h16v16H4z',grid:'M4 4h16v16H4zM4 12h16M12 4v16',more:'M5 12h.01M12 12h.01M19 12h.01',expand:'M14 4h6v6M20 4l-8 8M10 20H4v-6',grip:'M8 5h.01M16 5h.01M8 12h.01M16 12h.01M8 19h.01M16 19h.01'};const n=document.createElementNS('http://www.w3.org/2000/svg','svg');n.setAttribute('viewBox','0 0 24 24');n.classList.add('glyph');n.setAttribute('aria-hidden','true');const p=document.createElementNS(n.namespaceURI,'path');p.setAttribute('d',paths[name]||paths.more);n.append(p);return n;}
 function iconButton(name,label,fn){const n=button('',fn,'icon-button');n.append(glyph(name));n.title=label;n.setAttribute('aria-label',label);return n;}
 function ids(t){return !t?[]:t.id?[t.id]:[...ids(t.a),...ids(t.b)];}
@@ -52,7 +52,52 @@ $('#tabs').addEventListener('pointerdown',e=>{
   const move=ev=>{if(Math.abs(ev.clientX-start)>6)moved=true;if(moved){suppressClick=true;$('#tabs').classList.add('dragging');$('#tabs').scrollLeft=initial-(ev.clientX-start);}};
   const up=()=>{document.removeEventListener('pointermove',move);$('#tabs').classList.remove('dragging');setTimeout(()=>suppressClick=false,0);};document.addEventListener('pointermove',move);document.addEventListener('pointerup',up,{once:true});
 });
-async function addDialog(){const body=await openDialog('작업 추가');body.append(el('p','',state.fixtureMode?'현재는 합성 화면 시험 모드입니다. 실제 서비스에 접속하지 않습니다.':'서비스의 원본 웹 화면을 엽니다. 같은 서비스를 여러 번 추가할 수 있습니다.'));body.append(el('p','meta',`${state.tabs.length}/30개 탭 · 새 탭은 한 화면으로 열립니다.`));if(state.tabs.length>=30){body.append(el('p','','탭이 30개입니다. 사용하지 않는 탭을 닫은 뒤 추가하세요.'));return;}const grid=el('div','service-grid');for(const [id,s]of Object.entries(state.services)){if(id==='web')continue;const b=button(s.name,async()=>{if(await api.action('add',{service:id}))closeDialog();});b.prepend(icon(id));grid.append(b);}body.append(grid);const input=el('input');input.placeholder='https://… 웹 주소 또는 비공개 대화 주소';input.type='url';body.append(input,button('웹 주소로 추가',async()=>{if(await api.action('add',{service:'web',url:input.value}))closeDialog();},'primary'));}
+async function addDialog(){
+  const body=await openDialog('작업 추가');$('#dialog').classList.add('service-dialog');
+  body.append(el('p','',state.fixtureMode?'합성 화면 시험 모드 · 실제 서비스에 접속하지 않습니다.':'어떤 작업을 시작할까요? 서비스를 골라 원본 웹 화면을 여세요.'));
+  body.append(el('p','meta',`${state.tabs.length}/30개 탭 · 같은 서비스를 여러 번 열 수 있습니다.`));
+  if(state.tabs.length>=30){body.append(el('p','','탭이 30개입니다. 사용하지 않는 탭을 닫은 뒤 추가하세요.'));return;}
+  const services=Object.entries(state.services).filter(([id])=>id!=='web');
+  const categories=state.categories;let selected='all';
+  const search=el('input');search.id='service-search';search.type='search';search.placeholder='서비스 검색 · ChatGPT, 수노, 미드저니…';search.setAttribute('aria-label','AI 서비스 검색');
+  const filters=el('div','service-categories');filters.setAttribute('role','group');filters.setAttribute('aria-label','서비스 분류');
+  const count=el('p','meta service-result-count');count.setAttribute('role','status');
+  const results=el('div','catalog-results');results.setAttribute('aria-label','서비스 바로가기');
+  const categoryName=id=>categories.find(c=>c.id===id)?.name||'';
+  function draw(){
+    const terms=search.value.trim().normalize('NFKC').toLocaleLowerCase().split(/\s+/).filter(Boolean);
+    const matches=services.filter(([id,s])=>{
+      const text=[id,s.name,s.description,s.keywords,...s.categories.map(categoryName)].join(' ').normalize('NFKC').toLocaleLowerCase();
+      return (selected==='all'||s.categories.includes(selected))&&terms.every(term=>text.includes(term));
+    });
+    count.textContent=`${matches.length}개 서비스${terms.length?' · 검색 결과':''}`;
+    for(const b of filters.children){b.classList.toggle('selected',b.dataset.category===selected);b.setAttribute('aria-pressed',b.dataset.category===selected);}
+    results.replaceChildren();results.scrollTop=0;
+    if(!matches.length){results.append(el('p','service-no-results','검색 결과가 없습니다. 다른 이름을 검색하거나 아래에서 웹 주소를 직접 여세요.'));return;}
+    for(const category of categories){
+      const entries=matches.filter(([,s])=>selected==='all'?s.categories[0]===category.id:category.id===selected);
+      if(!entries.length)continue;
+      const section=el('section','service-section');section.append(el('h3','',category.name));
+      const grid=el('div','service-grid');
+      for(const [id,s]of entries){
+        const b=button('',async()=>{b.disabled=true;try{if(await api.action('add',{service:id}))await closeDialog();}finally{b.disabled=false;}});
+        b.dataset.service=id;b.title=s.name+' · '+s.description;b.setAttribute('aria-label',s.name+' 열기');
+        const label=el('span','service-copy');label.append(el('span','service-name',s.name),el('span','service-description',s.description));
+        b.append(icon(id),label);grid.append(b);
+      }
+      section.append(grid);results.append(section);
+    }
+  }
+  for(const category of [{id:'all',name:'전체'},...categories]){
+    const b=button(category.name,()=>{selected=category.id;draw();});b.dataset.category=category.id;filters.append(b);
+  }
+  // A fresh search looks across the whole catalogue; category buttons can narrow it.
+  search.addEventListener('input',()=>{selected='all';draw();});
+  const form=el('form','service-url-form'),input=el('input');input.id='service-url';input.type='url';input.required=true;input.placeholder='https://… 웹 주소 또는 비공개 대화 주소';input.setAttribute('aria-label','직접 열 웹 주소');
+  const submit=el('button','primary','웹 주소로 열기');submit.type='submit';form.append(input,submit);
+  form.addEventListener('submit',async e=>{e.preventDefault();if(await api.action('add',{service:'web',url:input.value}))await closeDialog();});
+  body.append(search,filters,count,results,form);draw();search.focus();
+}
 async function multiviewDialog(){
   const body=await openDialog('함께 볼 작업');body.append(el('p','','최대 4개 탭을 고르세요. 선택하지 않은 탭은 한 화면으로 열리며, 멀티뷰 구성은 그대로 유지됩니다.'));
   if(!state.tabs.length){body.append(button('먼저 작업 추가',addDialog,'primary'));return;}

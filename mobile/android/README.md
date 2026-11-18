@@ -4,7 +4,7 @@
 
 Android WebView에서 실제 서비스 화면과 **길게 누른 글 선택 → 다른 탭으로 넣기**를 검증하기 위한 별도 시험 앱입니다. 완성된 모바일 제품이나 데스크톱과 기능이 같은 앱으로 소개하지 않습니다. iOS 앱은 포함하지 않습니다.
 
-데스크톱과 `src/input-bridge.js`의 입력칸 지정·기존 글 확인·원문 비교 로직, `src/workspace.cjs`의 서비스 목록을 공유합니다. Android의 창·탭·선택 메뉴·저장·진단은 네이티브 Java로 구현했습니다. 다른 회사의 설치된 앱을 내장하는 방식이 아니라 원본 웹사이트를 여는 방식입니다.
+데스크톱과 `src/input-bridge.js`의 입력칸 지정·기존 글 확인·원문 비교 로직, `src/services.json`의 공통 서비스 목록·분류을 공유합니다. Android의 창·탭·선택 메뉴·저장·진단은 네이티브 Java로 구현했습니다. 다른 회사의 설치된 앱을 내장하는 방식이 아니라 원본 웹사이트를 여는 방식입니다.
 
 ## 구현 범위
 
@@ -44,8 +44,12 @@ python mobile/android/build.py
 기존 서명 키를 `PLYNT_ANDROID_DEBUG_KEY`에 지정하세요. 이전 `NARU_ANDROID_DEBUG_KEY` 설정도 호환되며, 둘 다 지정하면 새 설정을 우선합니다. 환경 변수가 없으면 기존 `/workspace/naru-android-test/naru-debug.keystore`를 우선 사용하고, 없을 때만 `/workspace/plynt-android-test/plynt-debug.keystore`를 만듭니다. CI의 임시 키는 기존 설명대로 빌드마다 달라질 수 있습니다.
 
 ```sh
-adb install --no-incremental -r dist/android/plynt-0.1.0-preview.3-android-test.apk
+adb install --no-incremental -r dist/android/plynt-0.1.0-preview.4-android-test.apk
 adb shell am start -n dev.naru.mobile.preview/.MainActivity
 ```
 
 최소 SDK 선언은 Android 8(API 26)이며, 다른 Android 버전의 실행 호환성이 검증됐다는 의미는 아닙니다. 실제 시험 환경과 결과는 [검증 기록](../../docs/preview.2-validation.md)에 구분해 기록합니다.
+
+## preview.4 바로가기 변경
+
+`+` 메뉴에 8개 분류 선택과 한글·영문 검색을 추가했습니다. 데스크톱과 같은 47개 서비스 목록을 사용하며 웹 주소 직접 입력도 유지합니다. 탭에는 서비스 약자와 별칭이 표시됩니다. 이번 변경의 APK 빌드와 번들 목록 일치는 확인했지만, **Android에서 새 메뉴의 실제 터치·키보드 동작과 서비스 로그인은 미검증**입니다. [변경·검증 기록](../../docs/preview.4-validation.md)

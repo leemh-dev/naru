@@ -2,7 +2,8 @@
 // URLs, aliases, page titles, stacks, filenames, console output or payloads.
 const fs=require('node:fs'),path=require('node:path'),{randomUUID}=require('node:crypto');
 const EVENTS=new Set(['app.start','app.stop','app.error','tab.open','tab.close','page.load','page.failure','page.crash','layout.change','field.register','transfer.result','clip.saved','report.export','diagnostics.changed','workspace.restore']);
-const ENUMS={service:['chatgpt','codex','claude','suno','midjourney','canva','web','fixture'],status:['ok','blocked','error','exact','changed','occupied','gone','focus-failed','login','iframe','unsupported','too-long'],reason:['network','renderer','process','input','storage','unknown'],layout:['single','grid','columns','custom'],field:['prompt','lyrics','style']};
+// Only IDs from the bundled catalogue are allowed, never user search terms or URLs.
+const ENUMS={service:[...Object.keys(require('./services.json').services),'fixture'],status:['ok','blocked','error','exact','changed','occupied','gone','focus-failed','login','iframe','unsupported','too-long'],reason:['network','renderer','process','input','storage','unknown'],layout:['single','grid','columns','custom'],field:['prompt','lyrics','style']};
 const NUMBERS=new Set(['tab','target','elapsedMs','chars','expectedNewlines','actualNewlines','count','errorCode','exitCode']);
 function sanitize(event,fields={}){
   if(!EVENTS.has(event))return null;

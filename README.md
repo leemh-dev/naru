@@ -30,13 +30,13 @@ Plynt는 **진행 중인 작업을 찾느라 화면을 반복해서 넘기는 �
 
 초기 프리뷰에서 한 줄 시험 글을 ChatGPT 입력칸에서 Canva의 공개 입력칸으로 옮기는 것은 확인했습니다. **Suno·Canva의 로그인 후 실제 작업 화면에서의 전달, 이미지·음악·파일 전달, 기기 간 동기화까지 지원한다는 의미는 아닙니다.** 자세한 범위는 아래 기능과 검증 기록을 참고하세요.
 
-[다운로드 · Plynt 0.1.0-preview.3](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.3) · [빌드 상태](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [오류 제보](https://github.com/leemh-dev/naru/issues)
+[다운로드 · Plynt 0.1.0-preview.4](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.4) · [빌드 상태](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [오류 제보](https://github.com/leemh-dev/naru/issues)
 
 ## 다운로드와 실행
 
 Releases에서 **Assets**를 펼쳐 운영체제와 CPU에 맞는 파일을 받으세요. `Source code.zip`은 설치 파일이 아닌 개발 소스입니다.
 
-**Plynt 설치 파일은 `v0.1.0-preview.3` 릴리스에서 확인합니다.** 기존 `v0.1.0-preview.1`·`preview.2`의 Naru 설치 파일은 과거 버전으로 보존합니다. Releases에 실제로 첨부된 파일만 배포 완료된 파일입니다.
+**Plynt 설치 파일은 `v0.1.0-preview.4` 릴리스에서 확인합니다.** 기존 `v0.1.0-preview.1`·`preview.2`의 Naru 설치 파일은 과거 버전으로 보존합니다. Releases에 실제로 첨부된 파일만 배포 완료된 파일입니다.
 
 | 환경 | 배포 파일 | 실행 방법 |
 |---|---|---|
@@ -55,8 +55,8 @@ Android APK는 데스크톱과 기능이 같지 않은 별도 시험 앱입니�
 Linux에서 `libfuse.so.2`가 없다는 오류가 나오면 AppImage 런타임의 추출 실행 옵션을 사용할 수 있습니다.
 
 ```sh
-chmod +x plynt-0.1.0-preview.3-linux-x86_64.AppImage
-./plynt-0.1.0-preview.3-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x plynt-0.1.0-preview.4-linux-x86_64.AppImage
+./plynt-0.1.0-preview.4-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 이 방법으로 Debian 13의 사용자 폴더에 둔 **0.1.0-preview.1 릴리스 AppImage**를 실행해 확인했습니다. 시스템 전체에 deb를 설치한 시험은 아닙니다. [Linux 실행 시험과 화면 증거](docs/linux-installed-test-2026-11-17.md)를 참고하세요.
@@ -65,8 +65,15 @@ chmod +x plynt-0.1.0-preview.3-linux-x86_64.AppImage
 
 ## 구현된 기능
 
+`+`에서 **챗·검색 / 음악 / 이미지 / 동영상 / 디자인·발표 / 개발 / 문서·리서치 / 음성·더빙**으로 나눈 **47개 서비스**를 찾을 수 있습니다. ChatGPT·Claude·Gemini, Suno·Udio, Midjourney·Firefly, Runway·Kling, Canva 등으로 바로 이동합니다. 한글·영문 이름 검색을 지원하며, 여러 용도를 가진 서비스는 관련 분류에도 나타납니다. 목록에 없는 서비스와 비공개 대화는 웹 주소로 직접 열 수 있습니다.
+
+바로가기는 원본 웹사이트를 여는 기능이며 서비스별 로그인·생성·입력 전달 지원을 보장하지 않습니다. [전체 목록과 공식 출처](docs/ai-shortcuts.md) · [preview.4 변경·검증 기록](docs/preview.4-validation.md)
+
+![분류별 AI 서비스 바로가기 · 실제 Linux 앱의 합성 시험 모드](docs/evidence/preview.4/07-service-catalog.png)
+
 | 기능 | 현재 동작 |
 |---|---|
+| AI 바로가기 | 8개 분류, 47개 서비스, 한글·영문 검색, 웹 주소 직접 입력 |
 | 작업 탭 | 동일 서비스를 여러 번 열기, 고정된 서비스 표시와 사용자 별칭, 좌우 스크롤·드래그 |
 | 화면 배치 | 단일 화면, 가로 **2×2**, 세로 **좌우 1×4**; 1~3개 자동 배치 |
 | 패널 이동 | 머리글 핸들로 위치 교환·가장자리 분할, 경계 드래그로 비율 조절 |
@@ -202,7 +209,7 @@ docs/                   사용 기록 양식, 진단 명세, 검증 증거
 
 ## English
 
-[한국어로 돌아가기](#plynt--플린트) · [Download Plynt 0.1.0-preview.3](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.3) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [Report an issue](https://github.com/leemh-dev/naru/issues)
+[한국어로 돌아가기](#plynt--플린트) · [Download Plynt 0.1.0-preview.4](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.4) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [Report an issue](https://github.com/leemh-dev/naru/issues)
 
 **Plynt is a desktop app that brings your AI conversations, task screens, and reusable text into one place so you can continue your work across services.**
 
@@ -236,7 +243,7 @@ In an earlier preview, a single-line test draft was successfully transferred fro
 
 Open **Assets** on the [Releases page](https://github.com/leemh-dev/naru/releases) and choose the file for your operating system and CPU. `Source code.zip` contains source code, not an installer.
 
-**Look for the Plynt installers in release `v0.1.0-preview.3`.** The Naru installers in `v0.1.0-preview.1` and `preview.2` are retained as historical versions. Only files actually attached to a release are published downloads.
+**Look for the Plynt installers in release `v0.1.0-preview.4`.** The Naru installers in `v0.1.0-preview.1` and `preview.2` are retained as historical versions. Only files actually attached to a release are published downloads.
 
 | Platform | Release file | How to run |
 |---|---|---|
@@ -255,8 +262,8 @@ Only files actually attached to a release are published downloads. Use the accom
 If Linux reports that `libfuse.so.2` is missing, use the AppImage runtime's extraction option:
 
 ```sh
-chmod +x plynt-0.1.0-preview.3-linux-x86_64.AppImage
-./plynt-0.1.0-preview.3-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x plynt-0.1.0-preview.4-linux-x86_64.AppImage
+./plynt-0.1.0-preview.4-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 The **0.1.0-preview.1 released AppImage** was run this way from a user folder on Debian 13. This was not a system-wide deb installation test. See the [Linux runtime report and screenshots, in Korean](docs/linux-installed-test-2026-11-17.md).
@@ -265,8 +272,13 @@ The preview is **not code-signed or notarized by Apple**. OS security policies m
 
 ### Implemented features
 
+The `+` menu offers **47 services in eight categories**: chat/search, music, images, video, design/presentations, development, documents/research, and voice/dubbing. Search by Korean or English names; services can appear in multiple relevant categories. Open other sites and private conversations by entering their URLs. Desktop and Android use the same bundled catalog.
+
+Shortcuts open original websites; inclusion does not guarantee sign-in, generation, or text-transfer compatibility. [Full catalog and official sources, in Korean](docs/ai-shortcuts.md) · [preview.4 validation record, in Korean](docs/preview.4-validation.md)
+
 | Feature | Current behavior |
 |---|---|
+| AI shortcuts | Eight categories, 47 services, Korean/English search, and custom URLs |
 | Task tabs | Multiple tabs for the same service, fixed service indicator, editable aliases, horizontal scrolling and dragging |
 | Layout | Single panel, **2×2 grid**, or **1×4 columns from left to right**; automatic layout for one to three panels |
 | Panel arrangement | Drag headers to swap panels or split at an edge; drag dividers to resize |

@@ -14,8 +14,9 @@ with tempfile.TemporaryDirectory(prefix='workspace-ui-test-') as temp:
     if x.poll() is not None:raise RuntimeError('Xvfb failed')
     if Path('/tmp/.X11-unix/X96').exists():break
     time.sleep(.1)
-   for extra in [[],['--restore-check']]:
-    p=subprocess.Popen([electron,str(root/'tests/desktop-smoke.cjs'),'--disable-dev-shm-usage',*extra],cwd=root,env=env,stdout=ef,stderr=subprocess.STDOUT)
+   for script,extra in [('desktop-smoke.cjs',[]),('desktop-smoke.cjs',['--restore-check']),('service-picker-smoke.cjs',[])]:
+    env['WORKSPACE_TEST_PROFILE']=temp+('/catalog-profile' if script=='service-picker-smoke.cjs' else '/profile')
+    p=subprocess.Popen([electron,str(root/'tests'/script),'--disable-dev-shm-usage',*extra],cwd=root,env=env,stdout=ef,stderr=subprocess.STDOUT)
     try:rc=p.wait(timeout=45)
     except subprocess.TimeoutExpired:p.terminate();rc=p.wait(timeout=5)
     if rc:raise RuntimeError('Electron smoke failed; inspect test-output')
@@ -23,4 +24,4 @@ with tempfile.TemporaryDirectory(prefix='workspace-ui-test-') as temp:
    x.terminate()
    try:x.wait(timeout=5)
    except subprocess.TimeoutExpired:x.kill();x.wait()
- print((out/'desktop-results.json').read_text());print((out/'restore-results.json').read_text())
+ print((out/'desktop-results.json').read_text());print((out/'restore-results.json').read_text());print((out/'service-picker-results.json').read_text())

@@ -1,5 +1,5 @@
 const fs=require('node:fs'),path=require('node:path'),layout=require('./layout.cjs'),navigation=require('./navigation.cjs');
-const SERVICES={chatgpt:{name:'ChatGPT',url:'https://chatgpt.com/',icon:'✳'},codex:{name:'Codex Cloud',url:'https://chatgpt.com/codex',icon:'⌘'},claude:{name:'Claude',url:'https://claude.ai/',icon:'✹'},suno:{name:'Suno',url:'https://suno.com/create',icon:'♪'},midjourney:{name:'Midjourney',url:'https://www.midjourney.com/',icon:'⛵'},canva:{name:'Canva',url:'https://www.canva.com/',icon:'C'},web:{name:'웹',url:'',icon:'◎'}};
+const {services:SERVICES,categories:CATEGORIES}=require('./services.json');
 function safeURL(input){try{const u=new URL(input);if(!['https:','http:'].includes(u.protocol)||u.username||u.password)return null;return u.href;}catch{return null;}}
 function restorableURL(input){const valid=safeURL(input);if(!valid)return null;const u=new URL(valid);if(/\/(?:auth|oauth|callback|login|signin|sign-in)(?:\/|$)/i.test(u.pathname))return null;for(const k of u.searchParams.keys())if(/token|code|secret|password|credential|session|ticket|assertion/i.test(k))return null;return valid;}
 // Additive fields keep the original envelope readable by earlier previews.
@@ -22,4 +22,4 @@ function normalize(raw){
 }
 function load(file){try{return normalize(JSON.parse(fs.readFileSync(file,'utf8')));}catch{return empty();}}
 function save(file,state){fs.mkdirSync(path.dirname(file),{recursive:true});const temp=file+'.tmp';fs.writeFileSync(temp,JSON.stringify(state),{mode:0o600});fs.renameSync(temp,file);}
-module.exports={SERVICES,safeURL,restorableURL,empty,normalize,load,save};
+module.exports={SERVICES,CATEGORIES,safeURL,restorableURL,empty,normalize,load,save};

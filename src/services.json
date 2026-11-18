@@ -1,0 +1,588 @@
+{
+  "reviewedOn": "2026-11-18",
+  "categories": [
+    {
+      "id": "chat",
+      "name": "챗·검색"
+    },
+    {
+      "id": "music",
+      "name": "음악"
+    },
+    {
+      "id": "image",
+      "name": "이미지"
+    },
+    {
+      "id": "video",
+      "name": "동영상"
+    },
+    {
+      "id": "design",
+      "name": "디자인·발표"
+    },
+    {
+      "id": "code",
+      "name": "개발"
+    },
+    {
+      "id": "research",
+      "name": "문서·리서치"
+    },
+    {
+      "id": "voice",
+      "name": "음성·더빙"
+    }
+  ],
+  "services": {
+    "chatgpt": {
+      "name": "ChatGPT",
+      "url": "https://chatgpt.com/",
+      "icon": "G",
+      "categories": [
+        "chat",
+        "image"
+      ],
+      "description": "대화·글쓰기·이미지",
+      "keywords": "챗지피티 지피티 gpt openai",
+      "source": "https://chatgpt.com/"
+    },
+    "claude": {
+      "name": "Claude",
+      "url": "https://claude.ai/",
+      "icon": "Cl",
+      "categories": [
+        "chat",
+        "code"
+      ],
+      "description": "대화·문서·코딩",
+      "keywords": "클로드 앤트로픽 anthropic",
+      "source": "https://claude.ai/"
+    },
+    "gemini": {
+      "name": "Gemini",
+      "url": "https://gemini.google.com/",
+      "icon": "Ge",
+      "categories": [
+        "chat",
+        "image"
+      ],
+      "description": "Google AI 대화",
+      "keywords": "제미나이 구글 google",
+      "source": "https://gemini.google.com/"
+    },
+    "copilot": {
+      "name": "Microsoft Copilot",
+      "url": "https://copilot.com/",
+      "icon": "Co",
+      "categories": [
+        "chat"
+      ],
+      "description": "Microsoft AI 대화",
+      "keywords": "코파일럿 마이크로소프트 bing",
+      "source": "https://copilot.microsoft.com/"
+    },
+    "perplexity": {
+      "name": "Perplexity",
+      "url": "https://www.perplexity.ai/",
+      "icon": "Pe",
+      "categories": [
+        "chat",
+        "research"
+      ],
+      "description": "검색·출처 기반 답변",
+      "keywords": "퍼플렉시티 퍼플렉서티",
+      "source": "https://www.perplexity.ai/"
+    },
+    "grok": {
+      "name": "Grok",
+      "url": "https://grok.com/",
+      "icon": "Gr",
+      "categories": [
+        "chat",
+        "image"
+      ],
+      "description": "대화·이미지",
+      "keywords": "그록 xai x.ai",
+      "source": "https://x.ai/grok"
+    },
+    "deepseek": {
+      "name": "DeepSeek",
+      "url": "https://chat.deepseek.com/",
+      "icon": "Ds",
+      "categories": [
+        "chat",
+        "code"
+      ],
+      "description": "대화·추론·코딩",
+      "keywords": "딥시크 딥시크챗",
+      "source": "https://www.deepseek.com/"
+    },
+    "qwen": {
+      "name": "Qwen",
+      "url": "https://chat.qwen.ai/",
+      "icon": "Q",
+      "categories": [
+        "chat",
+        "code"
+      ],
+      "description": "대화·추론",
+      "keywords": "큐원 큐웬 알리바바 alibaba",
+      "source": "https://chat.qwen.ai/"
+    },
+    "mistral": {
+      "name": "Mistral Vibe",
+      "url": "https://chat.mistral.ai/",
+      "icon": "Mi",
+      "categories": [
+        "chat",
+        "code"
+      ],
+      "description": "대화·작업 지원",
+      "keywords": "미스트랄 바이브 르샤 le chat vibe work",
+      "source": "https://mistral.ai/products/vibe/"
+    },
+    "poe": {
+      "name": "Poe",
+      "url": "https://poe.com/",
+      "icon": "Po",
+      "categories": [
+        "chat"
+      ],
+      "description": "여러 모델과 대화",
+      "keywords": "포 포우 쿼라 quora",
+      "source": "https://poe.com/"
+    },
+    "suno": {
+      "name": "Suno",
+      "url": "https://suno.com/create",
+      "icon": "S",
+      "categories": [
+        "music"
+      ],
+      "description": "노래·가사·작곡",
+      "keywords": "수노 음악 노래",
+      "source": "https://suno.com/"
+    },
+    "udio": {
+      "name": "Udio",
+      "url": "https://www.udio.com/",
+      "icon": "U",
+      "categories": [
+        "music"
+      ],
+      "description": "노래·음악 생성",
+      "keywords": "유디오 우디오 작곡",
+      "source": "https://www.udio.com/"
+    },
+    "aiva": {
+      "name": "AIVA",
+      "url": "https://www.aiva.ai/",
+      "icon": "Av",
+      "categories": [
+        "music"
+      ],
+      "description": "작곡·배경음악",
+      "keywords": "아이바 에이바 작곡",
+      "source": "https://www.aiva.ai/"
+    },
+    "soundraw": {
+      "name": "SOUNDRAW",
+      "url": "https://soundraw.io/",
+      "icon": "Sr",
+      "categories": [
+        "music"
+      ],
+      "description": "배경음악·비트",
+      "keywords": "사운드로우 사운드로 bgm",
+      "source": "https://soundraw.io/"
+    },
+    "boomy": {
+      "name": "Boomy",
+      "url": "https://boomy.com/",
+      "icon": "B",
+      "categories": [
+        "music"
+      ],
+      "description": "음악·곡 만들기",
+      "keywords": "부미 붐미",
+      "source": "https://boomy.com/"
+    },
+    "midjourney": {
+      "name": "Midjourney",
+      "url": "https://www.midjourney.com/",
+      "icon": "M",
+      "categories": [
+        "image"
+      ],
+      "description": "이미지 생성",
+      "keywords": "미드저니 그림",
+      "source": "https://www.midjourney.com/"
+    },
+    "firefly": {
+      "name": "Adobe Firefly",
+      "url": "https://firefly.adobe.com/",
+      "icon": "Ff",
+      "categories": [
+        "image",
+        "video"
+      ],
+      "description": "이미지·영상 생성",
+      "keywords": "어도비 파이어플라이",
+      "source": "https://firefly.adobe.com/"
+    },
+    "leonardo": {
+      "name": "Leonardo.Ai",
+      "url": "https://app.leonardo.ai/",
+      "icon": "L",
+      "categories": [
+        "image",
+        "video"
+      ],
+      "description": "이미지·영상 제작",
+      "keywords": "레오나르도 레오나르도ai",
+      "source": "https://leonardo.ai/"
+    },
+    "ideogram": {
+      "name": "Ideogram",
+      "url": "https://ideogram.ai/",
+      "icon": "Id",
+      "categories": [
+        "image"
+      ],
+      "description": "이미지·그래픽 생성",
+      "keywords": "이디오그램 아이디오그램",
+      "source": "https://ideogram.ai/"
+    },
+    "recraft": {
+      "name": "Recraft",
+      "url": "https://www.recraft.ai/",
+      "icon": "Rc",
+      "categories": [
+        "image",
+        "design"
+      ],
+      "description": "이미지·벡터 그래픽",
+      "keywords": "리크래프트 벡터",
+      "source": "https://www.recraft.ai/"
+    },
+    "krea": {
+      "name": "Krea",
+      "url": "https://www.krea.ai/",
+      "icon": "Kr",
+      "categories": [
+        "image",
+        "video"
+      ],
+      "description": "이미지·영상·업스케일",
+      "keywords": "크레아 업스케일",
+      "source": "https://www.krea.ai/"
+    },
+    "runway": {
+      "name": "Runway",
+      "url": "https://app.runwayml.com/",
+      "icon": "Rw",
+      "categories": [
+        "video",
+        "image"
+      ],
+      "description": "영상 생성·편집",
+      "keywords": "런웨이 런웨이ml",
+      "source": "https://runway.com/"
+    },
+    "kling": {
+      "name": "Kling AI",
+      "url": "https://kling.ai/app/",
+      "icon": "Kl",
+      "categories": [
+        "video",
+        "image"
+      ],
+      "description": "영상·이미지 생성",
+      "keywords": "클링 클링ai klingai",
+      "source": "https://app.klingai.com/global/"
+    },
+    "luma": {
+      "name": "Luma",
+      "url": "https://app.lumalabs.ai/",
+      "icon": "Lu",
+      "categories": [
+        "video",
+        "image"
+      ],
+      "description": "영상·이미지 제작",
+      "keywords": "루마 드림머신 dream machine",
+      "source": "https://lumalabs.ai/"
+    },
+    "pika": {
+      "name": "Pika",
+      "url": "https://create.pika.art/",
+      "icon": "Pi",
+      "categories": [
+        "video"
+      ],
+      "description": "영상 생성·효과",
+      "keywords": "피카 피카랩스",
+      "source": "https://pika.art/"
+    },
+    "flow": {
+      "name": "Google Flow",
+      "url": "https://flow.google.com/",
+      "icon": "Fl",
+      "categories": [
+        "video",
+        "image"
+      ],
+      "description": "Google 영상·이미지 제작",
+      "keywords": "구글 플로우 플로 veo 비오",
+      "source": "https://labs.google/fx/tools/flow"
+    },
+    "hailuo": {
+      "name": "Hailuo AI",
+      "url": "https://hailuoai.video/",
+      "icon": "Ha",
+      "categories": [
+        "video"
+      ],
+      "description": "영상 생성",
+      "keywords": "하이루오 하이뤄 미니맥스 minimax",
+      "source": "https://hailuoai.video/"
+    },
+    "heygen": {
+      "name": "HeyGen",
+      "url": "https://www.heygen.com/",
+      "icon": "Hg",
+      "categories": [
+        "video",
+        "voice"
+      ],
+      "description": "아바타 영상·더빙",
+      "keywords": "헤이젠 헤이겐 아바타",
+      "source": "https://www.heygen.com/"
+    },
+    "synthesia": {
+      "name": "Synthesia",
+      "url": "https://www.synthesia.io/",
+      "icon": "Sy",
+      "categories": [
+        "video",
+        "voice"
+      ],
+      "description": "AI 아바타·설명 영상",
+      "keywords": "신세시아 신테시아 신시아",
+      "source": "https://www.synthesia.io/"
+    },
+    "canva": {
+      "name": "Canva",
+      "url": "https://www.canva.com/",
+      "icon": "C",
+      "categories": [
+        "design",
+        "image",
+        "video"
+      ],
+      "description": "디자인·발표·콘텐츠",
+      "keywords": "캔바 칸바 프레젠테이션",
+      "source": "https://www.canva.com/"
+    },
+    "figma": {
+      "name": "Figma",
+      "url": "https://www.figma.com/",
+      "icon": "Fg",
+      "categories": [
+        "design",
+        "code"
+      ],
+      "description": "UI 디자인·AI 제작",
+      "keywords": "피그마 figjam make",
+      "source": "https://www.figma.com/"
+    },
+    "gamma": {
+      "name": "Gamma",
+      "url": "https://gamma.app/",
+      "icon": "Ga",
+      "categories": [
+        "design"
+      ],
+      "description": "발표 자료·문서",
+      "keywords": "감마 슬라이드 ppt",
+      "source": "https://gamma.app/"
+    },
+    "express": {
+      "name": "Adobe Express",
+      "url": "https://www.adobe.com/express/",
+      "icon": "Ex",
+      "categories": [
+        "design",
+        "image",
+        "video"
+      ],
+      "description": "디자인·사진·영상",
+      "keywords": "어도비 익스프레스",
+      "source": "https://www.adobe.com/express/"
+    },
+    "codex": {
+      "name": "Codex Cloud",
+      "url": "https://chatgpt.com/codex",
+      "icon": "Cx",
+      "categories": [
+        "code"
+      ],
+      "description": "클라우드 개발 작업",
+      "keywords": "코덱스 openai",
+      "source": "https://chatgpt.com/codex"
+    },
+    "githubcopilot": {
+      "name": "GitHub Copilot",
+      "url": "https://github.com/copilot",
+      "icon": "Gh",
+      "categories": [
+        "code"
+      ],
+      "description": "GitHub의 AI 개발 지원",
+      "keywords": "깃허브 코파일럿 github",
+      "source": "https://github.com/features/copilot"
+    },
+    "aistudio": {
+      "name": "Google AI Studio",
+      "url": "https://aistudio.google.com/",
+      "icon": "Ai",
+      "categories": [
+        "code"
+      ],
+      "description": "모델 실험·앱 개발",
+      "keywords": "구글 ai스튜디오 에이아이스튜디오",
+      "source": "https://aistudio.google.com/"
+    },
+    "replit": {
+      "name": "Replit",
+      "url": "https://replit.com/",
+      "icon": "Re",
+      "categories": [
+        "code"
+      ],
+      "description": "앱·웹 개발",
+      "keywords": "리플릿 레플릿",
+      "source": "https://replit.com/"
+    },
+    "bolt": {
+      "name": "Bolt",
+      "url": "https://bolt.new/",
+      "icon": "Bo",
+      "categories": [
+        "code"
+      ],
+      "description": "프롬프트로 웹·앱 제작",
+      "keywords": "볼트 스택블리츠 stackblitz",
+      "source": "https://bolt.new/"
+    },
+    "lovable": {
+      "name": "Lovable",
+      "url": "https://lovable.dev/",
+      "icon": "Lo",
+      "categories": [
+        "code"
+      ],
+      "description": "웹·앱 제작",
+      "keywords": "러버블 러브러블",
+      "source": "https://lovable.dev/"
+    },
+    "v0": {
+      "name": "v0",
+      "url": "https://v0.app/",
+      "icon": "v0",
+      "categories": [
+        "code"
+      ],
+      "description": "웹 UI·앱 제작",
+      "keywords": "브이제로 버셀 vercel",
+      "source": "https://v0.app/"
+    },
+    "notebooklm": {
+      "name": "Gemini Notebook",
+      "url": "https://notebook.google.com/",
+      "icon": "Nb",
+      "categories": [
+        "research"
+      ],
+      "description": "자료 기반 요약·질문",
+      "keywords": "노트북엘엠 노트북lm notebooklm 노트북 제미나이",
+      "source": "https://notebooklm.google.com/"
+    },
+    "elicit": {
+      "name": "Elicit",
+      "url": "https://elicit.com/",
+      "icon": "El",
+      "categories": [
+        "research"
+      ],
+      "description": "논문 검색·분석",
+      "keywords": "엘리시트 엘리싯 논문",
+      "source": "https://elicit.com/"
+    },
+    "consensus": {
+      "name": "Consensus",
+      "url": "https://consensus.app/",
+      "icon": "Cs",
+      "categories": [
+        "research"
+      ],
+      "description": "논문 기반 검색",
+      "keywords": "컨센서스 콘센서스 논문",
+      "source": "https://consensus.app/"
+    },
+    "notion": {
+      "name": "Notion",
+      "url": "https://www.notion.so/",
+      "icon": "N",
+      "categories": [
+        "research"
+      ],
+      "description": "문서·노트·AI 업무",
+      "keywords": "노션 문서 노트",
+      "source": "https://www.notion.com/"
+    },
+    "elevenlabs": {
+      "name": "ElevenLabs",
+      "url": "https://elevenlabs.io/",
+      "icon": "11",
+      "categories": [
+        "voice",
+        "music"
+      ],
+      "description": "음성·더빙·음악",
+      "keywords": "일레븐랩스 일레븐 음성합성 tts",
+      "source": "https://elevenlabs.io/"
+    },
+    "murf": {
+      "name": "Murf",
+      "url": "https://murf.ai/studio",
+      "icon": "Mu",
+      "categories": [
+        "voice"
+      ],
+      "description": "음성 합성·내레이션",
+      "keywords": "머프 보이스 tts",
+      "source": "https://murf.ai/"
+    },
+    "speechify": {
+      "name": "Speechify",
+      "url": "https://speechify.com/",
+      "icon": "Sp",
+      "categories": [
+        "voice"
+      ],
+      "description": "텍스트 읽기·음성",
+      "keywords": "스피치파이 읽어주기 tts",
+      "source": "https://speechify.com/"
+    },
+    "web": {
+      "name": "웹",
+      "url": "",
+      "icon": "↗",
+      "categories": [],
+      "description": "웹 주소 직접 열기",
+      "keywords": ""
+    }
+  }
+}

@@ -21,8 +21,7 @@ for name in ['classes', 'dex', 'assets']:
     p.mkdir()
 shutil.copytree(project / 'assets', out / 'assets', dirs_exist_ok=True)
 shutil.copyfile(root / 'src/input-bridge.js', out / 'assets/input-bridge.js')
-services = subprocess.check_output(['node', '-e', "console.log(JSON.stringify(require('./src/workspace.cjs').SERVICES))"], cwd=root)
-(out / 'assets/services.json').write_bytes(services)
+shutil.copyfile(root / 'src/services.json', out / 'assets/catalog.json')
 
 def run(args): subprocess.run([str(x) for x in args], check=True)
 

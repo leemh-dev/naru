@@ -1,7 +1,7 @@
 {
   "name": "plynt",
   "productName": "Plynt",
-  "version": "0.1.0-preview.3",
+  "version": "0.1.0-preview.4",
   "userDataDirectory": "AI Workspace Preview",
   "private": true,
   "description": "Plynt: a desktop workspace for AI services with private local diagnostics",
