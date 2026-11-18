@@ -8,6 +8,8 @@
 
 [이름 변경과 검증 기록](docs/plynt-rename.md)
 
+[0.1.0-preview.3 설치 파일 배포 확인](docs/preview.3-release.md)
+
 ## 왜 만들었나요?
 
 여러 AI를 함께 쓰다 보면 하나의 작업도 여러 화면에 흩어집니다. ChatGPT의 일반 대화와 프로젝트 대화, Codex 작업을 오가고, 필요한 모델이 있으면 다른 서비스를 엽니다. 작성한 가사나 프롬프트를 Suno·Canva에서 쓰려면 원문을 다시 찾고, 복사하고, 목적지의 입력칸으로 이동해야 합니다.
@@ -207,6 +209,8 @@ docs/                   사용 기록 양식, 진단 명세, 검증 증거
 The project has been renamed from **Naru to Plynt**. Its GitHub repository is currently still `leemh-dev/naru`. Existing profile locations and app identifiers are retained; historical test reports and screenshots keep the name used at the time.
 
 [Rename and validation record, in Korean](docs/plynt-rename.md)
+
+[0.1.0-preview.3 installer publication record, in Korean](docs/preview.3-release.md)
 
 ### Why Plynt exists
 

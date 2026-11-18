@@ -1,0 +1,9 @@
+8d4b315a1dd4015c5aa61feee36981ac6815b7d9e2d7cf5a13a4359c4a530303  ./plynt-0.1.0-preview.3-android-test.apk
+c27831402dc9a69839eab6101da7a1fe5503763a29c08e525bf0f1b2d879fada  ./plynt-0.1.0-preview.3-linux-amd64.deb
+f666382e42ef074331816df281987177e622e6394b07ffc7abb165171a3a13b1  ./plynt-0.1.0-preview.3-linux-x86_64.AppImage
+a31b05369bf28b6e9054577dfccbec76744b7629042fea543faac58575b9b4cc  ./plynt-0.1.0-preview.3-mac-arm64.dmg
+9005d15d7162ec5628f668b133375248f2e9bb46c024ac58da690c1ae0cec3f7  ./plynt-0.1.0-preview.3-mac-arm64.zip
+680f8628391b9266f7c8ea3af1fec3e2442a162f95d48804b8d776b5d0b3f517  ./plynt-0.1.0-preview.3-mac-x64.dmg
+e606fe0d5fffb3f2aea13d75edf8463723e149aa8c1aba6544715b7ce244fed7  ./plynt-0.1.0-preview.3-mac-x64.zip
+54caa2b5996008ce6df3c51d85fe2fc99e31591a03e61e40756a5abcfe4fbc84  ./plynt-0.1.0-preview.3-win-x64.exe
+c666c0c104cdb380190ed5b107a3f609e1fced45cd51ba88dc0449f98c995415  ./plynt-0.1.0-preview.3-win-x64.zip
