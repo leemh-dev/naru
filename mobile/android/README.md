@@ -44,7 +44,7 @@ python mobile/android/build.py
 기존 서명 키를 `PLYNT_ANDROID_DEBUG_KEY`에 지정하세요. 이전 `NARU_ANDROID_DEBUG_KEY` 설정도 호환되며, 둘 다 지정하면 새 설정을 우선합니다. 환경 변수가 없으면 기존 `/workspace/naru-android-test/naru-debug.keystore`를 우선 사용하고, 없을 때만 `/workspace/plynt-android-test/plynt-debug.keystore`를 만듭니다. CI의 임시 키는 기존 설명대로 빌드마다 달라질 수 있습니다.
 
 ```sh
-adb install --no-incremental -r dist/android/plynt-0.1.0-preview.2-android-test.apk
+adb install --no-incremental -r dist/android/plynt-0.1.0-preview.3-android-test.apk
 adb shell am start -n dev.naru.mobile.preview/.MainActivity
 ```
 

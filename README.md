@@ -28,13 +28,13 @@ Plynt는 **진행 중인 작업을 찾느라 화면을 반복해서 넘기는 �
 
 초기 프리뷰에서 한 줄 시험 글을 ChatGPT 입력칸에서 Canva의 공개 입력칸으로 옮기는 것은 확인했습니다. **Suno·Canva의 로그인 후 실제 작업 화면에서의 전달, 이미지·음악·파일 전달, 기기 간 동기화까지 지원한다는 의미는 아닙니다.** 자세한 범위는 아래 기능과 검증 기록을 참고하세요.
 
-[다운로드 · Releases](https://github.com/leemh-dev/naru/releases) · [빌드 상태](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [오류 제보](https://github.com/leemh-dev/naru/issues)
+[다운로드 · Plynt 0.1.0-preview.3](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.3) · [빌드 상태](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [오류 제보](https://github.com/leemh-dev/naru/issues)
 
 ## 다운로드와 실행
 
 Releases에서 **Assets**를 펼쳐 운영체제와 CPU에 맞는 파일을 받으세요. `Source code.zip`은 설치 파일이 아닌 개발 소스입니다.
 
-아래 파일명은 **현재 Plynt 소스를 빌드한 결과**의 이름입니다. 기존 릴리스의 `naru-…` 파일과 `Naru.exe`·`Naru.app`은 배포 당시 이름을 유지합니다. 이름 변경만으로 새 설치 파일이 배포되는 것은 아니므로 Releases에 실제 첨부된 파일명을 확인하세요.
+**Plynt 설치 파일은 `v0.1.0-preview.3` 릴리스에서 확인합니다.** 기존 `v0.1.0-preview.1`·`preview.2`의 Naru 설치 파일은 과거 버전으로 보존합니다. Releases에 실제로 첨부된 파일만 배포 완료된 파일입니다.
 
 | 환경 | 배포 파일 | 실행 방법 |
 |---|---|---|
@@ -53,8 +53,8 @@ Android APK는 데스크톱과 기능이 같지 않은 별도 시험 앱입니�
 Linux에서 `libfuse.so.2`가 없다는 오류가 나오면 AppImage 런타임의 추출 실행 옵션을 사용할 수 있습니다.
 
 ```sh
-chmod +x plynt-0.1.0-preview.2-linux-x86_64.AppImage
-./plynt-0.1.0-preview.2-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x plynt-0.1.0-preview.3-linux-x86_64.AppImage
+./plynt-0.1.0-preview.3-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 이 방법으로 Debian 13의 사용자 폴더에 둔 **0.1.0-preview.1 릴리스 AppImage**를 실행해 확인했습니다. 시스템 전체에 deb를 설치한 시험은 아닙니다. [Linux 실행 시험과 화면 증거](docs/linux-installed-test-2026-11-17.md)를 참고하세요.
@@ -184,6 +184,8 @@ npm run dist -- --linux --x64
 
 [GitHub Actions](.github/workflows/build.yml)는 Windows·macOS·Linux에서 각각 검사와 빌드를 수행하고, 별도 작업에서 Android 시험 APK를 빌드합니다. 수동 실행은 설치 파일을 Actions Artifacts에 올리고, `v*` 태그는 데스크톱 세 빌드와 Android 빌드가 모두 성공한 뒤 파일과 체크섬을 사전 릴리스에 올립니다. 자동 업데이트 기능은 없습니다.
 
+릴리스 태그는 `package.json`의 버전 앞에 `v`를 붙인 값이어야 합니다. 태그를 푸시하기 전에 `docs/releases/<태그>.md`에 해당 버전의 릴리스 노트를 작성합니다.
+
 ```text
 src/                    Electron 앱, 탭·패널 UI, 입력 전달, 저장·진단
 mobile/android/         Android 호환성 시험 앱과 공식 SDK 빌드 스크립트
@@ -198,7 +200,7 @@ docs/                   사용 기록 양식, 진단 명세, 검증 증거
 
 ## English
 
-[한국어로 돌아가기](#plynt--플린트) · [Download](https://github.com/leemh-dev/naru/releases) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [Report an issue](https://github.com/leemh-dev/naru/issues)
+[한국어로 돌아가기](#plynt--플린트) · [Download Plynt 0.1.0-preview.3](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.3) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [Report an issue](https://github.com/leemh-dev/naru/issues)
 
 **Plynt is a desktop app that brings your AI conversations, task screens, and reusable text into one place so you can continue your work across services.**
 
@@ -230,7 +232,7 @@ In an earlier preview, a single-line test draft was successfully transferred fro
 
 Open **Assets** on the [Releases page](https://github.com/leemh-dev/naru/releases) and choose the file for your operating system and CPU. `Source code.zip` contains source code, not an installer.
 
-The filenames below describe builds of the **current Plynt source**. Previously published releases retain their `naru-…` filenames and `Naru.exe` / `Naru.app` names. This source rename does not publish new installers; use the actual filenames attached to each release.
+**Look for the Plynt installers in release `v0.1.0-preview.3`.** The Naru installers in `v0.1.0-preview.1` and `preview.2` are retained as historical versions. Only files actually attached to a release are published downloads.
 
 | Platform | Release file | How to run |
 |---|---|---|
@@ -249,8 +251,8 @@ Only files actually attached to a release are published downloads. Use the accom
 If Linux reports that `libfuse.so.2` is missing, use the AppImage runtime's extraction option:
 
 ```sh
-chmod +x plynt-0.1.0-preview.2-linux-x86_64.AppImage
-./plynt-0.1.0-preview.2-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x plynt-0.1.0-preview.3-linux-x86_64.AppImage
+./plynt-0.1.0-preview.3-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 The **0.1.0-preview.1 released AppImage** was run this way from a user folder on Debian 13. This was not a system-wide deb installation test. See the [Linux runtime report and screenshots, in Korean](docs/linux-installed-test-2026-11-17.md).
@@ -381,6 +383,8 @@ npm run dist -- --linux --x64
 ```
 
 [GitHub Actions](.github/workflows/build.yml) runs checks and builds on Windows, macOS, and Linux, with a separate Android compatibility APK build. Manual runs upload installers to Actions Artifacts. Tags matching `v*` publish a prerelease with files and checksums after the three desktop builds and Android build succeed. Automatic app updates are not implemented.
+
+The release tag must equal the version in `package.json` prefixed with `v`. Before pushing a tag, write its release notes in `docs/releases/<tag>.md`.
 
 ```text
 src/                    Electron app, tabs/panels, text transfer, storage, diagnostics
