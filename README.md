@@ -8,7 +8,7 @@
 
 [이름 변경과 검증 기록](docs/plynt-rename.md)
 
-[0.1.0-preview.3 설치 파일 배포 확인](docs/preview.3-release.md)
+[0.1.0-preview.4 변경·검증·배포 확인](docs/preview.4-validation.md)
 
 ## 왜 만들었나요?
 
@@ -217,7 +217,7 @@ The project has been renamed from **Naru to Plynt**. Its GitHub repository is cu
 
 [Rename and validation record, in Korean](docs/plynt-rename.md)
 
-[0.1.0-preview.3 installer publication record, in Korean](docs/preview.3-release.md)
+[0.1.0-preview.4 changes, validation, and installer publication, in Korean](docs/preview.4-validation.md)
 
 ### Why Plynt exists
 

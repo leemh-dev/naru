@@ -42,4 +42,6 @@ Linux 시험은 Electron 45.3.3 / Chromium 156.0.8078.100, Xvfb에서 실행했�
 
 ## 배포
 
-버전은 `0.1.0-preview.4`, Android 버전 코드는 4입니다. 기존 데스크톱 앱 ID·데이터 경로와 Android 패키지 ID는 유지합니다. Windows·macOS·Linux 및 Android 설치 파일은 모든 CI 빌드가 성공한 뒤 GitHub Releases에 게시하도록 설정되어 있습니다. 공개 배포 결과는 별도 확인해 이 문서에 추가합니다.
+버전은 `0.1.0-preview.4`, Android 버전 코드는 4입니다. 기존 데스크톱 앱 ID·데이터 경로와 Android 패키지 ID는 유지합니다. Windows·macOS·Linux 및 Android 설치 파일은 모든 CI 빌드가 성공한 뒤 GitHub Releases에 게시하도록 설정되어 있습니다. [GitHub Actions](https://github.com/leemh-dev/naru/actions/runs/44240392524)의 모든 빌드가 성공했고 [v0.1.0-preview.4](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.4)에 설치·압축 파일 9개와 `SHA256SUMS.txt`가 게시된 것을 확인했습니다. 9개 파일 모두 GitHub asset SHA-256 digest와 체크섬 파일이 일치합니다. [배포 확인 데이터](evidence/preview.4/release-verification.json)를 저장했습니다.
+
+첫 배포 시 macOS arm64 ZIP 업로드에서 GitHub HTTP 500이 발생했습니다. 실패한 배포 작업만 재실행한 두 번째 시도는 성공했습니다. 이미 성공한 플랫폼 빌드를 다시 만들거나 릴리스 태그를 이동하지 않았습니다. 설치 파일 게시와 체크섬 확인은 실제 Windows·macOS·Android 실행 검증을 대신하지 않습니다.
