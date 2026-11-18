@@ -1,4 +1,4 @@
-name: Naru installers
+name: Plynt installers
 on:
   workflow_dispatch:
   push:
@@ -63,13 +63,13 @@ jobs:
         run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0"'
       - name: Build compatibility APK
         env:
-          NARU_ANDROID_DEBUG_KEY: ${{ runner.temp }}/naru-debug.keystore
+          PLYNT_ANDROID_DEBUG_KEY: ${{ runner.temp }}/plynt-debug.keystore
         run: ANDROID_SDK_ROOT="$ANDROID_HOME" python mobile/android/build.py
       - uses: actions/upload-artifact@v4
         with:
           name: installers-android
           if-no-files-found: error
-          path: dist/android/naru-*-android-test.apk
+          path: dist/android/plynt-*-android-test.apk
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: [build, android-preview]
@@ -91,4 +91,4 @@ jobs:
         run: |
           cd installers
           find . -maxdepth 1 -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
-          gh release create "$RELEASE_TAG" ./* --title "Naru $RELEASE_TAG" --prerelease --notes "Naru 시험판입니다. 데스크톱은 탭 최대 30개, 멀티뷰 최대 4개이며 멀티뷰 밖의 탭은 단독 화면으로 열립니다. Windows x64, macOS Intel/Apple Silicon, Linux x64 설치 파일과 별도의 Android 호환성 시험 APK를 제공합니다. 데스크톱 코드 서명·Apple 공증은 하지 않았습니다. Android APK는 디버그 서명이며 빌드마다 키가 달라질 수 있고 데스크톱과 기능이 같지 않습니다. 빌드 성공은 실제 서비스 로그인 성공을 의미하지 않습니다. 검증 범위와 화면 증거는 README 및 docs/preview.2-validation.md를 확인해 주세요. 진단 보고서는 기기에만 기록하며 직접 내보냅니다."
+          gh release create "$RELEASE_TAG" ./* --title "Plynt $RELEASE_TAG" --prerelease --notes "Plynt 시험판입니다. 데스크톱은 탭 최대 30개, 멀티뷰 최대 4개이며 멀티뷰 밖의 탭은 단독 화면으로 열립니다. Windows x64, macOS Intel/Apple Silicon, Linux x64 설치 파일과 별도의 Android 호환성 시험 APK를 제공합니다. 데스크톱 코드 서명·Apple 공증은 하지 않았습니다. Android APK는 디버그 서명이며 빌드마다 키가 달라질 수 있고 데스크톱과 기능이 같지 않습니다. 빌드 성공은 실제 서비스 로그인 성공을 의미하지 않습니다. 검증 범위와 화면 증거는 README 및 docs/preview.2-validation.md를 확인해 주세요. 진단 보고서는 기기에만 기록하며 직접 내보냅니다."

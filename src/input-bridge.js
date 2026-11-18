@@ -2,7 +2,7 @@
 // Keep native privileges and logging outside these scripts.
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.NaruInput = factory();
+  else root.PlyntInput = factory();
 })(typeof globalThis === 'object' ? globalThis : this, function () {
   function operation(name, args) {
     function allowed(e) {
@@ -17,7 +17,7 @@
         return e.value.slice(e.selectionStart, e.selectionEnd);
       return window.getSelection()?.toString() || '';
     }
-    const fields = globalThis.__naruReceivingFields ||= Object.create(null);
+    const fields = globalThis.__plyntReceivingFields ||= Object.create(null);
     if (name === 'register') {
       const e = document.activeElement;
       if (!allowed(e)) return 'unsupported';

@@ -1,18 +1,22 @@
-# Naru · 나루
+# Plynt · 플린트
 
-[한국어](#naru--나루) · [English](#english)
+[한국어](#plynt--플린트) · [English](#english)
 
-**Naru는 여러 AI의 대화·작업 화면과 다시 쓸 글을 한곳에 모아, 다음 작업을 이어 가도록 돕는 데스크톱 앱입니다.**
+**Plynt는 여러 AI의 대화·작업 화면과 다시 쓸 글을 한곳에 모아, 다음 작업을 이어 가도록 돕는 데스크톱 앱입니다.**
+
+프로젝트 이름을 **Naru(나루)에서 Plynt(플린트)**로 변경했습니다. GitHub 저장소 주소는 현재 `leemh-dev/naru`입니다. 기존 설치의 작업·로그인 데이터 경로와 앱 식별자는 유지하며, 과거 검증 기록과 캡처에는 시험 당시 이름이 남아 있습니다.
+
+[이름 변경과 검증 기록](docs/plynt-rename.md)
 
 ## 왜 만들었나요?
 
 여러 AI를 함께 쓰다 보면 하나의 작업도 여러 화면에 흩어집니다. ChatGPT의 일반 대화와 프로젝트 대화, Codex 작업을 오가고, 필요한 모델이 있으면 다른 서비스를 엽니다. 작성한 가사나 프롬프트를 Suno·Canva에서 쓰려면 원문을 다시 찾고, 복사하고, 목적지의 입력칸으로 이동해야 합니다.
 
-Naru는 **진행 중인 작업을 찾느라 화면을 반복해서 넘기는 불편과, 서비스 사이에서 같은 글을 다시 찾아 옮기는 불편**을 줄이기 위해 만들었습니다. 휴대폰에서 여러 AI를 오가며 느낀 불편에서 출발했으며, 현재는 Windows·macOS·Linux용 데스크톱 프리뷰부터 구현하고 있습니다.
+Plynt는 **진행 중인 작업을 찾느라 화면을 반복해서 넘기는 불편과, 서비스 사이에서 같은 글을 다시 찾아 옮기는 불편**을 줄이기 위해 만들었습니다. 휴대폰에서 여러 AI를 오가며 느낀 불편에서 출발했으며, 현재는 Windows·macOS·Linux용 데스크톱 프리뷰부터 구현하고 있습니다.
 
 목표는 작업 화면과 필요한 글을 한곳에 두고 이어서 사용하는 것입니다. 실제로 일반 브라우저나 개별 앱보다 얼마나 편리한지는 비교 사용 시험이 필요합니다.
 
-## Naru로 무엇을 할 수 있나요?
+## Plynt로 무엇을 할 수 있나요?
 
 - **진행 중인 작업을 나란히 볼 수 있습니다.** ChatGPT·Codex Cloud·Claude·Suno·Midjourney·Canva의 원본 웹 화면을 탭으로 열고, 작업별 별칭을 붙이며, 최대 4개 화면을 나란히 배치합니다. 같은 서비스를 여러 탭으로 열 수도 있습니다.
 - **선택한 글을 다음 작업의 입력칸에 넣을 수 있습니다.** 받을 칸을 먼저 지정한 뒤, 원문을 선택하고 우클릭 메뉴에서 대상 탭을 고릅니다. 입력 결과가 원문과 같은지 확인하며, 기존 내용이 있는 칸에는 덮어쓰지 않습니다.
@@ -30,15 +34,17 @@ Naru는 **진행 중인 작업을 찾느라 화면을 반복해서 넘기는 불
 
 Releases에서 **Assets**를 펼쳐 운영체제와 CPU에 맞는 파일을 받으세요. `Source code.zip`은 설치 파일이 아닌 개발 소스입니다.
 
+아래 파일명은 **현재 Plynt 소스를 빌드한 결과**의 이름입니다. 기존 릴리스의 `naru-…` 파일과 `Naru.exe`·`Naru.app`은 배포 당시 이름을 유지합니다. 이름 변경만으로 새 설치 파일이 배포되는 것은 아니므로 Releases에 실제 첨부된 파일명을 확인하세요.
+
 | 환경 | 배포 파일 | 실행 방법 |
 |---|---|---|
-| Windows x64 | `naru-…-win-x64.exe` | 설치 마법사로 설치합니다. |
-| Windows x64, 무설치 | `naru-…-win-x64.zip` | 폴더 전체를 풀고 `Naru.exe`를 실행합니다. |
-| Mac Apple Silicon | `naru-…-mac-arm64.dmg` 또는 `.zip` | DMG에서 앱을 Applications로 옮기거나 ZIP의 `Naru.app`을 옮깁니다. |
-| Mac Intel | `naru-…-mac-x64.dmg` 또는 `.zip` | Intel용 앱을 위와 같은 방식으로 사용합니다. |
-| Linux x64 | `naru-…-linux-x86_64.AppImage` | 파일에 실행 권한을 부여한 뒤 실행합니다. |
-| Debian·Ubuntu x64 | `naru-…-linux-amd64.deb` | 배포판 패키지 설치기로 설치합니다. |
-| Android 호환성 시험용 | `naru-…-android-test.apk` | 디버그 서명 시험 앱입니다. 아래 검증 한계를 확인하세요. |
+| Windows x64 | `plynt-…-win-x64.exe` | 설치 마법사로 설치합니다. |
+| Windows x64, 무설치 | `plynt-…-win-x64.zip` | 폴더 전체를 풀고 `Plynt.exe`를 실행합니다. |
+| Mac Apple Silicon | `plynt-…-mac-arm64.dmg` 또는 `.zip` | DMG에서 앱을 Applications로 옮기거나 ZIP의 `Plynt.app`을 옮깁니다. |
+| Mac Intel | `plynt-…-mac-x64.dmg` 또는 `.zip` | Intel용 앱을 위와 같은 방식으로 사용합니다. |
+| Linux x64 | `plynt-…-linux-x86_64.AppImage` | 파일에 실행 권한을 부여한 뒤 실행합니다. |
+| Debian·Ubuntu x64 | `plynt-…-linux-amd64.deb` | 배포판 패키지 설치기로 설치합니다. |
+| Android 호환성 시험용 | `plynt-…-android-test.apk` | 디버그 서명 시험 앱입니다. 아래 검증 한계를 확인하세요. |
 
 Android APK는 데스크톱과 기능이 같지 않은 별도 시험 앱입니다. 에뮬레이터에서 앱 시작과 진단 기록은 확인했지만 WebView 종료·네트워크 오류로 **길게 누르기 전달과 로그인 완료는 미검증**입니다. [Android 범위와 빌드](mobile/android/README.md) · [실제 시험 결과](docs/preview.2-validation.md)
 
@@ -47,8 +53,8 @@ Android APK는 데스크톱과 기능이 같지 않은 별도 시험 앱입니�
 Linux에서 `libfuse.so.2`가 없다는 오류가 나오면 AppImage 런타임의 추출 실행 옵션을 사용할 수 있습니다.
 
 ```sh
-chmod +x naru-0.1.0-preview.2-linux-x86_64.AppImage
-./naru-0.1.0-preview.2-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x plynt-0.1.0-preview.2-linux-x86_64.AppImage
+./plynt-0.1.0-preview.2-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 이 방법으로 Debian 13의 사용자 폴더에 둔 **0.1.0-preview.1 릴리스 AppImage**를 실행해 확인했습니다. 시스템 전체에 deb를 설치한 시험은 아닙니다. [Linux 실행 시험과 화면 증거](docs/linux-installed-test-2026-11-17.md)를 참고하세요.
@@ -83,7 +89,7 @@ chmod +x naru-0.1.0-preview.2-linux-x86_64.AppImage
 3. 탭을 더블클릭해 별칭을 정합니다. 원본 대화 제목은 바꾸지 않습니다. 상단 `멀티뷰`에서 최대 4개 탭과 배치를 선택합니다. `한 화면으로 보기`로 잠시 확대해도 멀티뷰 구성은 유지됩니다.
 4. 목적지의 **빈 텍스트 입력칸을 클릭한 다음 우클릭 → 받을 입력칸 지정 → 프롬프트·가사·스타일** 중 하나를 선택합니다.
 5. 원문에서 필요한 부분을 선택하고 **우클릭 → 다른 작업에 넣기 → 대상 탭·입력칸**을 선택합니다.
-6. 원문·줄바꿈 일치 여부와 실제 입력 결과를 확인합니다. **Naru는 메시지 전송·음악 생성·외부 게시 버튼을 자동으로 누르지 않습니다.**
+6. 원문·줄바꿈 일치 여부와 실제 입력 결과를 확인합니다. **Plynt는 메시지 전송·음악 생성·외부 게시 버튼을 자동으로 누르지 않습니다.**
 7. 반복해서 쓸 글은 **우클릭 → 복사하고 보관**을 선택합니다. `··· → 보관한 글`에서 복사하거나 지정한 칸에 다시 넣습니다.
 
 Suno의 가사와 스타일은 각각 다른 칸으로 지정하고 시험하세요. Canva는 실제 사용할 AI 기능의 프롬프트 칸을 지정하세요. 검색창에 글을 넣은 것을 디자인 편집 성공으로 판단하지 않습니다. 페이지가 이동하거나 입력 요소가 교체되면 받을 칸을 다시 지정해야 합니다.
@@ -107,10 +113,10 @@ Suno의 가사와 스타일은 각각 다른 칸으로 지정하고 시험하세
 
 작업 URL·별칭·배치와 사용자가 보관한 원문은 로컬 `workspace.json`에 저장합니다. 로그인은 Electron의 서비스 세션 저장소에서 처리합니다. 이 데이터는 진단 내보내기에 포함하지 않습니다.
 
-초기 `AI Workspace Preview` 버전과의 연속성을 위해 내부 앱 식별자와 데이터 폴더 이름을 유지했습니다. 표시 이름은 Naru이지만 기본 데이터 폴더 이름은 `AI Workspace Preview`입니다. 사용자 계정·OS에 따라 상위 경로가 달라집니다.
+초기 `AI Workspace Preview` 버전과의 연속성을 위해 내부 앱 식별자와 데이터 폴더 이름을 유지했습니다. 표시 이름은 Plynt지만 기본 데이터 폴더 이름은 `AI Workspace Preview`입니다. 사용자 계정·OS에 따라 상위 경로가 달라집니다.
 
 - **자체 계정·클라우드 동기화:** 아직 없습니다. 현재 작업 공간 하나를 PC에 저장합니다.
-- **종료 후 복원:** URL·별칭·배치를 다시 엽니다. 입력 중인 글·스크롤·생성 진행 상태는 Naru가 저장하거나 복원을 보장하지 않습니다. 서비스 자체에서 일부 초안을 복구할 수 있습니다.
+- **종료 후 복원:** URL·별칭·배치를 다시 엽니다. 입력 중인 글·스크롤·생성 진행 상태는 Plynt가 저장하거나 복원을 보장하지 않습니다. 서비스 자체에서 일부 초안을 복구할 수 있습니다.
 - **자동 입력 범위:** 받을 칸을 수동 지정합니다. iframe·새 팝업 창의 칸 지정, 자동 프롬프트 분류, 자연어 앱 명령은 지원하지 않습니다.
 - **자료 종류:** 현재는 글 전달·보관입니다. 이미지·음악·파일 전달은 아직 구현하지 않았습니다.
 - **클립보드:** 앱 밖 클립보드를 감시하지 않습니다. `복사하고 보관`을 선택한 글만 저장합니다.
@@ -143,8 +149,8 @@ Suno의 가사와 스타일은 각각 다른 칸으로 지정하고 시험하세
 Node.js **22.12 이상**이 필요하며 CI는 Node.js 24를 사용합니다.
 
 ```sh
-git clone https://github.com/leemh-dev/naru.git
-cd naru
+git clone https://github.com/leemh-dev/naru.git plynt
+cd plynt
 npm ci
 npm run setup
 npm start
@@ -192,27 +198,31 @@ docs/                   사용 기록 양식, 진단 명세, 검증 증거
 
 ## English
 
-[한국어로 돌아가기](#naru--나루) · [Download](https://github.com/leemh-dev/naru/releases) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [Report an issue](https://github.com/leemh-dev/naru/issues)
+[한국어로 돌아가기](#plynt--플린트) · [Download](https://github.com/leemh-dev/naru/releases) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [Report an issue](https://github.com/leemh-dev/naru/issues)
 
-**Naru is a desktop app that brings your AI conversations, task screens, and reusable text into one place so you can continue your work across services.**
+**Plynt is a desktop app that brings your AI conversations, task screens, and reusable text into one place so you can continue your work across services.**
 
-### Why Naru exists
+The project has been renamed from **Naru to Plynt**. Its GitHub repository is currently still `leemh-dev/naru`. Existing profile locations and app identifiers are retained; historical test reports and screenshots keep the name used at the time.
+
+[Rename and validation record, in Korean](docs/plynt-rename.md)
+
+### Why Plynt exists
 
 A single task can span several AI services. You may switch between regular ChatGPT conversations, project conversations, and Codex tasks, then open another service for a particular model. To reuse lyrics or a prompt in Suno or Canva, you have to find the source text, copy it, and locate the right destination field.
 
-Naru was created to reduce two recurring frustrations: **switching screens to find an ongoing task, and repeatedly finding and moving text between services.** The idea grew out of using multiple AI tools on a phone. The current implementation starts with a desktop preview for Windows, macOS, and Linux.
+Plynt was created to reduce two recurring frustrations: **switching screens to find an ongoing task, and repeatedly finding and moving text between services.** The idea grew out of using multiple AI tools on a phone. The current implementation starts with a desktop preview for Windows, macOS, and Linux.
 
 The goal is to keep task screens and useful text together so you can pick up where you left off. Whether this is more convenient than a regular browser or separate apps still needs comparative user testing.
 
-### What you can do with Naru
+### What you can do with Plynt
 
 - **Keep ongoing tasks in view.** Open the original websites of ChatGPT, Codex Cloud, Claude, Suno, Midjourney, and Canva in tabs. Give each task an alias and arrange up to four panels side by side or in a grid. You can open the same service in multiple tabs.
-- **Insert selected text into another task's input field.** Register the destination field, select the source text, and choose a target tab from the context menu. Naru compares the inserted text with the source and stops if the destination already contains text.
+- **Insert selected text into another task's input field.** Register the destination field, select the source text, and choose a target tab from the context menu. Plynt compares the inserted text with the source and stops if the destination already contains text.
 - **Reuse text and restore your setup.** Save selected text for later use in other tasks. When you reopen the app, it restores saved tab URLs, aliases, and panel layout.
 
 For example, keep a writing screen next to the input screen for your next task, then select only the text you want to transfer. Save recurring style instructions or writing rules in the text collection to reuse them later.
 
-This is a **preview for installation and compatibility testing**. Compatibility with each service's sign-in flow and input fields after sign-in still needs verification. Naru displays original websites; it does not run other companies' native apps inside a virtual machine.
+This is a **preview for installation and compatibility testing**. Compatibility with each service's sign-in flow and input fields after sign-in still needs verification. Plynt displays original websites; it does not run other companies' native apps inside a virtual machine.
 
 In an earlier preview, a single-line test draft was successfully transferred from a ChatGPT input field to Canva's public input field. **This does not establish support for authenticated Suno or Canva workflows, image/audio/file transfers, or synchronization between devices.** The scope and evidence are detailed below.
 
@@ -220,15 +230,17 @@ In an earlier preview, a single-line test draft was successfully transferred fro
 
 Open **Assets** on the [Releases page](https://github.com/leemh-dev/naru/releases) and choose the file for your operating system and CPU. `Source code.zip` contains source code, not an installer.
 
+The filenames below describe builds of the **current Plynt source**. Previously published releases retain their `naru-…` filenames and `Naru.exe` / `Naru.app` names. This source rename does not publish new installers; use the actual filenames attached to each release.
+
 | Platform | Release file | How to run |
 |---|---|---|
-| Windows x64 | `naru-…-win-x64.exe` | Run the installer. |
-| Windows x64, portable | `naru-…-win-x64.zip` | Extract the entire folder and run `Naru.exe`. |
-| Mac, Apple Silicon | `naru-…-mac-arm64.dmg` or `.zip` | Move the app from the DMG, or the extracted `Naru.app`, into Applications. |
-| Mac, Intel | `naru-…-mac-x64.dmg` or `.zip` | Use the Intel build with the same steps. |
-| Linux x64 | `naru-…-linux-x86_64.AppImage` | Make the file executable and run it. |
-| Debian / Ubuntu x64 | `naru-…-linux-amd64.deb` | Install using your distribution's package installer. |
-| Android compatibility test | `naru-…-android-test.apk` | A debug-signed test app; see the verification limits below. |
+| Windows x64 | `plynt-…-win-x64.exe` | Run the installer. |
+| Windows x64, portable | `plynt-…-win-x64.zip` | Extract the entire folder and run `Plynt.exe`. |
+| Mac, Apple Silicon | `plynt-…-mac-arm64.dmg` or `.zip` | Move the app from the DMG, or the extracted `Plynt.app`, into Applications. |
+| Mac, Intel | `plynt-…-mac-x64.dmg` or `.zip` | Use the Intel build with the same steps. |
+| Linux x64 | `plynt-…-linux-x86_64.AppImage` | Make the file executable and run it. |
+| Debian / Ubuntu x64 | `plynt-…-linux-amd64.deb` | Install using your distribution's package installer. |
+| Android compatibility test | `plynt-…-android-test.apk` | A debug-signed test app; see the verification limits below. |
 
 The Android APK is a separate compatibility preview, not a feature-equivalent mobile release. App startup and diagnostics were observed on the emulator, but WebView termination and network errors left **long-press transfer and completed sign-in unverified**. See the [Android scope and build instructions](mobile/android/README.md) and [test record](docs/preview.2-validation.md).
 
@@ -237,8 +249,8 @@ Only files actually attached to a release are published downloads. Use the accom
 If Linux reports that `libfuse.so.2` is missing, use the AppImage runtime's extraction option:
 
 ```sh
-chmod +x naru-0.1.0-preview.2-linux-x86_64.AppImage
-./naru-0.1.0-preview.2-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x plynt-0.1.0-preview.2-linux-x86_64.AppImage
+./plynt-0.1.0-preview.2-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 The **0.1.0-preview.1 released AppImage** was run this way from a user folder on Debian 13. This was not a system-wide deb installation test. See the [Linux runtime report and screenshots, in Korean](docs/linux-installed-test-2026-11-17.md).
@@ -258,7 +270,7 @@ The preview is **not code-signed or notarized by Apple**. OS security policies m
 | Text collection | Explicitly copy and save selected text, then reuse it in another task |
 | Diagnostics | Local logs, preview, JSON export, collection toggle, and deletion |
 
-Naru keeps up to **30 task tabs**, with up to **four panels in a multiview**. Use `멀티뷰` to choose its members explicitly. Tabs outside the group open across the whole content area; selecting a member restores the saved arrangement and divider sizes. The active tab has a subtle highlight. Text transfer activates the destination and brings its tab and input field into view. The text collection holds up to 50 items, with a limit of 50,000 characters per item or transfer.
+Plynt keeps up to **30 task tabs**, with up to **four panels in a multiview**. Use `멀티뷰` to choose its members explicitly. Tabs outside the group open across the whole content area; selecting a member restores the saved arrangement and divider sizes. The active tab has a subtle highlight. Text transfer activates the destination and brings its tab and input field into view. The text collection holds up to 50 items, with a limit of 50,000 characters per item or transfer.
 
 These screenshots show **the actual app running non-sensitive synthetic test pages**. They are not evidence of authenticated AI service workflows.
 
@@ -271,11 +283,11 @@ These screenshots show **the actual app running non-sensitive synthetic test pag
 The menu labels below are shown in Korean as they appear in the current app, with English explanations.
 
 1. Use `+` in the center or top bar to add a service or web URL. Existing private conversation URLs can be used without publishing them.
-2. Sign in yourself through each service's normal sign-in flow. Tabs for the same service share a session. Naru does not import passwords or cookies from other browsers.
+2. Sign in yourself through each service's normal sign-in flow. Tabs for the same service share a session. Plynt does not import passwords or cookies from other browsers.
 3. Double-click a tab to set its alias. This does not rename the original conversation. Use `멀티뷰` to choose up to four tabs and a layout. Maximizing one panel preserves the saved multiview.
 4. Click an **empty destination text field**, then right-click → `받을 입력칸 지정` (register receiving field) → `프롬프트`, `가사`, or `스타일` (prompt, lyrics, or style).
 5. Select the source text, then right-click → `다른 작업에 넣기` (insert into another task) → choose the target tab and field.
-6. Check the actual inserted text and the comparison result, including line breaks. **Naru does not automatically send messages, generate music, or publish content.**
+6. Check the actual inserted text and the comparison result, including line breaks. **Plynt does not automatically send messages, generate music, or publish content.**
 7. To keep text for later, right-click → `복사하고 보관` (copy and save). Open `··· → 보관한 글` (saved text) to copy it or insert it into a registered field.
 
 For Suno, register and test lyrics and style fields separately. For Canva, use the prompt field for the feature you actually intend to use. Inserting text into a search field is not proof of successful design editing. Re-register the receiving field after navigation or replacement of the input element.
@@ -289,7 +301,7 @@ Open **`··· → 진단 보고서` (diagnostic report)**, review the preview, 
 - **Included:** App, Electron, and OS versions; service type; tab number within a run; error codes; loading and transfer timing; text comparison results; character and line-break counts.
 - **Excluded:** Conversation and prompt text, private URLs, tab aliases, passwords, tokens, cookies, screenshots, service console messages, and raw error stacks.
 - Collection is enabled by default and can be disabled or cleared from the menu. Logs rotate across four files of roughly 512 KiB each.
-- Naru does not automatically interpret service error messages or sign-in success. Describe the failed step and any non-sensitive error message separately.
+- Plynt does not automatically interpret service error messages or sign-in success. Describe the failed step and any non-sensitive error message separately.
 
 [Diagnostics specification](docs/diagnostics.md) · [Test report template](docs/test-template.md) · [Diagnostic screen](docs/evidence/03-diagnostics.png). The linked documents are in Korean.
 
@@ -299,13 +311,13 @@ This repository and its Issues are public. Review reports before posting, and **
 
 Task URLs, aliases, layout, and explicitly saved text are stored locally in `workspace.json`. Sign-in sessions use Electron's service session storage. These data are not included in diagnostic exports.
 
-For continuity with the earlier `AI Workspace Preview` version, the internal app identifier and profile folder name remain unchanged. The displayed app name is Naru, but the default data folder is still named `AI Workspace Preview`; its parent location depends on your OS and user account.
+For continuity with the earlier `AI Workspace Preview` version, the internal app identifier and profile folder name remain unchanged. The displayed app name is Plynt, but the default data folder is still named `AI Workspace Preview`; its parent location depends on your OS and user account.
 
-- **Naru accounts and cloud sync:** Not implemented. One workspace is stored on this computer.
-- **Restoration after exit:** URLs, aliases, and layout reopen. Naru does not save or guarantee restoration of unsent drafts, scroll positions, or generation progress. Individual services may restore some drafts themselves.
+- **Plynt accounts and cloud sync:** Not implemented. One workspace is stored on this computer.
+- **Restoration after exit:** URLs, aliases, and layout reopen. Plynt does not save or guarantee restoration of unsent drafts, scroll positions, or generation progress. Individual services may restore some drafts themselves.
 - **Input automation:** Receiving fields must be registered manually. Registration inside iframes or new popup windows, automatic prompt classification, and natural-language app commands are not supported.
 - **Content types:** Text transfer and storage only. Image, music, and file transfer are not implemented.
-- **Clipboard:** Naru does not monitor the clipboard outside the app. Only text explicitly saved with `복사하고 보관` is stored.
+- **Clipboard:** Plynt does not monitor the clipboard outside the app. Only text explicitly saved with `복사하고 보관` is stored.
 - **Layout:** Horizontal scrolling to enforce a minimum panel width in narrow windows, and layout undo, are not implemented. Switch to a single panel when needed.
 - **Permissions:** Additional permissions such as microphone and camera access are not enabled in this preview.
 - **Platforms:** The main app targets desktop. A separate [Android compatibility preview](mobile/android/README.md) is available in source. It is not feature-equivalent to the desktop app; mobile multiview and an iOS app are not implemented.
@@ -326,7 +338,7 @@ For continuity with the earlier `AI Workspace Preview` version, the internal app
 | Authenticated ChatGPT → Suno / Canva transfer | **Unverified** |
 | Fewer actions or less time than a regular browser; market demand | **Unverified** |
 
-The [Linux release runtime report](docs/linux-installed-test-2026-11-17.md) records public-page tests and their limits. The [initial test record](docs/build-results.md) preserves results from before the Naru name was chosen. Both reports are in Korean. Successful implementation and packaging alone do not establish service compatibility or product value.
+The [Linux release runtime report](docs/linux-installed-test-2026-11-17.md) records public-page tests and their limits. The [initial test record](docs/build-results.md) preserves results from the initial AI Workspace Preview version. Both reports are in Korean. Successful implementation and packaging alone do not establish service compatibility or product value.
 
 See the [0.1.0-preview.2 change and validation record, in Korean](docs/preview.2-validation.md) for tab behavior and Android test scope.
 
@@ -335,8 +347,8 @@ See the [0.1.0-preview.2 change and validation record, in Korean](docs/preview.2
 Requires Node.js **22.12 or later**. CI uses Node.js 24.
 
 ```sh
-git clone https://github.com/leemh-dev/naru.git
-cd naru
+git clone https://github.com/leemh-dev/naru.git plynt
+cd plynt
 npm ci
 npm run setup
 npm start

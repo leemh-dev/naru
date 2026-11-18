@@ -32,12 +32,16 @@ run([tools / 'd8', '--min-api', '26', '--lib', android, '--output', out / 'dex',
 with zipfile.ZipFile(out / 'base.apk', 'a') as archive:
     for p in (out / 'dex').glob('*.dex'): archive.write(p, p.name)
 run([tools / 'zipalign', '-f', '4', out / 'base.apk', out / 'aligned.apk'])
-key = Path(os.environ.get('NARU_ANDROID_DEBUG_KEY', '/workspace/naru-android-test/naru-debug.keystore'))
+# Reuse an existing preview key so the display-name change alone does not break
+# local APK updates. The old environment variable remains a compatible fallback.
+legacy_key = Path('/workspace/naru-android-test/naru-debug.keystore')
+default_key = legacy_key if legacy_key.exists() else Path('/workspace/plynt-android-test/plynt-debug.keystore')
+key = Path(os.environ.get('PLYNT_ANDROID_DEBUG_KEY') or os.environ.get('NARU_ANDROID_DEBUG_KEY') or default_key)
 key.parent.mkdir(parents=True, exist_ok=True)
 if not key.exists():
-    run(['keytool', '-genkeypair', '-keystore', key, '-storepass', 'android', '-keypass', 'android', '-alias', 'androiddebugkey', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '10000', '-dname', 'CN=Naru Android Debug,O=Naru,C=US'])
-version = json.loads((root / 'package.json').read_text())['version']
-apk = out / f'naru-{version}-android-test.apk'
+    run(['keytool', '-genkeypair', '-keystore', key, '-storepass', 'android', '-keypass', 'android', '-alias', 'androiddebugkey', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '10000', '-dname', 'CN=Plynt Android Debug,O=Plynt,C=US'])
+manifest = json.loads((root / 'package.json').read_text())
+apk = out / f"{manifest['name']}-{manifest['version']}-android-test.apk"
 run([tools / 'apksigner', 'sign', '--ks', key, '--ks-pass', 'pass:android', '--key-pass', 'pass:android', '--out', apk, out / 'aligned.apk'])
 run([tools / 'apksigner', 'verify', apk])
 print(apk)

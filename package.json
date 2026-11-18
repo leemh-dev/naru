@@ -1,11 +1,11 @@
 {
-  "name": "naru",
-  "productName": "Naru",
+  "name": "plynt",
+  "productName": "Plynt",
   "version": "0.1.0-preview.2",
   "userDataDirectory": "AI Workspace Preview",
   "private": true,
-  "description": "Naru: a desktop workspace for AI services with private local diagnostics",
-  "author": "Naru contributors",
+  "description": "Plynt: a desktop workspace for AI services with private local diagnostics",
+  "author": "Plynt contributors",
   "homepage": "https://github.com/leemh-dev/naru",
   "repository": {
     "type": "git",
@@ -68,7 +68,7 @@
         "deb"
       ],
       "category": "Office",
-      "maintainer": "Naru contributors"
+      "maintainer": "Plynt contributors"
     }
   }
 }

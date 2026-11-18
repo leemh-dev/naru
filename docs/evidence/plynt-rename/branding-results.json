@@ -1,0 +1,18 @@
+{
+  "brand": {
+    "title": "Plynt",
+    "label": "PLYNT"
+  },
+  "windowTitle": "Plynt",
+  "browserBridge": {
+    "registered": "ok",
+    "inserted": "ok",
+    "inspected": {
+      "status": "exact",
+      "expectedNewlines": 1,
+      "actualNewlines": 1
+    },
+    "protected": "occupied"
+  },
+  "scope": "Offline Linux fixture. Temporary profile. Android browser export tested in desktop Chromium, not an Android runtime test. Container required a fixture-only no-sandbox wrapper; app and release security settings unchanged."
+}

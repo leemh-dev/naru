@@ -1,0 +1,26 @@
+[
+  {
+    "name": "restart-restores-five-tabs",
+    "passed": true
+  },
+  {
+    "name": "restart-restores-local-alias",
+    "passed": true
+  },
+  {
+    "name": "restart-restores-selected-material",
+    "passed": true
+  },
+  {
+    "name": "restart-does-not-pretend-to-restore-fields",
+    "passed": true
+  },
+  {
+    "name": "restart-keeps-standalone-presentation",
+    "passed": true
+  },
+  {
+    "name": "restart-keeps-four-members",
+    "passed": true
+  }
+]

@@ -1,4 +1,6 @@
-# Naru Android 호환성 시험 앱
+# Plynt Android 호환성 시험 앱
+
+표시 이름은 Naru에서 Plynt로 변경했습니다. 기존 설치의 로컬 작업·WebView 데이터에 계속 접근할 수 있도록 Android 패키지 ID와 Java 경로는 `dev.naru.mobile.preview`로 유지합니다. APK 업데이트에는 기존 설치와 같은 서명 키도 필요합니다.
 
 Android WebView에서 실제 서비스 화면과 **길게 누른 글 선택 → 다른 탭으로 넣기**를 검증하기 위한 별도 시험 앱입니다. 완성된 모바일 제품이나 데스크톱과 기능이 같은 앱으로 소개하지 않습니다. iOS 앱은 포함하지 않습니다.
 
@@ -33,14 +35,16 @@ JDK 17 이상, Node.js, Python 3, 공식 Android SDK의 `platforms;android-35`�
 
 ```sh
 export ANDROID_SDK_ROOT=/path/to/android-sdk
-export NARU_ANDROID_DEBUG_KEY=/path/outside/repository/naru-debug.keystore
+export PLYNT_ANDROID_DEBUG_KEY=/path/outside/repository/plynt-debug.keystore
 python mobile/android/build.py
 ```
 
-`dist/android/naru-<version>-android-test.apk`가 생성됩니다. 빌드 스크립트는 번들에 공통 입력 코드와 서비스 목록을 복사하고, SDK의 aapt2·javac·d8·zipalign·apksigner로 빌드·검증합니다. 서명 키는 저장소 밖에 유지하고 커밋하지 마세요.
+`dist/android/plynt-<version>-android-test.apk`가 생성됩니다. 빌드 스크립트는 번들에 공통 입력 코드와 서비스 목록을 복사하고, SDK의 aapt2·javac·d8·zipalign·apksigner로 빌드·검증합니다. 서명 키는 저장소 밖에 유지하고 커밋하지 마세요.
+
+기존 서명 키를 `PLYNT_ANDROID_DEBUG_KEY`에 지정하세요. 이전 `NARU_ANDROID_DEBUG_KEY` 설정도 호환되며, 둘 다 지정하면 새 설정을 우선합니다. 환경 변수가 없으면 기존 `/workspace/naru-android-test/naru-debug.keystore`를 우선 사용하고, 없을 때만 `/workspace/plynt-android-test/plynt-debug.keystore`를 만듭니다. CI의 임시 키는 기존 설명대로 빌드마다 달라질 수 있습니다.
 
 ```sh
-adb install --no-incremental -r dist/android/naru-0.1.0-preview.2-android-test.apk
+adb install --no-incremental -r dist/android/plynt-0.1.0-preview.2-android-test.apk
 adb shell am start -n dev.naru.mobile.preview/.MainActivity
 ```
 
