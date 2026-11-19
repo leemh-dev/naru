@@ -41,6 +41,8 @@ default_key = legacy_key if legacy_key.exists() else Path('/workspace/plynt-andr
 key = Path(os.environ.get('PLYNT_ANDROID_DEBUG_KEY') or os.environ.get('NARU_ANDROID_DEBUG_KEY') or default_key)
 key.parent.mkdir(parents=True, exist_ok=True)
 if not key.exists():
+    if os.environ.get('PLYNT_INIT_DEBUG_KEY') != '1':
+        raise SystemExit('Signing key missing. Restore the retained key, or explicitly set PLYNT_INIT_DEBUG_KEY=1 for a new test-only identity. Never replace a published signing identity silently.')
     run(['keytool', '-genkeypair', '-keystore', key, '-storepass', 'android', '-keypass', 'android', '-alias', 'androiddebugkey', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '10000', '-dname', 'CN=Plynt Android Debug,O=Plynt,C=US'])
 manifest = json.loads((root / 'package.json').read_text())
 apk = out / f"{manifest['name']}-{manifest['version']}-android-test.apk"

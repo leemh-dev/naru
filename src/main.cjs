@@ -20,19 +20,19 @@ function saveNow(){
   try{libraryStore.checkpoint(library,state);libraryStore.save(libraryFile,library);workspace.save(stateFile,state);lastSaved=new Date().toISOString();return true;}catch{diag?.log('app.error',{reason:'storage'});notice('워크스페이스 저장 실패 · 원본을 보존합니다.');return false;}
 }
 function persist(){clearTimeout(persistTimer);persistTimer=setTimeout(saveNow,150);}
-function stage(text,source){if(typeof text!=='string'||!text.length||text.length>50000){notice('전달할 텍스트가 없거나 5만 자를 넘었습니다.');return false;}pending={text,source,target:null};push();return true;}
+function stage(text,source){if(busy){notice('입력 결과를 확인 중입니다. 잠시 후 다시 시도하세요.');return false;}if(typeof text!=='string'||!text.length||text.length>50000){notice('전달할 텍스트가 없거나 5만 자를 넘었습니다.');return false;}pending={text,source,target:null};push();return true;}
 function openSend(text,source){if(stage(text,source))win.webContents.send('open-send');}
 async function chooseDestination(id,field){
-  if(!pending||!listed(id))return false;pending.target=id;modal=false;reveal(id);await focusDisplayed(id);
-  const t=views.get(id);if(field&&t.fields.has(field))return await transfer(pending.text,id,field);
+  if(!pending||!listed(id)||busy)return false;const material=pending;pending.target=id;modal=false;reveal(id);await focusDisplayed(id);
+  const t=views.get(id);if(!t||pending!==material)return false;if(field&&t.fields.has(field))return await transfer(pending.text,id,field);
   if(!field&&t.fields.size===1)return await transfer(pending.text,id,[...t.fields][0]);
   notice('받을 입력칸을 클릭한 뒤 상단의 ‘여기에 넣기’를 누르세요.');push();return true;
 }
 async function insertPending(field='prompt'){
-  if(!pending||!listed(pending.target))return false;const id=pending.target,t=views.get(id);await register(id,field,t.view.webContents.mainFrame);if(t.fields.has(field))return await transfer(pending.text,id,field);return false;
+  if(!pending||!listed(pending.target))return false;const material=pending,id=pending.target,t=views.get(id);if(!t)return false;await register(id,field,t.view.webContents.mainFrame);if(pending===material&&t.fields.has(field))return await transfer(material.text,id,field);return false;
 }
 function switchWorkspace(id){
- if(!library.entries.some(e=>e.id===id)||!saveNow())return false;
+ if(busy||!library.entries.some(e=>e.id===id)||!saveNow())return false;
  for(const t of views.values()){win.contentView.removeChildView(t.view);t.view.webContents.close();}views.clear();pending=null;library.current=id;state=workspace.normalize(library.entries.find(e=>e.id===id).state);for(const tab of state.tabs)create(tab);push();return true;
 }
 function snapshot(){return {...state,revision,lastSaved,storageBlocked,workspaceId:library.current,workspaces:library.entries.map(e=>({id:e.id,name:e.state.name,count:e.id===library.current?state.tabs.length:e.state.tabs.length,updatedAt:e.updatedAt})),pending:pending?{preview:pending.text.slice(0,120),chars:pending.text.length,target:pending.target}:null,clips:state.clips.map(c=>({id:c.id,preview:c.text.slice(0,100),chars:c.text.length})),services:workspace.SERVICES,categories:workspace.CATEGORIES,fixtureMode,diagnosticError:diag?.storageError||false,tabs:state.tabs.map(t=>({...t,registered:[...(views.get(t.id)?.fields||[])],loading:views.get(t.id)?.loading||false}))};}
@@ -117,7 +117,7 @@ function add(service,url){
   const tab={id:randomUUID(),service:workspace.SERVICES[service]?service:'web',url:workspace.restorableURL(valid)||new URL(valid).origin+'/',alias:info.name};state.tabs.push(tab);create(tab);if(tab.url!==valid)void views.get(tab.id).view.webContents.loadURL(valid).catch(()=>{});reveal(tab.id);return tab.id;
 }
 function close(id){
-  if(!listed(id))return;logFor('tab.close',id);const t=views.get(id);win.contentView.removeChildView(t.view);t.view.webContents.close();views.delete(id);navigation.remove(state,id);push();
+  if(!listed(id))return;logFor('tab.close',id);const t=views.get(id);win.contentView.removeChildView(t.view);t.view.webContents.close();views.delete(id);if(pending?.target===id)pending.target=null;navigation.remove(state,id);push();
 }
 function bounds(payload){
   if(!payload||payload.revision!==revision||!Array.isArray(payload.boxes))return;const data=payload.boxes,enabled=new Set(visible());const [width,height]=win.getContentSize();
@@ -135,8 +135,8 @@ async function action(type,data={}){
       case 'send-answers':{const t=views.get(state.active);if(!t||(!fixtureMode&&!/^https:\/\/chatgpt\.com(?:\/|$)/.test(t.view.webContents.getURL())))return [];answerSource=state.active;answerCache=await t.view.webContents.executeJavaScriptInIsolatedWorld(WORLD,[{code:input.script('answers')}]);return answerCache.map((a,index)=>({index,preview:a.text.slice(0,180)}));}
       case 'send-answer':return answerCache[data.index]?stage(answerCache[data.index].text,answerSource):false;
       case 'send-get':return pending?{text:pending.text,source:pending.source,target:pending.target}:null;
-      case 'send-target':return chooseDestination(data.id,data.field);
-      case 'send-insert':return insertPending(['prompt','lyrics','style'].includes(data.field)?data.field:'prompt');
+      case 'send-target':return await chooseDestination(data.id,data.field);
+      case 'send-insert':return await insertPending(['prompt','lyrics','style'].includes(data.field)?data.field:'prompt');
       case 'send-cancel':pending=null;push();return true;
       case 'send-save':if(pending)clip(pending.text);return true;
       case 'clip-stage':{const c=state.clips.find(c=>c.id===data.id);return c?stage(c.text,null):false;}

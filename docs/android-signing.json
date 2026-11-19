@@ -1,0 +1,7 @@
+{
+  "applicationId": "dev.naru.mobile.preview",
+  "retainedCertificateSha256": "8b8842f6837bc93848cd7311f18c02401363a1a3d69f1aa48773f17f4efd16f2",
+  "firstReleaseUsingRetainedKey": "0.1.0-preview.5",
+  "type": "debug compatibility preview, not a production Play signing identity",
+  "privateKey": "Kept outside the repository; never bundled or uploaded with diagnostics"
+}

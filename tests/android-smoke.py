@@ -25,6 +25,14 @@ def tap(label,contains=False):
    x,y=bounds(n);shell('input','tap',str(x),str(y));time.sleep(.4);return
   time.sleep(.4)
  raise AssertionError('Missing UI action: '+label)
+def open_menu(action,expected):
+ for attempt in range(3):
+  tap(action)
+  for _ in range(3):
+   n=node(expected)
+   if n is not None:return n
+   time.sleep(.5)
+ raise AssertionError('Menu did not open: '+expected)
 def shot(name):
  (out/(name+'.png')).write_bytes(subprocess.check_output(['adb','exec-out','screencap','-p']))
 def connect():
@@ -76,13 +84,13 @@ def set_name(text):
  tree=dump();n=next(n for n in tree.iter('node') if n.attrib.get('class')=='android.widget.EditText');x,y=bounds(n);shell('input','tap',str(x),str(y));shell('input','keyevent','KEYCODE_MOVE_END');shell('input','keyevent','--longpress','KEYCODE_DEL')
  # Select all using native key shortcut; synthetic ASCII test name only.
  shell('input','keycombination','113','29');shell('input','text',text.replace(' ','%s'));shell('input','keyevent','4')
-def workspaces():tap('···');tap('워크스페이스')
+def workspaces():open_menu('···','워크스페이스');open_menu('워크스페이스','워크스페이스 이름')
 try:
  subprocess.run(['adb','install','-r',sys.argv[1]],check=True,stdout=subprocess.DEVNULL);shell('pm','clear',APP);shell('am','start','-W','-n',APP+'/.MainActivity','--ez','test_fixtures','true');time.sleep(2);pages=connect();check('android-two-real-webviews-render',len(pages)==2)
- tap('＋');check('all-category-default',node('분류 All').attrib.get('selected')=='true');tap('분류 음악');tap('분류 이미지');check('multiple-categories-selected',node('분류 음악').attrib.get('selected')=='true' and node('분류 이미지').attrib.get('selected')=='true');check('google-pinned-above-results',node('브라우저 · Google') is not None);shot('01-picker');tap('분류 All');check('all-clears-individual-categories',node('분류 음악').attrib.get('selected')!='true');tap('닫기')
+ opened=open_menu('＋','분류 All');check('all-category-default',opened.attrib.get('selected')=='true');tap('분류 음악');tap('분류 이미지');check('multiple-categories-selected',node('분류 음악').attrib.get('selected')=='true' and node('분류 이미지').attrib.get('selected')=='true');check('google-pinned-above-results',node('브라우저 · Google') is not None);shot('01-picker');tap('분류 All');check('all-clears-individual-categories',node('분류 음악').attrib.get('selected')!='true');tap('닫기')
  source=active_page();tap_dom(source,'#sample',long=True);selected=js(source,'window.getSelection().toString()');check('native-long-press-selects-text',bool(selected));tap_selection_action(source);check('unregistered-tab-listed-in-native-chooser',node('입력칸 선택 필요',True) is not None);shot('02-destinations');tap('입력칸 선택 필요',True);target=active_page();tap_dom(target,'#prompt');tap('여기에 넣기');time.sleep(.8);check('native-selection-transfer-exact',js(target,'document.querySelector("#prompt").value')==selected)
- js(target,'document.querySelector("#prompt").value=""');tap_dom(target,'#copy');tap('↗');tap('복사한 글 보내기');check('clipboard-preview-has-complete-text',node('Plynt mobile test',True) is not None);tap('최근 ·',True);time.sleep(.8);check('clipboard-transfer-preserves-newlines',js(target,'document.querySelector("#prompt").value')=='Plynt mobile test\nSecond line');shot('03-transfer')
- tap('↗');tap('복사한 글 보내기');tap('최근 ·',True);time.sleep(.6);check('existing-draft-is-preserved',js(target,'document.querySelector("#prompt").value')=='Plynt mobile test\nSecond line');tap('취소')
+ js(target,'document.querySelector("#prompt").value=""');tap_dom(target,'#copy');open_menu('↗','복사한 글 보내기');open_menu('복사한 글 보내기','대상 탭 선택');check('clipboard-preview-has-complete-text',node('Plynt mobile test',True) is not None);tap('최근 ·',True);time.sleep(.8);check('clipboard-transfer-preserves-newlines',js(target,'document.querySelector("#prompt").value')=='Plynt mobile test\nSecond line');shot('03-transfer')
+ open_menu('↗','복사한 글 보내기');open_menu('복사한 글 보내기','대상 탭 선택');tap('최근 ·',True);time.sleep(.6);check('existing-draft-is-preserved',js(target,'document.querySelector("#prompt").value')=='Plynt mobile test\nSecond line');tap('취소')
  tap('↗');tap('ChatGPT 답변 가져오기 · 시험');check('whole-assistant-answer-available-without-selection',node('Plynt mobile test',True) is not None);tap('닫기')
  js(target,"document.cookie='plynt_fixture=synthetic; Max-Age=86400; Path=/; Secure; SameSite=Lax';localStorage.setItem('plynt_fixture','synthetic')")
  workspaces();set_name('Mobile QA');tap('현재 작업 저장');workspaces();check('workspace-name-saved',node('Mobile QA',True) is not None);set_name('Empty QA');tap('새 빈 작업');check('new-workspace-has-no-webview',not any(n.attrib.get('class')=='android.webkit.WebView' for n in dump().iter('node')));workspaces();tap('Mobile QA · 2개 탭',True);connect();workspaces();shot('04-workspaces');tap('닫기')

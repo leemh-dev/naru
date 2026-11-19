@@ -1,6 +1,11 @@
 name: Plynt installers
 on:
   workflow_dispatch:
+    inputs:
+      android_only:
+        description: Run only the native Android checks
+        type: boolean
+        default: false
   push:
     tags: ['v*']
   pull_request:
@@ -9,6 +14,7 @@ permissions:
   contents: read
 jobs:
   build:
+    if: inputs.android_only != true
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -79,6 +85,7 @@ jobs:
       - name: Build compatibility APK
         env:
           PLYNT_ANDROID_DEBUG_KEY: ${{ runner.temp }}/plynt-debug.keystore
+          PLYNT_INIT_DEBUG_KEY: 1
         run: ANDROID_SDK_ROOT="$ANDROID_HOME" python mobile/android/build.py
       - name: Prepare Android UI test
         run: |

@@ -153,9 +153,8 @@
       "file": "assets/services/replit.png"
     },
     "bolt": {
-      "source": "https://cdn.simpleicons.org/stackblitz",
-      "file": "assets/services/bolt.png",
-      "license": "Simple Icons CC0; brand rights remain with their owners"
+      "source": "https://bolt.new/static/favicon-96x96.png",
+      "file": "assets/services/bolt.png"
     },
     "lovable": {
       "source": "https://lovable.dev/favicon.ico",
