@@ -1,0 +1,17 @@
+{
+  "scope": "Synthetic workspace and synthetic cookie only; no real sign-in",
+  "checks": [
+    {
+      "name": "named-workspace-restores-on-process-restart",
+      "passed": true
+    },
+    {
+      "name": "recent-target-restores",
+      "passed": true
+    },
+    {
+      "name": "normal-persistent-session-cookie-restores",
+      "passed": true
+    }
+  ]
+}

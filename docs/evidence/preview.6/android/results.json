@@ -1,0 +1,109 @@
+{
+  "scope": "Real Android emulator, native touch and synthetic HTTPS fixture only; no real service sign-in",
+  "android": "15",
+  "model": "Android SDK built for x86_64",
+  "abi": "x86_64",
+  "webview": "124.0.6367.219",
+  "checks": [
+    {
+      "name": "android-two-real-webviews-render",
+      "passed": true
+    },
+    {
+      "name": "all-category-default",
+      "passed": true
+    },
+    {
+      "name": "multiple-categories-selected",
+      "passed": true
+    },
+    {
+      "name": "google-pinned-above-results",
+      "passed": true
+    },
+    {
+      "name": "all-clears-individual-categories",
+      "passed": true
+    },
+    {
+      "name": "native-long-press-selects-text",
+      "passed": true
+    },
+    {
+      "name": "unregistered-tab-listed-in-native-chooser",
+      "passed": true
+    },
+    {
+      "name": "native-selection-transfer-exact",
+      "passed": true
+    },
+    {
+      "name": "clipboard-preview-has-complete-text",
+      "passed": true
+    },
+    {
+      "name": "clipboard-transfer-preserves-newlines",
+      "passed": true
+    },
+    {
+      "name": "existing-draft-is-preserved",
+      "passed": true
+    },
+    {
+      "name": "whole-assistant-answer-available-without-selection",
+      "passed": true
+    },
+    {
+      "name": "workspace-name-saved",
+      "passed": true
+    },
+    {
+      "name": "new-workspace-has-no-webview",
+      "passed": true
+    },
+    {
+      "name": "phone-keeps-multiview-hidden",
+      "passed": true
+    },
+    {
+      "name": "leading-brand-replaces-overflow-menu",
+      "passed": true
+    },
+    {
+      "name": "sidebar-back-preserves-live-draft-scroll",
+      "passed": true
+    },
+    {
+      "name": "inactive-rename-keeps-current-and-tab-data",
+      "passed": true
+    },
+    {
+      "name": "rename-does-not-reload-webview",
+      "passed": true
+    },
+    {
+      "name": "cancel-keeps-name",
+      "passed": true
+    },
+    {
+      "name": "workspace-tabs-survive-process-restart",
+      "passed": true
+    },
+    {
+      "name": "synthetic-login-cookie-survives-restart",
+      "passed": true
+    },
+    {
+      "name": "synthetic-web-storage-survives-restart",
+      "passed": true
+    },
+    {
+      "name": "named-current-workspace-survives-restart",
+      "passed": true
+    },
+    {
+      "name": "diagnostics-exclude-text-and-workspace-names",
+      "passed": true
+    }
+  ]
+}

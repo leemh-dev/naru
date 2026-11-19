@@ -15,10 +15,10 @@
 
 | 항목 | 결과 |
 |---|---|
-| Linux 새 기능·회귀 검사 | 30개 + 재시작 3개 통과 |
+| Linux 새 기능·회귀 검사 | 30개 + 재시작 3개 및 기존 탭·배치·분류 50개 통과 |
 | Android 휴대폰 사이드바·이름 변경·복원 | 25개 통과, 최종 태그 재확인 예정 |
-| Windows·Mac 최종 검사 | 진행 중 |
-| Android 태블릿 최종 검사 | 진행 중 |
+| Windows·Mac 새 기능·회귀 검사 | 각 30개 + 재시작 3개 통과, 최종 태그 재확인 예정 |
+| Android 태블릿 기본 검사 | 11개 통과. 입력 보호·2/3개 자동 배치의 추가 검사 진행 중 |
 | 실제 AI 서비스 로그인 후 입력 | 미검증 |
 | 소개 페이지 | 정적 HTML·로컬 링크·자산 검사 통과. 브라우저 제어 경로 부재로 시각 QA 미실행. Pages 활성화 관리 권한 요청 403 |
 
@@ -39,3 +39,8 @@
 - [Linux 30개 결과](evidence/preview.6/linux/features-results.json), [재실행 3개](evidence/preview.6/linux/features-restore-results.json).
 
 검사 원본은 합성 자료만 공개합니다. 진단 로그에는 워크스페이스 이름·주소·대화·쿠키가 들어가지 않는 것도 검사합니다.
+
+- [Windows 30개](evidence/preview.6/windows/features-results.json), [재시작 3개](evidence/preview.6/windows/features-restore-results.json).
+- [macOS arm64 30개](evidence/preview.6/macos/features-results.json), [재시작 3개](evidence/preview.6/macos/features-restore-results.json).
+- [Android 사이드바](evidence/preview.6/android/05-sidebar.png), [이름 변경](evidence/preview.6/android/06-rename.png), [휴대폰 결과](evidence/preview.6/android/results.json).
+- [태블릿 2×2](evidence/preview.6/android-tablet/01-tablet-grid.png), [좌우 4열](evidence/preview.6/android-tablet/03-tablet-columns.png), [세로 화면](evidence/preview.6/android-tablet/04-tablet-portrait.png), [태블릿 결과](evidence/preview.6/android-tablet/results.json).

@@ -1,0 +1,128 @@
+{
+  "scope": "Native Electron synthetic pages only; actual authenticated services not tested",
+  "platform": "win32",
+  "arch": "x64",
+  "electron": "45.3.3",
+  "checks": [
+    {
+      "name": "site-copy-button-writes-system-clipboard",
+      "passed": true
+    },
+    {
+      "name": "site-cannot-read-system-clipboard",
+      "passed": true
+    },
+    {
+      "name": "background-site-cannot-overwrite-clipboard",
+      "passed": true
+    },
+    {
+      "name": "clipboard-preview-preserves-text",
+      "passed": true
+    },
+    {
+      "name": "unregistered-tabs-are-listed",
+      "passed": true
+    },
+    {
+      "name": "target-activated-before-field-registration",
+      "passed": true
+    },
+    {
+      "name": "pending-action-has-visible-space-above-webview",
+      "passed": true
+    },
+    {
+      "name": "touch-field-then-insert-completes-exactly",
+      "passed": true
+    },
+    {
+      "name": "successful-transfer-clears-pending-and-remembers-destination",
+      "passed": true
+    },
+    {
+      "name": "existing-draft-protected-and-material-retained",
+      "passed": true
+    },
+    {
+      "name": "assistant-answer-extracted-without-block-selection",
+      "passed": true
+    },
+    {
+      "name": "answer-preview-preserves-lines",
+      "passed": true
+    },
+    {
+      "name": "streaming-answer-is-not-offered",
+      "passed": true
+    },
+    {
+      "name": "multiple-categories-select-union-without-duplicates",
+      "passed": true
+    },
+    {
+      "name": "google-remains-first-shortcut",
+      "passed": true
+    },
+    {
+      "name": "catalog-icons-bundled",
+      "passed": true
+    },
+    {
+      "name": "all-resets-filter",
+      "passed": true
+    },
+    {
+      "name": "save-as-copies-work-with-new-workspace-id",
+      "passed": true
+    },
+    {
+      "name": "new-workspace-is-empty",
+      "passed": true
+    },
+    {
+      "name": "switch-restores-tabs-and-recent-destinations",
+      "passed": true
+    },
+    {
+      "name": "named-workspaces-visible",
+      "passed": true
+    },
+    {
+      "name": "leading-brand-opens-sidebar-and-replaces-overflow",
+      "passed": true
+    },
+    {
+      "name": "native-multiview-leaves-room-for-sidebar",
+      "passed": true
+    },
+    {
+      "name": "inactive-rename-keeps-current-workspace-and-webcontents",
+      "passed": true
+    },
+    {
+      "name": "sidebar-and-rename-preserve-draft-scroll",
+      "passed": true
+    },
+    {
+      "name": "blank-name-stays-open-and-does-not-mutate",
+      "passed": true
+    },
+    {
+      "name": "rename-cancel-preserves-name",
+      "passed": true
+    },
+    {
+      "name": "current-rename-keeps-live-state-and-layout",
+      "passed": true
+    },
+    {
+      "name": "close-sidebar-restores-panel-width",
+      "passed": true
+    },
+    {
+      "name": "diagnostics-exclude-material-and-workspace-names",
+      "passed": true
+    }
+  ]
+}
