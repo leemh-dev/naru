@@ -1,0 +1,84 @@
+name: Publish retained-key Android APK
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tested release tag
+        required: true
+        type: string
+      source_run:
+        description: Successful installer workflow run for that tag
+        required: true
+        type: string
+      apk_sha256:
+        description: SHA-256 of the locally signed public APK
+        required: true
+        type: string
+      patch_base64:
+        description: BSDIFF patch from CI APK to signed public APK (never a private key)
+        required: true
+        type: string
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ inputs.tag }}
+      SOURCE_RUN: ${{ inputs.source_run }}
+      EXPECTED_SHA: ${{ inputs.apk_sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+      - name: Require a successful build of the exact release commit
+        run: |
+          python - <<'PY'
+          import json,os,subprocess,re
+          assert re.fullmatch(r'[0-9]+',os.environ['SOURCE_RUN'])
+          assert re.fullmatch(r'[0-9a-f]{64}',os.environ['EXPECTED_SHA'])
+          version=json.load(open('package.json'))['version']
+          assert os.environ['TAG']=='v'+version
+          run=json.loads(subprocess.check_output(['gh','api',f"repos/{os.environ['GH_REPO']}/actions/runs/{os.environ['SOURCE_RUN']}"]))
+          assert run['conclusion']=='success' and run['path']=='.github/workflows/build.yml'
+          assert run['head_sha']==subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: installers-android
+          path: ci-apk
+          run-id: ${{ inputs.source_run }}
+          github-token: ${{ github.token }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Prepare public APK reconstruction tools
+        run: |
+          python -m pip install bsdiff4==1.2.6
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "build-tools;35.0.0"
+      - name: Reconstruct only the signed public APK and verify its digest
+        env:
+          APK_PATCH: ${{ inputs.patch_base64 }}
+        run: |
+          python - <<'PY'
+          import os,json,base64,hashlib,bsdiff4
+          from pathlib import Path
+          patch=base64.b64decode(os.environ['APK_PATCH'],validate=True)
+          assert len(patch)<=48000 and patch[:8]==b'BSDIFF40'
+          size=int.from_bytes(patch[24:32],'little')
+          assert 0<size<=16*1024*1024
+          source=list(Path('ci-apk').glob('*.apk'));assert len(source)==1
+          apk=bsdiff4.patch(source[0].read_bytes(),patch)
+          assert hashlib.sha256(apk).hexdigest()==os.environ['EXPECTED_SHA']
+          version=json.load(open('package.json'))['version']
+          output=Path('dist/android')/f'plynt-{version}-android-test.apk'
+          output.parent.mkdir(parents=True,exist_ok=True);output.write_bytes(apk)
+          print('Public APK reconstructed; SHA-256 matches the locally signed file.')
+          PY
+      - name: Verify retained certificate, publish APK and refresh checksums
+        run: ANDROID_SDK_ROOT="$ANDROID_HOME" python scripts/publish-android-preview.py

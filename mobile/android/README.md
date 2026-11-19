@@ -67,3 +67,16 @@ python scripts/publish-android-preview.py
 ```
 
 이 앱은 디버그 서명·WebView 디버깅이 켜진 시험용입니다. 실제 계정 인증 완료나 모든 서비스 입력 호환성을 보장하지 않습니다. 정상 인증 외의 우회는 하지 않습니다.
+
+## 직접 업로드 인증이 제한된 환경
+
+로컬 `gh release upload`가 업로드 호스트에서 401을 반환하는 환경에서는 [Android 게시 워크플로](../../.github/workflows/publish-android.yml)를 사용합니다. **개인 키를 보내지 않습니다.** 성공한 동일 태그의 CI APK와 로컬에서 서명한 공개 APK 사이의 작은 BSDIFF 차이만 전달합니다. 워크플로는 원본 실행의 성공·커밋, 복원된 APK의 SHA-256, 보관 인증서 지문을 모두 검사한 뒤 게시합니다.
+
+`bsdiff4==1.2.6` 설치 후 CI의 `installers-android` 아티팩트 APK를 다운로드하고 다음 입력을 준비합니다.
+
+```sh
+python scripts/prepare-android-handoff.py --ci-apk /tmp/ci.apk --source-run RUN_ID --output /tmp/android-publish.json
+gh api repos/OWNER/REPO/actions/workflows/publish-android.yml/dispatches --input /tmp/android-publish.json
+```
+
+APK·차이 파일·입력 JSON은 저장소에 커밋하지 않습니다. 이 경로도 APK 자체에 포함된 공개 서명만 전달하며 서명 개인 키를 CI에 저장하지 않습니다.
