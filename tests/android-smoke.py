@@ -9,7 +9,14 @@ def check(name,value):
  if not value:raise AssertionError(name)
  checks.append({'name':name,'passed':True});print(name,flush=True)
 def dump():
- shell('uiautomator','dump','/sdcard/plynt-ui.xml');return ET.fromstring(shell('cat','/sdcard/plynt-ui.xml'))
+ for _ in range(6):
+  shell('rm','-f','/sdcard/plynt-ui.xml')
+  result=shell('uiautomator','dump','/sdcard/plynt-ui.xml')
+  if 'dumped to' in result:
+   try:return ET.fromstring(shell('cat','/sdcard/plynt-ui.xml'))
+   except (ET.ParseError,subprocess.CalledProcessError):pass
+  time.sleep(.7)
+ raise AssertionError('Android accessibility snapshot unavailable')
 def bounds(node):
  n=list(map(int,re.findall(r'\d+',node.attrib['bounds'])));return ((n[0]+n[2])//2,(n[1]+n[3])//2)
 def node(label,contains=False):
