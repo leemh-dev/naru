@@ -8,7 +8,9 @@ APP=ui.APP
 def launch(fixtures=False):
  args=['am','start','-W','-a','android.intent.action.MAIN','-c','android.intent.category.LAUNCHER','-p',APP]
  if fixtures:args+=['--ez','test_fixtures','true']
- result=ui.shell(*args);ui.check('launcher-intent-resolves-'+('previous' if fixtures else 'updated'),'Error' not in result and 'Status: ok' in result)
+ result=subprocess.run(['adb','shell',*args],text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+ if result.returncode:raise AssertionError('Synthetic launcher command failed: '+result.stdout)
+ result=result.stdout;ui.check('launcher-intent-resolves-'+('previous' if fixtures else 'updated'),'Error' not in result and 'Status: ok' in result)
 def state():
  b=json.loads(ui.shell('run-as',APP,'cat','files/workspaces.json'));return b['current'],next(e['state'] for e in b['entries'] if e['id']==b['current'])
 try:
