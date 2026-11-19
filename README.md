@@ -12,6 +12,8 @@ Windows·macOS·Linux용 데스크톱 프리뷰와 Android 호환성 시험 앱�
 
 이전 프로젝트명은 Naru입니다. 표시 이름은 Plynt로 바꿨으며 GitHub 주소는 현재 `leemh-dev/naru`입니다. 기존 데이터 경로와 앱 식별자는 유지합니다. [이름 변경 기록](docs/plynt-rename.md)
 
+[다음 작업 계획 요약](docs/modification-plan.md) · [소개 페이지·스토어 배포 검토](docs/landing-and-store-review.md)
+
 ## 무엇을 할 수 있나요?
 
 - **작업 화면 모으기:** 같은 서비스도 여러 탭으로 열고 별칭을 붙입니다. 최대 30개 탭, 데스크톱에서는 최대 4개 패널을 2×2 또는 좌우 4열로 배치합니다. 멀티뷰 밖의 탭은 한 화면으로 열립니다.
@@ -131,6 +133,8 @@ Switching between ChatGPT chats, projects, Codex tasks, Suno and Canva often mea
 [Installers · preview.5](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.5) · [Validation record, Korean](docs/preview.5-validation.md) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml)
 
 Formerly Naru; the repository is currently `leemh-dev/naru`. App identifiers and profile paths are retained.
+
+[Planned changes, Korean](docs/modification-plan.md) · [Landing page and store review, Korean](docs/landing-and-store-review.md)
 
 ### Features
 
