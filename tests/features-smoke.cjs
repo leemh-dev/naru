@@ -1,6 +1,7 @@
 process.argv.push('--fixtures');
 const {app,clipboard,session}=require('electron'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const checks=[],out=path.join(__dirname,'../test-output'),pause=ms=>new Promise(r=>setTimeout(r,ms));
+fs.mkdirSync(out,{recursive:true});
 function check(name,value){assert.ok(value,name);checks.push({name,passed:true});console.log(name);}
 (async()=>{
  const c=await require('../src/main.cjs').ready;assert.equal(c.profile,process.env.WORKSPACE_TEST_PROFILE);

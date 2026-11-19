@@ -61,6 +61,17 @@ def tap_dom(page,selector,long=False):
  if long:shell('input','swipe',str(x),str(y),str(x),str(y),'900')
  else:shell('input','tap',str(x),str(y))
  time.sleep(.5)
+def tap_selection_action(page):
+ n=node('다른 탭에 넣기')
+ if n is not None:
+  x,y=bounds(n)
+ else:
+  # API 35's floating toolbar may not be exported by uiautomator dump.
+  # Screenshot-confirmed position for the fixed Pixel 2 / English CI profile.
+  rect=js(page,"(()=>{const r=document.querySelector('#sample').getBoundingClientRect();return {top:r.top,ratio:devicePixelRatio,width:innerWidth}})()")
+  web=next(n for n in dump().iter('node') if n.attrib.get('class')=='android.webkit.WebView');box=list(map(int,re.findall(r'\d+',web.attrib['bounds'])))
+  x=int(rect['width']*rect['ratio']*.65);y=int(box[1]+(rect['top']-28)*rect['ratio'])
+ shell('input','tap',str(x),str(y));time.sleep(.6)
 def set_name(text):
  tree=dump();n=next(n for n in tree.iter('node') if n.attrib.get('class')=='android.widget.EditText');x,y=bounds(n);shell('input','tap',str(x),str(y));shell('input','keyevent','KEYCODE_MOVE_END');shell('input','keyevent','--longpress','KEYCODE_DEL')
  # Select all using native key shortcut; synthetic ASCII test name only.
@@ -69,7 +80,7 @@ def workspaces():tap('···');tap('워크스페이스')
 try:
  subprocess.run(['adb','install','-r',sys.argv[1]],check=True,stdout=subprocess.DEVNULL);shell('pm','clear',APP);shell('am','start','-W','-n',APP+'/.MainActivity','--ez','test_fixtures','true');time.sleep(2);pages=connect();check('android-two-real-webviews-render',len(pages)==2)
  tap('＋');check('all-category-default',node('분류 All').attrib.get('selected')=='true');tap('분류 음악');tap('분류 이미지');check('multiple-categories-selected',node('분류 음악').attrib.get('selected')=='true' and node('분류 이미지').attrib.get('selected')=='true');check('google-pinned-above-results',node('브라우저 · Google') is not None);shot('01-picker');tap('분류 All');check('all-clears-individual-categories',node('분류 음악').attrib.get('selected')!='true');tap('닫기')
- source=active_page();tap_dom(source,'#sample',long=True);selected=js(source,'window.getSelection().toString()');check('native-long-press-selects-text',bool(selected));tap('다른 탭에 넣기');check('unregistered-tab-listed-in-native-chooser',node('입력칸 선택 필요',True) is not None);shot('02-destinations');tap('입력칸 선택 필요',True);target=active_page();tap_dom(target,'#prompt');tap('여기에 넣기');time.sleep(.8);check('native-selection-transfer-exact',js(target,'document.querySelector("#prompt").value')==selected)
+ source=active_page();tap_dom(source,'#sample',long=True);selected=js(source,'window.getSelection().toString()');check('native-long-press-selects-text',bool(selected));tap_selection_action(source);check('unregistered-tab-listed-in-native-chooser',node('입력칸 선택 필요',True) is not None);shot('02-destinations');tap('입력칸 선택 필요',True);target=active_page();tap_dom(target,'#prompt');tap('여기에 넣기');time.sleep(.8);check('native-selection-transfer-exact',js(target,'document.querySelector("#prompt").value')==selected)
  js(target,'document.querySelector("#prompt").value=""');tap_dom(target,'#copy');tap('↗');tap('복사한 글 보내기');check('clipboard-preview-has-complete-text',node('Plynt mobile test',True) is not None);tap('최근 ·',True);time.sleep(.8);check('clipboard-transfer-preserves-newlines',js(target,'document.querySelector("#prompt").value')=='Plynt mobile test\nSecond line');shot('03-transfer')
  tap('↗');tap('복사한 글 보내기');tap('최근 ·',True);time.sleep(.6);check('existing-draft-is-preserved',js(target,'document.querySelector("#prompt").value')=='Plynt mobile test\nSecond line');tap('취소')
  tap('↗');tap('ChatGPT 답변 가져오기 · 시험');check('whole-assistant-answer-available-without-selection',node('Plynt mobile test',True) is not None);tap('닫기')
@@ -78,7 +89,8 @@ try:
  shell('input','keyevent','KEYCODE_HOME');time.sleep(.5);shell('am','force-stop',APP);shell('am','start','-W','-n',APP+'/.MainActivity');time.sleep(1);pages=connect();check('workspace-tabs-survive-process-restart',len(pages)==2);page=active_page();check('synthetic-login-cookie-survives-restart',js(page,"document.cookie.includes('plynt_fixture=synthetic')"));check('synthetic-web-storage-survives-restart',js(page,"localStorage.getItem('plynt_fixture')==='synthetic'"));workspaces();check('named-current-workspace-survives-restart',node('● Mobile QA',True) is not None);tap('닫기')
  report=json.loads(shell('run-as',APP,'cat','files/diagnostics.json'));check('diagnostics-exclude-text-and-workspace-names',all(x not in json.dumps(report) for x in ['Plynt mobile test','Mobile QA','fixture.plynt.test','plynt_fixture']))
 except Exception as e:
- try:shot('failure')
+ try:
+  shot('failure');(out/'failure-ui.xml').write_bytes(ET.tostring(dump(),encoding='utf-8'))
  except Exception:pass
  (out/'failure.txt').write_text(str(e));raise
 finally:

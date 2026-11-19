@@ -9,7 +9,7 @@ async function openDialog(title){await api.action('modal',{open:true});$('#dialo
 async function closeDialog(){$('#dialog').close();await api.action('modal',{open:false});requestAnimationFrame(sendBounds);}
 $('#dialog-close').onclick=closeDialog;$('#dialog').addEventListener('cancel',e=>{e.preventDefault();closeDialog();});
 function icon(service){const info=state.services[service]||state.services.web;const n=el('span','icon category-'+(info.categories?.[0]||'web')+' '+service,info.icon||'↗');if(info.favicon){const img=el('img','service-favicon');img.src=info.favicon;img.alt='';img.onerror=()=>img.remove();n.prepend(img);}n.title=info.name;n.setAttribute('aria-hidden','true');return n;}
-function glyph(name){const paths={plus:'M12 5v14M5 12h14',close:'m6 6 12 12M6 18 18 6',single:'M4 4h16v16H4z',grid:'M4 4h16v16H4zM4 12h16M12 4v16',more:'M5 12h.01M12 12h.01M19 12h.01',expand:'M14 4h6v6M20 4l-8 8M10 20H4v-6',grip:'M8 5h.01M16 5h.01M8 12h.01M16 12h.01M8 19h.01M16 19h.01'};const n=document.createElementNS('http://www.w3.org/2000/svg','svg');n.setAttribute('viewBox','0 0 24 24');n.classList.add('glyph');n.setAttribute('aria-hidden','true');const p=document.createElementNS(n.namespaceURI,'path');p.setAttribute('d',paths[name]||paths.more);n.append(p);return n;}
+function glyph(name){const paths={send:'M5 19 19 5M7 5h12v12',plus:'M12 5v14M5 12h14',close:'m6 6 12 12M6 18 18 6',single:'M4 4h16v16H4z',grid:'M4 4h16v16H4zM4 12h16M12 4v16',more:'M5 12h.01M12 12h.01M19 12h.01',expand:'M14 4h6v6M20 4l-8 8M10 20H4v-6',grip:'M8 5h.01M16 5h.01M8 12h.01M16 12h.01M8 19h.01M16 19h.01'};const n=document.createElementNS('http://www.w3.org/2000/svg','svg');n.setAttribute('viewBox','0 0 24 24');n.classList.add('glyph');n.setAttribute('aria-hidden','true');const p=document.createElementNS(n.namespaceURI,'path');p.setAttribute('d',paths[name]||paths.more);n.append(p);return n;}
 function iconButton(name,label,fn){const n=button('',fn,'icon-button');n.append(glyph(name));n.title=label;n.setAttribute('aria-label',label);return n;}
 function ids(t){return !t?[]:t.id?[t.id]:[...ids(t.a),...ids(t.b)];}
 function render(next){
@@ -76,7 +76,7 @@ async function addDialog(){
     results.replaceChildren();results.scrollTop=0;
     if(!matches.length){results.append(el('p','service-no-results','검색 결과가 없습니다. 다른 이름을 검색하거나 아래에서 웹 주소를 직접 여세요.'));return;}
     for(const category of categories){
-      const entries=matches.filter(([,s])=>s.categories[0]===category.id);
+      const entries=matches.filter(([,s])=>(selected.size?s.categories.find(c=>selected.has(c)):s.categories[0])===category.id);
       if(!entries.length)continue;
       const section=el('section','service-section');section.append(el('h3','',category.name));
       const grid=el('div','service-grid');
@@ -134,5 +134,5 @@ async function diagnosticsDialog(){const body=await openDialog('진단 보고서
 $('#add').onclick=addDialog;$('#empty-add').onclick=addDialog;$('#more').onclick=menu;
 $('#add').append(glyph('plus'));$('#single').append(glyph('single'));$('#more').append(glyph('more'));$('#multiview').onclick=multiviewDialog;
 document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>api.action('layout',{mode:b.dataset.mode}));
-$('#send').onclick=sendDialog;$('#pending-insert').onclick=()=>api.action('send-insert');$('#pending-cancel').onclick=()=>api.action('send-cancel');$('#pending-choose').onclick=sendDialog;api.onSend(sendDialog);
+$('#send').replaceChildren(glyph('send'));$('#send').onclick=sendDialog;$('#pending-insert').onclick=()=>api.action('send-insert');$('#pending-cancel').onclick=()=>api.action('send-cancel');$('#pending-choose').onclick=sendDialog;api.onSend(sendDialog);
 api.onState(render);api.onNotice(flash);api.action('get').then(render);
