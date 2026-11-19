@@ -14,6 +14,25 @@ Windows·macOS·Linux용 데스크톱 프리뷰와 Android 호환성 시험 앱�
 
 [소개 페이지](https://leemh-dev.github.io/plynt/) · [페이지 소스](site/) · [작업 계획·진행 상태](docs/modification-plan.md) · [소개 페이지·스토어 배포 검토](docs/landing-and-store-review.md)
 
+## 실제 앱 화면
+
+Linux용 Plynt에서 실제 서비스의 공개 웹 화면을 열어 촬영했습니다. 로그인된 개인 계정이나 대화는 사용하지 않았습니다.
+
+![Plynt 사이드바와 ChatGPT·Canva의 실제 웹 화면을 좌우로 연 모습](site/assets/desktop-chatgpt-canva.png)
+
+ChatGPT 채팅 입력 화면과 Canva의 공개 AI Image Generator 입력 화면입니다. Canva의 로그인 후 디자인 편집 화면은 아닙니다.
+
+<details>
+<summary>ChatGPT · Perplexity · Duck.ai · DeepAI를 좌우 4열로 보기</summary>
+
+![Plynt Linux 앱에서 네 AI 서비스의 비로그인 입력 화면을 나란히 연 모습](site/assets/desktop-four-ai.png)
+
+4개 서비스의 입력 화면이 로그인 없이 표시되는 것을 확인했습니다. 이 사진도 Linux 앱에서 촬영했으며 Android 태블릿 사진이 아닙니다.
+
+</details>
+
+이번 촬영은 화면 열기·입력칸 표시 확인까지 진행했습니다. 답변·이미지 생성이나 로그인 후 글 전달 성공을 입증하는 사진은 아닙니다. [촬영 환경·확인 범위](docs/public-service-screenshots.md)
+
 ## 무엇을 할 수 있나요?
 
 - **작업 화면 모으기:** 같은 서비스도 여러 탭으로 열고 별칭을 붙입니다. 최대 30개 탭, 데스크톱·Android 태블릿에서는 최대 4개 패널을 2×2 또는 좌우 4열로 배치합니다. 멀티뷰 밖의 탭은 한 화면으로 열립니다.
@@ -72,11 +91,13 @@ chmod +x plynt-0.1.0-preview.6-linux-x86_64.AppImage
 
 - 포함: 앱·OS·웹 엔진 버전, 허용된 동작·결과·오류 코드, 글자 수 등.
 - 제외: 대화·프롬프트 원문, URL, 별칭, 비밀번호, 쿠키·토큰, 페이지 콘솔, 원본 오류 스택, 화면 캡처.
-- 수집 중지와 기록 삭제가 가능합니다. 캡처는 별도의 합성 시험 스크립트에서만 만듭니다.
+- 수집 중지와 기록 삭제가 가능합니다. 앱의 진단 기능은 화면을 캡처하지 않습니다.
 
 ## 확인된 범위
 
 Windows·macOS·Linux의 실제 Electron 실행에서 새 전달 흐름·분류·워크스페이스·합성 쿠키 재시작 검사를 실행했습니다. Android는 실제 에뮬레이터의 네이티브 메뉴와 WebView로 별도 검사합니다. **합성 쿠키 복원 성공이 실제 ChatGPT·Suno·Canva 로그인 성공을 의미하지는 않습니다.** 정확한 항목별 결과와 화면은 [preview.6 검증 기록](docs/preview.6-validation.md)에 있습니다.
+
+별도로 Linux 앱의 새 프로필에서 ChatGPT·Canva·Perplexity·Duck.ai·DeepAI의 공개 페이지와 활성화된 입력칸 표시를 확인하고 소개 사진을 촬영했습니다. 메시지 전송·생성은 수행하지 않았으며, [실제 서비스 화면 확인 기록](docs/public-service-screenshots.md)을 합성 회귀 검사와 구분합니다.
 
 실제 서비스 로그인 후 입력, 파일 전달, 일반 브라우저 대비 조작·시간 절감, 시장 수요는 검증되지 않았습니다. Codex 바로가기는 Codex Cloud 웹 화면이며 데스크톱 원격 Codex의 모든 기능을 지원한다는 뜻이 아닙니다.
 
@@ -84,7 +105,20 @@ Windows·macOS·Linux의 실제 Electron 실행에서 새 전달 흐름·분류�
 
 ## 소개 페이지
 
-소개 페이지는 **[https://leemh-dev.github.io/plynt/](https://leemh-dev.github.io/plynt/)** 에 공개돼 있습니다. 개인정보 안내·스타일·파비콘까지 HTTP 200 응답과 저장소 원본 일치를 확인했습니다. `site/` 또는 [Pages 배포 워크플로](.github/workflows/pages.yml)를 변경해 `main`에 올리면 자동으로 다시 배포합니다.
+소개 페이지는 **[https://leemh-dev.github.io/plynt/](https://leemh-dev.github.io/plynt/)** 에 공개돼 있습니다. 개인정보 안내·스타일·파비콘과 새 실제 서비스 사진 2장의 HTTP 200 응답 및 저장소 원본 일치를 확인했습니다. `site/` 또는 [Pages 배포 워크플로](.github/workflows/pages.yml)를 변경해 `main`에 올리면 자동으로 다시 배포합니다.
+
+## Google Play 배포 준비
+
+**2026-11-19 확인 기준, Google Play에는 아직 등록하지 않았습니다.** 현재 무료 프리뷰는 GitHub Releases에서 APK를 직접 내려받아 설치하는 방식입니다.
+
+- **빌드:** 현재 Android 앱은 API 35를 대상으로 하며 디버그 설정이 켜진 시험용 APK입니다. 신규 등록에는 API 36 이상 대응·실제 동작 확인, 정식 배포 설정과 서명한 AAB, Play App Signing 준비가 필요합니다. [API 기준](https://support.google.com/googleplay/android-developer/answer/11926878?hl=en) · [AAB·서명 안내](https://support.google.com/googleplay/android-developer/answer/9844279?hl=en)
+- **개발자 계정:** 등록비는 개발자 계정당 최초 1회 **미화 25달러**입니다. 무료 앱을 올릴 때도 필요하며 앱별 요금이나 월정액은 아닙니다. 본인·기기 확인 등 계정별 절차도 필요합니다. [공식 등록 안내](https://support.google.com/googleplay/android-developer/answer/6112435?hl=en)
+- **출시 전 테스트:** 2023-11-13 이후 개설한 개인 계정은 **최소 12명이 연속 14일 참여한 비공개 테스트** 후 프로덕션 접근을 신청해야 합니다. 기간 충족만으로 출시가 자동 승인되지는 않습니다. [공식 테스트 요건](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en)
+- **심사 자료:** 앱 설명·Android 화면 사진·지원 연락처·개인정보처리방침·Data safety 신고를 준비하고 실제 데이터 처리와 일치하는지 확인해야 합니다. 소개 페이지의 Linux 사진은 Android 실행 증거로 쓰지 않습니다.
+
+Google은 사이트 소유자 허락 없이 해당 웹사이트의 웹뷰 제공을 주목적으로 하는 앱을 제한합니다. Plynt의 탭·워크스페이스·글 전달 기능은 자체 기능이지만 심사 승인을 보장하지 않습니다. 연결 서비스의 이용 조건·브랜드 표시·로그인 호환성을 별도로 검토해야 합니다. [Google WebView 정책](https://support.google.com/googleplay/android-developer/answer/9899034?hl=en) · [사용자 데이터 정책](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en) · [초기 플랫폼별 배포 검토](docs/landing-and-store-review.md)
+
+스토어용 빌드 제작·개발자 계정 등록·결제·심사 제출은 아직 진행하지 않았습니다.
 
 ## 개발과 배포
 
@@ -100,7 +134,7 @@ npm test
 npm run fixtures
 ```
 
-실제 창 검사는 로그인된 사용자 프로필을 사용하지 않고 임시 프로필과 합성 페이지로 실행합니다.
+자동 회귀 검사는 로그인된 사용자 프로필을 사용하지 않고 임시 프로필과 합성 페이지로 실행합니다. 공개 서비스 화면 촬영은 별도 새 프로필에서 수행하며 위 촬영 기록에 범위를 남깁니다.
 
 ```sh
 node tests/run-cross-platform.cjs       # Windows / macOS
@@ -121,7 +155,7 @@ mobile/android/   Android Java 앱과 SDK 빌드
 build/            데스크톱 패키징 아이콘
 scripts/          아이콘 출처 수집과 Android 배포 보조
 tests/            저장·진단·합성 UI 검사
-docs/             검증 기록과 안전한 합성 화면 증거
+docs/             검증 기록·합성 시험·공개 서비스 화면 증거
 ```
 
 프로젝트 코드에는 별도의 오픈소스 라이선스를 지정하지 않았습니다. 서비스 로고는 각 권리자의 식별 표지이며 제휴를 의미하지 않습니다. 번들 아이콘의 출처·라이선스는 별도 기록합니다.
@@ -140,12 +174,20 @@ The project and repository are named **Plynt**. App identifiers and profile path
 
 [Planned changes, Korean](docs/modification-plan.md) · [Landing page and store review, Korean](docs/landing-and-store-review.md)
 
+### Actual app screens
+
+[ChatGPT + Canva](site/assets/desktop-chatgpt-canva.png) · [Four AI panels](site/assets/desktop-four-ai.png)
+
+Both screenshots show the real Linux app with a fresh, signed-out profile. The two-panel image shows ChatGPT and Canva's public AI Image Generator input page, not Canva's authenticated design editor. The four columns show ChatGPT, Perplexity, Duck.ai and DeepAI. These are desktop captures, not Android tablet screenshots.
+
+We verified that public pages and enabled input controls were visible. No messages were submitted and no images were generated; authenticated workflows remain unverified. See the [capture and deployment record, Korean](docs/public-service-screenshots.md).
+
 ### Features
 
 - A leading Plynt icon opens the sidebar for workspaces, saved text, privacy and diagnostics. Rename any saved workspace without switching or reloading the current work.
 - Up to 30 tabs, editable aliases and an active-tab highlight. Desktop and Android tablet multiview support up to four panels in a 2×2 grid or four columns from left to right. Other tabs open in a single view.
 - Select text and use the context menu, or copy a whole response with the service’s copy button and use the top `↗` menu. Preview the text, choose a tab, touch its empty field and press **여기에 넣기** (insert here). Unregistered tabs are included. Registered fields and recent destinations can be reused.
-- Named local workspaces: save, save as, new empty workspace, switch and restore. URLs, aliases, tab order, active tab, saved text and recent targets persist; desktop also saves layouts.
+- Named local workspaces: save, save as, new empty workspace, switch and restore. URLs, aliases, tab order, active tab, saved text and recent targets persist; desktop and Android tablets also save layouts.
 - 47 service shortcuts across eight categories, bundled icons and monograms. Drag the horizontal category row, select several categories, or reset with `All`. Google is pinned above the results to open an ordinary browsing tab.
 - Explicitly save up to 50 text items, each up to 50,000 characters. The clipboard is read only when requested, not continuously monitored.
 
@@ -179,6 +221,17 @@ Workspace storage is local; there is no Plynt account or cloud synchronization. 
 `플린트 아이콘 → 진단 보고서` previews and exports local diagnostics. Reports contain permitted events, outcomes, versions, error codes and counts, but exclude text, URLs, aliases, credentials, cookies, tokens, screenshots and page console output. There is no automatic upload; collection can be disabled and records deleted.
 
 Native Electron checks run on Windows, macOS and Linux. Android uses a real Android 15 emulator and synthetic WebViews. **A synthetic persistent-cookie check is not proof of real-service sign-in compatibility.** Authenticated ChatGPT → Suno/Canva insertion, file transfer, comparative efficiency and demand remain unverified. Codex shortcuts open Codex Cloud, not every remote desktop Codex feature.
+
+### Google Play readiness
+
+As checked on **2026-11-19**, Plynt is distributed as a free APK through GitHub Releases and is not listed on Google Play.
+
+- The current Android preview targets API 35 and enables debugging. A Play release needs API 36+ compatibility validation, release configuration, a signed AAB and Play App Signing. See the [target API requirements](https://support.google.com/googleplay/android-developer/answer/11926878?hl=en) and [AAB requirements](https://support.google.com/googleplay/android-developer/answer/9844279?hl=en).
+- The developer account has a **one-time US$25 registration fee**, including for free apps; it is not charged per app or monthly. Identity/device verification requirements also apply. [Registration guide](https://support.google.com/googleplay/android-developer/answer/6112435?hl=en)
+- Personal accounts created after November 13, 2023 must complete a closed test with **at least 12 testers opted in continuously for 14 days** before applying for production access. Meeting the duration alone does not guarantee approval. [Testing requirements](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en)
+- Store descriptions, Android screenshots, support details, a privacy policy and accurate Data safety declarations still need preparation and review. The Linux screenshots above are not Android execution evidence.
+
+Plynt's own tab, workspace and text-handoff features do not guarantee approval under Google's [WebView policy](https://support.google.com/googleplay/android-developer/answer/9899034?hl=en). Service terms, branding, authentication compatibility and [data practices](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en) also need review. No store build, account registration, payment or review submission has been performed.
 
 ### Development and release
 
