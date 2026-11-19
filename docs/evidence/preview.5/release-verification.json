@@ -1,0 +1,74 @@
+{
+  "tag": "v0.1.0-preview.5",
+  "title": "Plynt v0.1.0-preview.5",
+  "url": "https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.5",
+  "prerelease": true,
+  "publishedAt": "2026-11-19T01:32:03Z",
+  "repository": "leemh-dev/naru",
+  "installers": [
+    {
+      "name": "plynt-0.1.0-preview.5-android-test.apk",
+      "bytes": 307393,
+      "sha256": "d87cbb7911c601c9d90562be29df8f0102ebb7bd252b8e2ab2ef592bf86112a4",
+      "verification": "Downloaded APK matches local retained-key signed file byte-for-byte and SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-android-test.apk"
+    },
+    {
+      "name": "plynt-0.1.0-preview.5-linux-amd64.deb",
+      "bytes": 102478884,
+      "sha256": "a561e636e924d2884699b4281a33cad97af056575fa6406e37f9d528d69b9b4a",
+      "verification": "GitHub asset digest matches SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-linux-amd64.deb"
+    },
+    {
+      "name": "plynt-0.1.0-preview.5-linux-x86_64.AppImage",
+      "bytes": 127500605,
+      "sha256": "fdf08c56f359e7b2bf69045a324d5c0ed8385221bbda5c5fe9d1abf8ed525645",
+      "verification": "GitHub asset digest matches SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-linux-x86_64.AppImage"
+    },
+    {
+      "name": "plynt-0.1.0-preview.5-mac-arm64.dmg",
+      "bytes": 124098404,
+      "sha256": "2a44a16c82a87a4ed86969227f5a1035dbfa6a035b209582ad8559f3b375cfe3",
+      "verification": "GitHub asset digest matches SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-mac-arm64.dmg"
+    },
+    {
+      "name": "plynt-0.1.0-preview.5-mac-arm64.zip",
+      "bytes": 119361906,
+      "sha256": "8522f8487b942d5415eb0f12e40a6cabe69dcc006a4de5e5fc92dc956fee3789",
+      "verification": "GitHub asset digest matches SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-mac-arm64.zip"
+    },
+    {
+      "name": "plynt-0.1.0-preview.5-mac-x64.dmg",
+      "bytes": 128215986,
+      "sha256": "fdd4c7242e5105fdb14819f8bbafba99bcf480f3e9eb73cb541472b9bc08715d",
+      "verification": "GitHub asset digest matches SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-mac-x64.dmg"
+    },
+    {
+      "name": "plynt-0.1.0-preview.5-mac-x64.zip",
+      "bytes": 123477187,
+      "sha256": "aab44e92e03786b9eacb07bcdfa8b5bb39595db6aa6694311702a51d2e5bfefa",
+      "verification": "GitHub asset digest matches SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-mac-x64.zip"
+    },
+    {
+      "name": "plynt-0.1.0-preview.5-win-x64.exe",
+      "bytes": 122534311,
+      "sha256": "d52abe78ac4f8ca2aa9593ca9e46791124149e95aea0730eb7a112888c792398",
+      "verification": "GitHub asset digest matches SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-win-x64.exe"
+    },
+    {
+      "name": "plynt-0.1.0-preview.5-win-x64.zip",
+      "bytes": 154343906,
+      "sha256": "8679c40a3f67a680409a38e6d3de1e8847eee7e92510497f70fcb3ae7c7165e8",
+      "verification": "GitHub asset digest matches SHA256SUMS.txt",
+      "url": "https://github.com/leemh-dev/naru/releases/download/v0.1.0-preview.5/plynt-0.1.0-preview.5-win-x64.zip"
+    }
+  ],
+  "scope": "Published installer metadata and checksums verified. Native synthetic runtime checks are recorded separately; authenticated services are not verified."
+}

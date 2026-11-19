@@ -21,7 +21,7 @@
 ## 시험 환경과 증거 구분
 
 - 로컬 Linux x86_64: Electron 45.3.3, Xvfb의 실제 창, 격리한 임시 프로필. 추가 배치·메뉴·전달·저장 검사를 실행했습니다. 제한된 컨테이너의 합성 시험에만 sandbox 우회 실행기를 사용하며 제품 실행 설정은 바꾸지 않았습니다.
-- GitHub Windows·macOS·Ubuntu: 각 OS의 Electron을 직접 실행한 신규 기능 22개와 별도 프로세스 재시작 3개 검사. 단순 컴파일 성공과 구분합니다. macOS x64/arm64 패키지를 모두 만들지만 실행 검사는 러너의 CPU에서만 합니다.
+- GitHub Windows Server 2025 (10.0.26100) x64·macOS 26.7.2 (25G332) arm64·Ubuntu 22.04 x64: 각 OS의 Electron 45.3.3을 직접 실행한 신규 기능 22개와 별도 프로세스 재시작 3개 검사. 단순 컴파일 성공과 구분합니다. macOS x64/arm64 패키지를 모두 만들지만 실행 검사는 러너의 CPU에서만 합니다.
 - Android: Google 공식 API 35 x86_64 시스템 이미지, Pixel 2 프로필, KVM 에뮬레이터, 실제 네이티브 메뉴·WebView. 휴대폰 크기 데스크톱 브라우저를 사용하지 않았습니다. 테스트 전용 HTTPS 호스트를 앱 내부에서 합성 HTML로 응답하게 하며 실제 서비스의 TLS 검증은 그대로 유지합니다.
 - 합성 쿠키와 합성 localStorage만 사용합니다. 인증정보를 추출하지 않았으며 실제 ChatGPT·Suno·Canva 로그인과 완료된 인증 후 입력은 **미검증**입니다.
 
@@ -63,6 +63,8 @@ Linux deb를 임시 디렉터리에 풀어 포함된 실행 파일도 실행했�
 
 ![패키지의 스파크 P 시작 화면](evidence/preview.5/linux/05-packaged-startup.png)
 
+최종 태그의 [Windows 결과·화면](evidence/preview.5/windows)과 [macOS 결과·화면](evidence/preview.5/macos)도 보관합니다. Windows x64, macOS arm64에서 각각 22개 신규 기능+3개 프로세스 재시작 검사가 통과했습니다. macOS Intel 설치 파일은 빌드 대상이며 Intel 실기기에서 실행한 결과는 아닙니다.
+
 ## Android 서명과 남은 제한
 
 공개 preview.4 APK 인증서와 보관 키의 인증서를 비교한 결과 서로 달랐습니다. **preview.5를 preview.4 위에 그대로 업데이트할 수 없습니다.** 키가 없는 기존 APK를 재서명해도 기존 설치의 서명을 바꿀 수는 없습니다. 삭제하면 작업·쿠키가 지워지므로 URL과 필요한 자료를 별도로 보관하기 전 삭제를 권하지 않습니다. 데이터 내보내기·자동 이전은 구현하지 않았습니다.
@@ -73,4 +75,12 @@ Linux deb를 임시 디렉터리에 풀어 포함된 실행 파일도 실행했�
 
 ## 최종 실행·배포
 
-최종 버전은 `v0.1.0-preview.5`입니다. 태그에 연결된 CI의 모든 OS 검사가 통과한 뒤 데스크톱 릴리스를 생성합니다. 보관 키 APK와 전체 체크섬은 별도로 첨부하고, 실제 배포 확인 결과를 이 절에 추가합니다. 릴리스에 실제 첨부된 파일만 설치 가능 상태로 판단합니다.
+최종 버전 **v0.1.0-preview.5**, 앱 코드 커밋 `959e31706550e166e644b64eea6a9885fa444b81`입니다.
+
+- [최종 태그 실행](https://github.com/leemh-dev/naru/actions/runs/44436947932): Windows·macOS·Linux 신규 기능 22개+재시작 3개씩, Android 19개, 전체 빌드·릴리스 성공.
+- Windows x64 EXE/ZIP 2개, macOS arm64/x64 DMG/ZIP 4개, Linux AppImage/DEB 2개, Android APK 1개: **설치 파일 9개와 SHA256SUMS.txt 게시 완료**.
+- 로컬 APK 직접 업로드는 연결 인증이 업로드 호스트에서 401을 반환해 실패했습니다. 대안으로 [별도 게시 워크플로](https://github.com/leemh-dev/naru/actions/runs/44438114120)가 성공한 CI APK와 공개 서명 APK 사이의 4,157바이트 차이를 받아 최종 APK를 복원했습니다. 빌드 성공·정확한 태그 커밋·전체 파일 SHA-256·보관 인증서 지문을 모두 검사했습니다. 개인 키는 전달·업로드하지 않았습니다.
+- 모든 설치 파일의 GitHub 자산 SHA-256과 체크섬 목록이 일치했습니다. 게시된 Android APK를 다시 다운로드해 로컬 서명 APK와 **바이트 단위로 동일함**도 확인했습니다.
+- [다운로드](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.5) · [게시 파일·체크섬](evidence/preview.5/release-verification.json) · [CI 실행 기록](evidence/preview.5/ci-results.json)
+
+태그 이후 변경은 공개 APK 게시 보조 워크플로와 검증 문서이며 앱 기능 코드는 바꾸지 않았습니다. 실제 인증 계정과 실물 휴대폰에서의 최종 호환성 시험은 별도입니다.

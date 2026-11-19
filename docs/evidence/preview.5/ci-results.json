@@ -1,0 +1,51 @@
+{
+  "scope": "Native synthetic runtime checks, installer builds and public APK signing handoff; no real account sign-in",
+  "runs": [
+    {
+      "id": "44436947932",
+      "url": "https://github.com/leemh-dev/naru/actions/runs/44436947932",
+      "commit": "959e31706550e166e644b64eea6a9885fa444b81",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "android-preview",
+          "conclusion": "success",
+          "url": "https://github.com/leemh-dev/naru/actions/runs/44436947932/job/135268076959"
+        },
+        {
+          "name": "build (ubuntu-22.04, linux, --linux --x64)",
+          "conclusion": "success",
+          "url": "https://github.com/leemh-dev/naru/actions/runs/44436947932/job/135268077046"
+        },
+        {
+          "name": "build (windows-latest, windows, --win --x64)",
+          "conclusion": "success",
+          "url": "https://github.com/leemh-dev/naru/actions/runs/44436947932/job/135268077209"
+        },
+        {
+          "name": "build (macos-latest, macos, --mac --x64 --arm64)",
+          "conclusion": "success",
+          "url": "https://github.com/leemh-dev/naru/actions/runs/44436947932/job/135268077323"
+        },
+        {
+          "name": "release",
+          "conclusion": "success",
+          "url": "https://github.com/leemh-dev/naru/actions/runs/44436947932/job/135270029253"
+        }
+      ]
+    },
+    {
+      "id": "44438114120",
+      "url": "https://github.com/leemh-dev/naru/actions/runs/44438114120",
+      "commit": "d6f70a8644871045f103135ce2f1c1508e84336d",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "publish",
+          "conclusion": "success",
+          "url": "https://github.com/leemh-dev/naru/actions/runs/44438114120/job/135271960690"
+        }
+      ]
+    }
+  ]
+}
