@@ -7,7 +7,11 @@ from types import SimpleNamespace
 shell=ui.shell;tap=ui.tap;node=ui.node;check=ui.check;js=ui.js;APP=ui.APP
 
 def boxes():
- return [list(map(int,re.findall(r'\d+',n.attrib['bounds']))) for n in ui.dump().iter('node') if n.attrib.get('class')=='android.webkit.WebView']
+ result=[]
+ def visit(n):
+  if n.attrib.get('class')=='android.webkit.WebView':result.append(list(map(int,re.findall(r'\d+',n.attrib['bounds']))));return
+  for child in n:visit(child)
+ visit(ui.dump());return result
 def choose(mode):
  ui.open_menu('멀티뷰 설정','태블릿 멀티뷰');tap(mode)
 def current_book():return json.loads(shell('run-as',APP,'cat','files/workspaces.json'))
