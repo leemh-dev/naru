@@ -5,26 +5,35 @@ spec=importlib.util.spec_from_file_location('phone',Path(__file__).with_name('an
 ui.out=Path('test-output/android-upgrade');ui.out.mkdir(parents=True,exist_ok=True)
 APP=ui.APP
 
-def launch(fixtures=False):
+def launch(fixtures=False,stage=None):
+ stage=stage or ("previous" if fixtures else "updated")
  # Launchers query MAIN/LAUNCHER entries and then start an explicit component.
  # A generic implicit start may require CATEGORY_DEFAULT, which launcher entries lack.
  query=ui.shell('cmd','package','query-activities','--brief','--components','-a','android.intent.action.MAIN','-c','android.intent.category.LAUNCHER','-p',APP)
  components=sorted(set(re.findall(re.escape(APP)+r'/[A-Za-z0-9_.$]+',query)))
- ui.check('one-launcher-entry-'+('previous' if fixtures else 'updated'),len(components)==1)
+ ui.check('one-launcher-entry-'+stage,len(components)==1)
  args=['am','start','-W','-n',components[0],'-a','android.intent.action.MAIN','-c','android.intent.category.LAUNCHER']
  if fixtures:args+=['--ez','test_fixtures','true']
  result=subprocess.run(['adb','shell',*args],text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
  if result.returncode:raise AssertionError('Synthetic launcher command failed: '+result.stdout)
- ui.check('launcher-component-starts-'+('previous' if fixtures else 'updated'),'Error' not in result.stdout and 'Status: ok' in result.stdout)
+ ui.check('launcher-component-starts-'+stage,'Error' not in result.stdout and 'Status: ok' in result.stdout)
+def ready_page():
+ for _ in range(40):
+  page=ui.active_page()
+  if ui.js(page,"document.readyState==='complete'&&!!document.querySelector('#prompt')"):return page
+  time.sleep(.25)
+ raise AssertionError('Synthetic page did not finish loading')
+def has_session(page):return ui.js(page,"document.cookie.includes('plynt_upgrade=synthetic')&&localStorage.getItem('plynt_upgrade')==='synthetic'")
 def state():
  b=json.loads(ui.shell('run-as',APP,'cat','files/workspaces.json'));return b['current'],next(e['state'] for e in b['entries'] if e['id']==b['current'])
 try:
- subprocess.run(['adb','install','-r',sys.argv[1]],check=True,stdout=subprocess.DEVNULL);ui.shell('pm','clear',APP);launch(True);ui.connect();page=ui.active_page()
+ subprocess.run(['adb','install','-r',sys.argv[1]],check=True,stdout=subprocess.DEVNULL);ui.shell('pm','clear',APP);launch(True);page=ready_page()
  ui.js(page,"document.cookie='plynt_upgrade=synthetic; Max-Age=86400; Path=/; Secure; SameSite=Lax';localStorage.setItem('plynt_upgrade','synthetic')")
- ui.shell('input','keyevent','KEYCODE_HOME');time.sleep(1);before=state();ui.check('previous-version-has-two-saved-tabs',len(before[1]['tabs'])==2);ui.shell('am','force-stop',APP)
+ ui.check('previous-synthetic-session-established',has_session(page))
+ ui.shell('input','keyevent','KEYCODE_HOME');time.sleep(1);ui.shell('am','force-stop',APP);launch(stage='baseline-restart');page=ready_page();ui.check('previous-session-persists-before-upgrade',has_session(page));ui.shell('input','keyevent','KEYCODE_HOME');time.sleep(1);before=state();ui.check('previous-version-has-two-saved-tabs',len(before[1]['tabs'])==2);ui.shell('am','force-stop',APP)
  subprocess.run(['adb','install','-r',sys.argv[2]],check=True,stdout=subprocess.DEVNULL);ui.check('same-signature-update-installs-without-uninstall',True)
- launch();ui.connect();after=state();ui.check('update-preserves-workspace-and-tab-identities',before[0]==after[0] and before[1]['tabs']==after[1]['tabs'] and before[1]['activeId']==after[1]['activeId'])
- page=ui.active_page();ui.check('update-preserves-synthetic-login-cookie',ui.js(page,"document.cookie.includes('plynt_upgrade=synthetic')"));ui.check('update-preserves-synthetic-web-storage',ui.js(page,"localStorage.getItem('plynt_upgrade')==='synthetic'"))
+ launch();page=ready_page();after=state();ui.check('update-preserves-workspace-and-tab-identities',before[0]==after[0] and before[1]['tabs']==after[1]['tabs'] and before[1]['activeId']==after[1]['activeId'])
+ ui.check('update-preserves-synthetic-login-cookie',ui.js(page,"document.cookie.includes('plynt_upgrade=synthetic')"));ui.check('update-preserves-synthetic-web-storage',ui.js(page,"localStorage.getItem('plynt_upgrade')==='synthetic'"))
  ui.open_menu('Plynt 메뉴','워크스페이스 관리');ui.check('updated-app-opens-new-sidebar',ui.node('워크스페이스 관리') is not None);ui.shot('01-updated-sidebar')
 except Exception as e:
  try:ui.shot('failure')
