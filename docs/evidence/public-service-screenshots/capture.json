@@ -1,0 +1,189 @@
+{
+  "recordedAt": "2026-11-19T05:24:23.258703+00:00",
+  "sourceCommit": "e4bb27dcae2dadc39a6d093b02eaad13290cf9b7",
+  "appVersion": "0.1.0-preview.6",
+  "environment": {
+    "os": "Linux",
+    "display": "Xvfb",
+    "resolution": [
+      1600,
+      1000
+    ],
+    "electron": "45.3.3",
+    "chrome": "156.0.8078.100"
+  },
+  "fixtureMode": false,
+  "chromiumSandboxEnabled": true,
+  "profile": "Fresh isolated guest profile; no user login",
+  "scope": "Actual public web pages and visible enabled input controls only; no prompt submission, generation, account login or transfer validation",
+  "twoPanelChecks": [
+    {
+      "service": "ChatGPT",
+      "title": "ChatGPT: Chat, Work, Create & Code with AI",
+      "loading": false,
+      "inputs": [
+        {
+          "tag": "textarea",
+          "placeholder": "Ask ChatGPT",
+          "label": "Chat with ChatGPT",
+          "disabled": false,
+          "readOnly": false,
+          "empty": true
+        }
+      ]
+    },
+    {
+      "service": "Canva",
+      "title": "Free AI Image Generator: Text to Image | Canva",
+      "loading": false,
+      "inputs": [
+        {
+          "tag": "input",
+          "placeholder": "Describe what you want",
+          "label": "Choose from the list of example prompts or write your own",
+          "disabled": false,
+          "readOnly": false,
+          "empty": true
+        }
+      ]
+    }
+  ],
+  "fourPanelChecks": [
+    {
+      "service": "ChatGPT",
+      "title": "ChatGPT: Chat, Work, Create & Code with AI",
+      "loading": false,
+      "inputs": [
+        {
+          "tag": "textarea",
+          "placeholder": "Ask ChatGPT",
+          "label": "Chat with ChatGPT",
+          "disabled": false,
+          "readOnly": false,
+          "empty": true
+        }
+      ]
+    },
+    {
+      "service": "Perplexity",
+      "title": "Perplexity",
+      "loading": false,
+      "inputs": [
+        {
+          "tag": "div",
+          "placeholder": null,
+          "label": "Type / for search modes",
+          "disabled": false,
+          "readOnly": false,
+          "empty": true
+        }
+      ]
+    },
+    {
+      "service": "Duck.ai",
+      "title": "Duck.ai by DuckDuckGo. Private AI chat. Free.",
+      "loading": false,
+      "inputs": [
+        {
+          "tag": "textarea",
+          "placeholder": "Ask anything privately",
+          "label": "Ask anything privately",
+          "disabled": false,
+          "readOnly": false,
+          "empty": true
+        }
+      ]
+    },
+    {
+      "service": "DeepAI",
+      "title": "AI Chat",
+      "loading": false,
+      "inputs": [
+        {
+          "tag": "textarea",
+          "placeholder": "Message AI Chat...",
+          "label": null,
+          "disabled": false,
+          "readOnly": false,
+          "empty": true
+        },
+        {
+          "tag": "textarea",
+          "placeholder": "No recent chat topics yet.",
+          "label": null,
+          "disabled": false,
+          "readOnly": true,
+          "empty": true
+        }
+      ]
+    }
+  ],
+  "panelBounds": {
+    "two": [
+      {
+        "x": 287,
+        "y": 86,
+        "width": 649,
+        "height": 906
+      },
+      {
+        "x": 944,
+        "y": 86,
+        "width": 649,
+        "height": 906
+      }
+    ],
+    "four": [
+      {
+        "x": 7,
+        "y": 86,
+        "width": 393,
+        "height": 906
+      },
+      {
+        "x": 408,
+        "y": 86,
+        "width": 391,
+        "height": 906
+      },
+      {
+        "x": 808,
+        "y": 86,
+        "width": 388,
+        "height": 906
+      },
+      {
+        "x": 1204,
+        "y": 86,
+        "width": 388,
+        "height": 906
+      }
+    ]
+  },
+  "excludedCandidate": {
+    "service": "Microsoft Copilot",
+    "reason": "Sign-in landing page; no chat input control in this environment"
+  },
+  "screenshots": [
+    {
+      "file": "site/assets/desktop-chatgpt-canva.png",
+      "sha256": "763de604cb01df865e7665bfbbf4d61f200ffcc42d59ede4b8113ef1c7ba7865",
+      "size": 403433,
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "capture": "Uncomposited actual X display screenshot of native Plynt window"
+    },
+    {
+      "file": "site/assets/desktop-four-ai.png",
+      "sha256": "e7565abd00509f80c1a7210c34c7f0256cf0f4ea83cb0b0ccd18d0f0c4ca3d8c",
+      "size": 175522,
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "capture": "Uncomposited actual X display screenshot of native Plynt window"
+    }
+  ]
+}
