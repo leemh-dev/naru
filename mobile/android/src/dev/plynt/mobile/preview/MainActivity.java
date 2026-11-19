@@ -106,7 +106,7 @@ public final class MainActivity extends Activity {
   private void attachPage(Tab t,android.view.ViewGroup parent){if(t.view==null){t.view=new Page(t);configure(t);}parent.addView(t.view,new android.view.ViewGroup.LayoutParams(-1,-1));if(!t.loaded&&t.url!=null){t.loaded=true;t.view.loadUrl(t.url);}}
   private LinearLayout makePanel(Tab t){
     LinearLayout pane=new LinearLayout(this);pane.setOrientation(LinearLayout.VERTICAL);pane.setPadding(dp(2),dp(2),dp(2),dp(2));panelFrames.put(t.id,pane);
-    TextView handle=new TextView(this);handle.setText("⠿  "+t.alias);handle.setTextSize(12);handle.setTextColor(Color.rgb(64,74,105));handle.setGravity(Gravity.CENTER_VERTICAL);handle.setPadding(dp(8),0,dp(8),0);handle.setSingleLine(true);handle.setEllipsize(android.text.TextUtils.TruncateAt.END);handle.setContentDescription("패널 이동 · "+t.alias);handle.setOnClickListener(v->{active=t;t.view.requestFocus();paintTabs();paintPanels();save();});handle.setOnLongClickListener(v->{v.startDragAndDrop(ClipData.newPlainText("Plynt panel",t.id),new View.DragShadowBuilder(v),t,0);return true;});pane.addView(handle,new LinearLayout.LayoutParams(-1,dp(32)));
+    TextView handle=new TextView(this);handle.setText("⠿  "+t.alias);handle.setTextSize(12);handle.setTextColor(Color.rgb(64,74,105));handle.setGravity(Gravity.CENTER_VERTICAL);handle.setPadding(dp(8),0,dp(8),0);handle.setSingleLine(true);handle.setEllipsize(android.text.TextUtils.TruncateAt.END);handle.setContentDescription("패널 이동 · "+t.alias);handle.setOnClickListener(v->{active=t;t.view.requestFocus();paintTabs();paintPanels();save();});handle.setOnLongClickListener(v->{v.startDragAndDrop(new ClipData("Plynt panel",new String[]{"application/x-plynt-panel"},new ClipData.Item("")),new View.DragShadowBuilder(v),t,0);return true;});pane.addView(handle,new LinearLayout.LayoutParams(-1,dp(32)));
     FrameLayout page=new FrameLayout(this);pane.addView(page,new LinearLayout.LayoutParams(-1,0,1));attachPage(t,page);
     pane.setOnDragListener((v,event)->{if(!(event.getLocalState() instanceof Tab))return false;Tab source=(Tab)event.getLocalState();if(event.getAction()==DragEvent.ACTION_DROP){int from=multiIds.indexOf(source.id),to=multiIds.indexOf(t.id);if(from>=0&&to>=0&&from!=to){Collections.swap(multiIds,from,to);renderPanels();save();}}return true;});return pane;
   }
@@ -203,6 +203,7 @@ public final class MainActivity extends Activity {
   private final class Page extends WebView {
     final Tab tab;
     Page(Tab t){super(MainActivity.this);tab=t;}
+    @Override public boolean onDragEvent(DragEvent e){if(e.getLocalState() instanceof Tab)return false;return super.onDragEvent(e);}
     @Override public boolean onTouchEvent(android.view.MotionEvent e){if(e.getAction()==android.view.MotionEvent.ACTION_DOWN&&active!=tab){active=tab;paintTabs();paintPanels();save();}return super.onTouchEvent(e);}
     @Override public ActionMode startActionMode(ActionMode.Callback cb,int type){return super.startActionMode(wrap(cb),type);}
     @Override public ActionMode startActionMode(ActionMode.Callback cb){return super.startActionMode(wrap(cb));}

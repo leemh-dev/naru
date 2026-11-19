@@ -30,9 +30,9 @@ try:
  ui.open_menu('Plynt 메뉴','워크스페이스 관리');ui.shot('02-tablet-sidebar');tap('닫기');check('sidebar-preserves-four-panels-and-draft',len(boxes())==4 and js(page,"document.querySelector('#prompt').value==='TABLET_DRAFT_SYNTHETIC'"))
  choose('좌우 열 배치');tap('적용');r=boxes();check('columns-run-left-to-right-not-top-to-bottom',len(r)==4 and len(set(b[1] for b in r))==1 and all(r[i][0]<r[i+1][0] for i in range(3)));ui.shot('03-tablet-columns')
  before=current_book();order=next(e for e in before['entries'] if e['id']==before['current'])['state']['multiIds']
- start=ui.bounds(node('패널 이동 · 시험 A'));end=ui.bounds(node('패널 이동 · 시험 B'))
+ start=ui.bounds(node('패널 이동 · 시험 A'));target_box=boxes()[1];end=((target_box[0]+target_box[2])//2,target_box[1]+60)
  shell('input','motionevent','DOWN',str(start[0]),str(start[1]));time.sleep(.9);shell('input','motionevent','MOVE',str(end[0]),str(end[1]));time.sleep(.7);shell('input','motionevent','UP',str(end[0]),str(end[1]));time.sleep(.8)
- after=current_book();reordered=next(e for e in after['entries'] if e['id']==after['current'])['state']['multiIds'];check('native-drag-swaps-panel-order',reordered==[order[1],order[0],*order[2:]])
+ after=current_book();reordered=next(e for e in after['entries'] if e['id']==after['current'])['state']['multiIds'];check('native-drag-swaps-panel-order',reordered==[order[1],order[0],*order[2:]]);check('internal-panel-drag-does-not-insert-text',all(js(p,"[...document.querySelectorAll('textarea')].every(e=>e.value===''||e.value==='TABLET_DRAFT_SYNTHETIC')") for p in ui.connect()))
  shell('wm','size','1600x2560');time.sleep(1);check('tablet-portrait-keeps-multiview-and-live-draft',len(boxes())==4 and js(page,"document.querySelector('#prompt').value==='TABLET_DRAFT_SYNTHETIC'"));ui.shot('04-tablet-portrait')
  shell('am','force-stop',APP);shell('am','start','-W','-n',APP+'/.MainActivity');ui.connect();check('tablet-layout-and-panel-order-restore',len(boxes())==4 and next(e for e in current_book()['entries'] if e['id']==current_book()['current'])['state']['multiIds']==reordered)
 except Exception as e:
