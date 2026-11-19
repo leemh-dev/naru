@@ -82,6 +82,10 @@
       "passed": true
     },
     {
+      "name": "empty-workspace-name-stays-open",
+      "passed": true
+    },
+    {
       "name": "cancel-keeps-name",
       "passed": true
     },

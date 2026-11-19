@@ -11,14 +11,17 @@
 
 ## 진행 결과
 
-최종 CI 검사와 배포를 진행 중입니다. 통과 결과와 설치 파일 체크섬을 확인한 뒤 이 표를 갱신합니다.
+최종 태그 `v0.1.0-preview.6` / 커밋 `eef3e0a82b71d75d9e9b7de40131820c09643122`의 [배포 검사](https://github.com/leemh-dev/plynt/actions/runs/44459269369)가 통과했습니다. [공개 APK 덮어설치·배포 검사](https://github.com/leemh-dev/plynt/actions/runs/44461058875)도 통과했습니다. 설치 파일 9개와 체크섬이 [릴리스](https://github.com/leemh-dev/plynt/releases/tag/v0.1.0-preview.6)에 게시됐습니다.
 
 | 항목 | 결과 |
 |---|---|
+| 기본 Node 검사 | 20개 통과 |
 | Linux 새 기능·회귀 검사 | 30개 + 재시작 3개 및 기존 탭·배치·분류 50개 통과 |
-| Android 휴대폰 사이드바·이름 변경·복원 | 25개 통과, 최종 태그 재확인 예정 |
-| Windows·Mac 새 기능·회귀 검사 | 각 30개 + 재시작 3개 통과, 최종 태그 재확인 예정 |
-| Android 태블릿 기본 검사 | 11개 통과. 입력 보호·2/3개 자동 배치의 추가 검사 진행 중 |
+| Android 휴대폰 사이드바·이름 변경·복원 | 26개 통과 |
+| Windows·Mac 새 기능·회귀 검사 | 각 30개 + 재시작 3개 통과 |
+| Android 태블릿 기본 검사 | 14개 통과: 2/3/4개 자동 배치, 좌우 열, 드래그, 입력 보호, 단독 탭, 회전, 복원 |
+| 공개 preview.5 → preview.6 덮어설치 | Android 15에서 14개 통과: 런처 조회·실행, 탭 ID·워크스페이스, 합성 쿠키·웹 저장소 보존 |
+| 배포 파일 | 설치 파일 9개·체크섬 대조 성공, 공개 APK는 로컬 서명 파일과 바이트 단위 일치 |
 | 실제 AI 서비스 로그인 후 입력 | 미검증 |
 | 소개 페이지 | 정적 HTML·로컬 링크·자산 검사 통과. 브라우저 제어 경로 부재로 시각 QA 미실행. Pages 활성화 관리 권한 요청 403 |
 
@@ -28,9 +31,12 @@
 - macOS CI의 복사 버튼 검사에서는 창의 포커스 전환 전에 클릭하는 간헐적 실패가 있었습니다. 실제 네이티브 창·페이지 포커스를 기다린 뒤 클릭하고 클립보드 갱신을 확인하도록 고쳤습니다. 사이트 권한 정책을 완화하지 않았습니다.
 - Android 접근성 트리는 네이티브 WebView와 내부 문서를 모두 같은 클래스로 노출했습니다. 최초 태블릿 검사에서 패널 4개를 8개로 세어 실패한 것을 원본 캡처·XML로 확인하고, 최상위 WebView만 세도록 검사 코드를 고쳤습니다.
 
+- 추가 업데이트 검사에서 일반 암시적 MAIN/LAUNCHER 실행은 기존 버전에서도 해결되지 않았습니다. 런처처럼 등록된 컴포넌트를 조회한 뒤 명시적으로 실행해 두 버전의 진입점을 확인했습니다.
+- 최초 업데이트 쿠키 검사는 페이지 로딩 완료 전에 확인해 실패했습니다. 합성 문서 로딩 완료와 이전 버전의 저장·재실행 기준점을 확인하도록 고친 뒤 새 버전에서 쿠키·웹 저장소 유지가 통과했습니다. 앱의 인증·저장 정책을 완화하지 않았습니다.
+
 ## 데이터·이름 호환성
 
-`dev.plynt.mobile.preview.MainActivity`로 Java 소스를 옮겼습니다. 앱 ID 및 런처 별칭 `dev.naru.mobile.preview`는 기존 설치를 잇는 식별자로 남겼습니다. 앱 ID까지 변경하면 새 앱으로 설치돼 기존 데이터에 접근하지 못합니다. 배포 키는 `docs/android-signing.json`의 인증서와 대조합니다. 실제 preview.5 → preview.6 덮어설치 전체 흐름은 별도 실기기 확인이 필요합니다.
+`dev.plynt.mobile.preview.MainActivity`로 Java 소스를 옮겼습니다. 앱 ID 및 런처 별칭 `dev.naru.mobile.preview`는 기존 설치를 잇는 식별자로 남겼습니다. 앱 ID까지 변경하면 새 앱으로 설치돼 기존 데이터에 접근하지 못합니다. 배포 키는 `docs/android-signing.json`의 인증서와 대조합니다. 공개 preview.5 APK를 설치해 합성 데이터를 저장·재실행한 뒤, 앱을 삭제하지 않고 공개 preview.6 APK로 덮어 설치하는 검사가 통과했습니다. 실제 계정과 물리 실기기의 업데이트는 별도 확인 대상입니다.
 
 ## 화면 증거
 
@@ -44,3 +50,10 @@
 - [macOS arm64 30개](evidence/preview.6/macos/features-results.json), [재시작 3개](evidence/preview.6/macos/features-restore-results.json).
 - [Android 사이드바](evidence/preview.6/android/05-sidebar.png), [이름 변경](evidence/preview.6/android/06-rename.png), [휴대폰 결과](evidence/preview.6/android/results.json).
 - [태블릿 2×2](evidence/preview.6/android-tablet/01-tablet-grid.png), [좌우 4열](evidence/preview.6/android-tablet/03-tablet-columns.png), [세로 화면](evidence/preview.6/android-tablet/04-tablet-portrait.png), [태블릿 결과](evidence/preview.6/android-tablet/results.json).
+
+## 공개 파일·업데이트 증거
+
+- [덮어설치 14개 결과](evidence/preview.6/android-upgrade/results.json), [업데이트 후 새 사이드바](evidence/preview.6/android-upgrade/01-updated-sidebar.png).
+- [설치 파일 검증](evidence/preview.6/release-verification.json), [최종 SHA256SUMS](evidence/preview.6/SHA256SUMS.txt).
+- APK는 실제 공개 다운로드와 로컬 서명본을 바이트 단위로 비교했습니다. 데스크톱 8개 파일은 GitHub asset digest와 체크섬을 대조했으며 모든 설치 관리자 흐름을 직접 실행한 것은 아닙니다.
+- Pages는 소유자 활성화가 남아 있습니다. 현재 API의 `has_pages=false`와 활성화 요청의 403을 확인했으며, 정적 파일만 업로드한 상태를 사이트 공개로 표시하지 않습니다.

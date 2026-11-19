@@ -1,0 +1,61 @@
+{
+  "scope": "Official preview.5 APK to retained-key preview.6 update on Android 15 emulator; launcher component discovery/start, synthetic workspace/cookie/localStorage only",
+  "checks": [
+    {
+      "name": "one-launcher-entry-previous",
+      "passed": true
+    },
+    {
+      "name": "launcher-component-starts-previous",
+      "passed": true
+    },
+    {
+      "name": "previous-synthetic-session-established",
+      "passed": true
+    },
+    {
+      "name": "one-launcher-entry-baseline-restart",
+      "passed": true
+    },
+    {
+      "name": "launcher-component-starts-baseline-restart",
+      "passed": true
+    },
+    {
+      "name": "previous-session-persists-before-upgrade",
+      "passed": true
+    },
+    {
+      "name": "previous-version-has-two-saved-tabs",
+      "passed": true
+    },
+    {
+      "name": "same-signature-update-installs-without-uninstall",
+      "passed": true
+    },
+    {
+      "name": "one-launcher-entry-updated",
+      "passed": true
+    },
+    {
+      "name": "launcher-component-starts-updated",
+      "passed": true
+    },
+    {
+      "name": "update-preserves-workspace-and-tab-identities",
+      "passed": true
+    },
+    {
+      "name": "update-preserves-synthetic-login-cookie",
+      "passed": true
+    },
+    {
+      "name": "update-preserves-synthetic-web-storage",
+      "passed": true
+    },
+    {
+      "name": "updated-app-opens-new-sidebar",
+      "passed": true
+    }
+  ]
+}

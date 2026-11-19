@@ -31,11 +31,23 @@
       "passed": true
     },
     {
+      "name": "three-panels-auto-arrange-two-plus-one",
+      "passed": true
+    },
+    {
+      "name": "two-panels-share-one-row",
+      "passed": true
+    },
+    {
       "name": "columns-run-left-to-right-not-top-to-bottom",
       "passed": true
     },
     {
       "name": "native-drag-swaps-panel-order",
+      "passed": true
+    },
+    {
+      "name": "internal-panel-drag-does-not-insert-text",
       "passed": true
     },
     {

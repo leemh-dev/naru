@@ -1,0 +1,69 @@
+{
+  "repository": "leemh-dev/plynt",
+  "tag": "v0.1.0-preview.6",
+  "url": "https://github.com/leemh-dev/plynt/releases/tag/v0.1.0-preview.6",
+  "releaseCommit": "eef3e0a82b71d75d9e9b7de40131820c09643122",
+  "buildRun": 44459269369,
+  "retainedKeyPublishAndUpgradeRun": 44461058875,
+  "installerCount": 9,
+  "publishedAndroidBytesMatchLocal": true,
+  "androidSha256": "d0d7e4c2c4beb3b47145dbdd5e985ebce9aa4b2df315770bf3089072a2c200e4",
+  "allNineChecksumsMatchGitHubAssetDigests": true,
+  "scope": "APK downloaded and compared byte-for-byte; other installer digests compared to GitHub asset metadata and published checksum file, not all downloaded or installed",
+  "assets": [
+    {
+      "name": "plynt-0.1.0-preview.6-android-test.apk",
+      "size": 327873,
+      "digest": "sha256:d0d7e4c2c4beb3b47145dbdd5e985ebce9aa4b2df315770bf3089072a2c200e4",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-android-test.apk"
+    },
+    {
+      "name": "plynt-0.1.0-preview.6-linux-amd64.deb",
+      "size": 102482148,
+      "digest": "sha256:0af00333e573e77dac4d0d71f4ced4d9fd8286c14a6a1c818cef46acdcdf64ee",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-linux-amd64.deb"
+    },
+    {
+      "name": "plynt-0.1.0-preview.6-linux-x86_64.AppImage",
+      "size": 127504602,
+      "digest": "sha256:6fc9e3ed26aabfe8a0ccfd8ca80d1f821b1dabe4bec51f7ccbda7475b470b9e5",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-linux-x86_64.AppImage"
+    },
+    {
+      "name": "plynt-0.1.0-preview.6-mac-arm64.dmg",
+      "size": 124099645,
+      "digest": "sha256:43b5dfa07989a289a61b6bd85b70042f3cbfc8183838d468a9df066b55130d35",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-mac-arm64.dmg"
+    },
+    {
+      "name": "plynt-0.1.0-preview.6-mac-arm64.zip",
+      "size": 119363494,
+      "digest": "sha256:6e8d7a38c23ee5b5909d678ad0c9c935d35248bd1eac62dbf88a59bba72f223f",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-mac-arm64.zip"
+    },
+    {
+      "name": "plynt-0.1.0-preview.6-mac-x64.dmg",
+      "size": 128218339,
+      "digest": "sha256:35762ba1109437002f9262c16538c2275edfe3ae51781c4f1de07161aad3d2e6",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-mac-x64.dmg"
+    },
+    {
+      "name": "plynt-0.1.0-preview.6-mac-x64.zip",
+      "size": 123478775,
+      "digest": "sha256:2076689e23c48559ffe13b8dc6226bfe2bf4560b240fdf2f9b7ef32d2c7e97f0",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-mac-x64.zip"
+    },
+    {
+      "name": "plynt-0.1.0-preview.6-win-x64.exe",
+      "size": 122535591,
+      "digest": "sha256:c3b49002a405b6e52a6e53430d2e70e1662cbc05fa7482c1454eb84828b9f22b",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-win-x64.exe"
+    },
+    {
+      "name": "plynt-0.1.0-preview.6-win-x64.zip",
+      "size": 154345494,
+      "digest": "sha256:a161ba315397ab223b9cd13b477c76d0c52cdfdcdf2062e1cb8fa166493faf45",
+      "browser_download_url": "https://github.com/leemh-dev/plynt/releases/download/v0.1.0-preview.6/plynt-0.1.0-preview.6-win-x64.zip"
+    }
+  ]
+}
