@@ -15,12 +15,14 @@ with tempfile.TemporaryDirectory(prefix='workspace-package-test-') as temp:
    for _ in range(30):
     if Path('/tmp/.X11-unix/X94').exists():break
     time.sleep(.1)
-   p=subprocess.Popen([str(binary),'--fixtures','--disable-dev-shm-usage'],env=env,stdout=ef,stderr=subprocess.STDOUT)
+   # Optional container-only workaround, restricted to this fresh synthetic profile.
+   flags=['--no-sandbox'] if os.environ.get('TEST_FIXTURE_DISABLE_SANDBOX')=='1' else []
+   p=subprocess.Popen([str(binary),'--fixtures','--disable-dev-shm-usage',*flags],env=env,stdout=ef,stderr=subprocess.STDOUT)
    try:
     time.sleep(3)
     if p.poll() is not None:raise RuntimeError('Packaged app exited during startup')
     subprocess.run(['python',str(root/'tests/native-action.py'),'screenshot',str(out/'05-packaged-startup.png')],env=env,check=True)
-    print(json.dumps({'package':package.name,'platform':'linux','startup_process_alive':True,'screenshot':'05-packaged-startup.png','scope':'offline fixture startup; no authenticated service test'}))
+    print(json.dumps({'package':package.name,'platform':'linux','startup_process_alive':True,'screenshot':'05-packaged-startup.png','scope':'offline fixture startup; no authenticated service test','container_fixture_sandbox_workaround':bool(flags)}))
    finally:
     p.terminate()
     try:p.wait(timeout=5)

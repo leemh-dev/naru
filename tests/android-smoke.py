@@ -101,7 +101,7 @@ try:
  tap('↗');tap('ChatGPT 답변 가져오기 · 시험');check('whole-assistant-answer-available-without-selection',node('Plynt mobile test',True) is not None);tap('닫기')
  js(target,"document.cookie='plynt_fixture=synthetic; Max-Age=86400; Path=/; Secure; SameSite=Lax';localStorage.setItem('plynt_fixture','synthetic')")
  workspaces();set_name('Mobile QA');tap('현재 작업 저장');workspaces();check('workspace-name-saved',node('Mobile QA',True) is not None);set_name('Empty QA');tap('새 빈 작업');check('new-workspace-has-no-webview',not any(n.attrib.get('class')=='android.webkit.WebView' for n in dump().iter('node')));workspaces();tap('Mobile QA · 2개 탭',True);connect();workspaces();shot('04-workspaces');tap('닫기')
- shell('input','keyevent','KEYCODE_HOME');time.sleep(.5);shell('am','force-stop',APP);shell('am','start','-W','-n',APP+'/.MainActivity');time.sleep(1);pages=connect();check('workspace-tabs-survive-process-restart',len(pages)==2);page=active_page();check('synthetic-login-cookie-survives-restart',js(page,"document.cookie.includes('plynt_fixture=synthetic')"));check('synthetic-web-storage-survives-restart',js(page,"localStorage.getItem('plynt_fixture')==='synthetic'"));workspaces();check('named-current-workspace-survives-restart',node('● Mobile QA',True) is not None);tap('닫기')
+ shell('input','keyevent','KEYCODE_HOME');time.sleep(.5);shell('am','force-stop',APP);shell('am','start','-W','-n',APP+'/.MainActivity');time.sleep(1);pages=connect();check('workspace-tabs-survive-process-restart',node('◈ 시험 A') is not None and node('◈ 시험 B') is not None);page=active_page();check('synthetic-login-cookie-survives-restart',js(page,"document.cookie.includes('plynt_fixture=synthetic')"));check('synthetic-web-storage-survives-restart',js(page,"localStorage.getItem('plynt_fixture')==='synthetic'"));workspaces();check('named-current-workspace-survives-restart',node('● Mobile QA',True) is not None);tap('닫기')
  report=json.loads(shell('run-as',APP,'cat','files/diagnostics.json'));check('diagnostics-exclude-text-and-workspace-names',all(x not in json.dumps(report) for x in ['Plynt mobile test','Mobile QA','fixture.plynt.test','plynt_fixture']))
 except Exception as e:
  try:
@@ -109,4 +109,4 @@ except Exception as e:
  except Exception:pass
  (out/'failure.txt').write_text(str(e));raise
 finally:
- (out/'results.json').write_text(json.dumps({'scope':'Real Android emulator, native touch and synthetic HTTPS fixture only; no real service sign-in','android':shell('getprop','ro.build.version.release'),'checks':checks},indent=2)+'\n')
+ (out/'results.json').write_text(json.dumps({'scope':'Real Android emulator, native touch and synthetic HTTPS fixture only; no real service sign-in','android':shell('getprop','ro.build.version.release'),'model':shell('getprop','ro.product.model'),'abi':shell('getprop','ro.product.cpu.abi'),'webview':locals().get('report',{}).get('webview','not-read'),'checks':checks},indent=2)+'\n')

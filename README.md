@@ -2,160 +2,87 @@
 
 [한국어](#plynt--플린트) · [English](#english)
 
-**Plynt는 여러 AI의 대화·작업 화면과 다시 쓸 글을 한곳에 모아, 다음 작업을 이어 가도록 돕는 데스크톱 앱입니다.**
+**Plynt는 여러 AI의 작업 화면과 다시 쓸 글을 한곳에 모아, 다음 작업을 이어 가도록 돕는 앱입니다.**
 
-프로젝트 이름을 **Naru(나루)에서 Plynt(플린트)**로 변경했습니다. GitHub 저장소 주소는 현재 `leemh-dev/naru`입니다. 기존 설치의 작업·로그인 데이터 경로와 앱 식별자는 유지하며, 과거 검증 기록과 캡처에는 시험 당시 이름이 남아 있습니다.
+ChatGPT의 채팅·프로젝트·Codex 작업을 오가고, 가사나 프롬프트를 Suno·Canva에 옮기다 보면 화면 전환과 복사·붙여넣기를 반복하게 됩니다. Plynt는 **작업을 다시 찾는 시간과 서비스 사이에서 글을 옮기는 수고를 줄이기 위해** 만들었습니다. 각 서비스의 원본 웹사이트를 탭으로 열고, 작업 구성을 저장하며, 사용자가 고른 글을 다른 탭의 입력칸에 넣습니다.
 
-[이름 변경과 검증 기록](docs/plynt-rename.md)
+Windows·macOS·Linux용 데스크톱 프리뷰와 Android 호환성 시험 앱을 제공합니다. 다른 회사의 설치된 앱을 내부에서 실행하는 가상화 도구는 아닙니다. 일반 브라우저보다 얼마나 편리한지, 실제 AI 서비스의 로그인 후 입력이 호환되는지는 추가 사용 시험이 필요합니다.
 
-[0.1.0-preview.4 변경·검증·배포 확인](docs/preview.4-validation.md)
+[설치 파일 · preview.5](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.5) · [변경·검증 기록](docs/preview.5-validation.md) · [빌드 상태](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [오류 제보](https://github.com/leemh-dev/naru/issues)
 
-## 왜 만들었나요?
+이전 프로젝트명은 Naru입니다. 표시 이름은 Plynt로 바꿨으며 GitHub 주소는 현재 `leemh-dev/naru`입니다. 기존 데이터 경로와 앱 식별자는 유지합니다. [이름 변경 기록](docs/plynt-rename.md)
 
-여러 AI를 함께 쓰다 보면 하나의 작업도 여러 화면에 흩어집니다. ChatGPT의 일반 대화와 프로젝트 대화, Codex 작업을 오가고, 필요한 모델이 있으면 다른 서비스를 엽니다. 작성한 가사나 프롬프트를 Suno·Canva에서 쓰려면 원문을 다시 찾고, 복사하고, 목적지의 입력칸으로 이동해야 합니다.
+## 무엇을 할 수 있나요?
 
-Plynt는 **진행 중인 작업을 찾느라 화면을 반복해서 넘기는 불편과, 서비스 사이에서 같은 글을 다시 찾아 옮기는 불편**을 줄이기 위해 만들었습니다. 휴대폰에서 여러 AI를 오가며 느낀 불편에서 출발했으며, 현재는 Windows·macOS·Linux용 데스크톱 프리뷰부터 구현하고 있습니다.
+- **작업 화면 모으기:** 같은 서비스도 여러 탭으로 열고 별칭을 붙입니다. 최대 30개 탭, 데스크톱에서는 최대 4개 패널을 2×2 또는 좌우 4열로 배치합니다. 멀티뷰 밖의 탭은 한 화면으로 열립니다.
+- **글 옮기기:** 블록 선택 후 우클릭 또는 길게 누르기로 대상 탭을 고릅니다. 답변의 복사 버튼을 쓴 뒤 상단 `↗`에서 **복사한 글 보내기**도 가능합니다. 대상 탭이 활성화되며, 빈 입력칸을 터치한 뒤 **여기에 넣기**로 입력합니다. 입력칸을 미리 등록할 필요 없이 대상을 먼저 고를 수 있습니다.
+- **계속 작업하기:** 워크스페이스에 이름을 붙여 저장·다른 이름으로 저장·전환합니다. 탭의 URL·별칭·순서·활성 탭, 보관 글과 최근 전달 대상을 로컬에 저장합니다. 데스크톱은 패널 배치도 저장합니다.
+- **빠르게 서비스 찾기:** 8개 분류의 47개 서비스 바로가기, 검색, 아이콘과 약자를 제공합니다. 검색창 아래 분류를 좌우로 밀어 여러 개 선택할 수 있습니다. `All`이 기본이며 맨 위 Google 바로가기는 일반 브라우저 탭을 엽니다.
+- **글 재사용:** 선택한 글을 명시적으로 보관하고 나중에 다시 보냅니다. 최대 50개, 항목당 5만 자입니다. 최근 목적지에도 다시 보낼 수 있습니다.
 
-목표는 작업 화면과 필요한 글을 한곳에 두고 이어서 사용하는 것입니다. 실제로 일반 브라우저나 개별 앱보다 얼마나 편리한지는 비교 사용 시험이 필요합니다.
+ChatGPT 탭에는 **답변 가져오기 · 시험** 기능도 있습니다. 화면에 로드된 답변을 후보로 보여 드리고, 사용자가 선택한 답변을 미리 본 뒤 전달합니다. 현재 합성 화면에서만 확인한 실험 기능이며, 실제 ChatGPT 화면 구조가 바뀌면 동작하지 않을 수 있습니다. 답변의 복사 버튼을 이용하는 방법도 제공합니다.
 
-## Plynt로 무엇을 할 수 있나요?
+**전송·생성·게시 버튼은 자동으로 누르지 않습니다.** 기존 입력이 있는 칸에는 덮어쓰지 않으며, 실패한 글은 전달 대기 상태로 남깁니다. 이미지·음악·파일 전달은 지원하지 않습니다.
 
-- **진행 중인 작업을 나란히 볼 수 있습니다.** ChatGPT·Codex Cloud·Claude·Suno·Midjourney·Canva의 원본 웹 화면을 탭으로 열고, 작업별 별칭을 붙이며, 최대 4개 화면을 나란히 배치합니다. 같은 서비스를 여러 탭으로 열 수도 있습니다.
-- **선택한 글을 다음 작업의 입력칸에 넣을 수 있습니다.** 받을 칸을 먼저 지정한 뒤, 원문을 선택하고 우클릭 메뉴에서 대상 탭을 고릅니다. 입력 결과가 원문과 같은지 확인하며, 기존 내용이 있는 칸에는 덮어쓰지 않습니다.
-- **자주 쓰는 글과 작업 구성을 다시 사용할 수 있습니다.** 선택한 글을 보관해 다른 작업에서 꺼내 쓰고, 앱을 다시 열면 저장된 탭 주소·별칭·화면 배치를 복원합니다.
+## 설치
 
-예를 들어 글을 다듬는 화면과 다음 작업의 입력 화면을 함께 띄워 놓고, 필요한 문구만 골라 전달할 수 있습니다. 반복해서 쓰는 스타일 지시나 작성 규칙은 보관함에 넣어 두었다가 다시 사용할 수 있습니다.
+Releases의 **Assets**에서 운영체제에 맞는 파일을 받으세요. `Source code.zip`은 설치 파일이 아닙니다. 실제 첨부된 파일만 배포된 파일이며, `SHA256SUMS.txt`로 무결성을 확인할 수 있습니다.
 
-현재는 **사용자 설치 시험을 위한 프리뷰**입니다. 실제 서비스의 로그인 허용 여부와 로그인 후 입력 호환성은 아직 확인이 필요합니다. 다른 회사의 네이티브 앱을 안에 실행하는 가상화 도구는 아닙니다.
+| 환경 | 파일 |
+|---|---|
+| Windows x64 | `plynt-…-win-x64.exe` 또는 압축 해제 후 실행하는 `.zip` |
+| Mac Apple Silicon | `plynt-…-mac-arm64.dmg` 또는 `.zip` |
+| Mac Intel | `plynt-…-mac-x64.dmg` 또는 `.zip` |
+| Linux x64 | `plynt-…-linux-x86_64.AppImage` |
+| Debian / Ubuntu x64 | `plynt-…-linux-amd64.deb` |
+| Android 시험 앱 | `plynt-…-android-test.apk` |
 
-초기 프리뷰에서 한 줄 시험 글을 ChatGPT 입력칸에서 Canva의 공개 입력칸으로 옮기는 것은 확인했습니다. **Suno·Canva의 로그인 후 실제 작업 화면에서의 전달, 이미지·음악·파일 전달, 기기 간 동기화까지 지원한다는 의미는 아닙니다.** 자세한 범위는 아래 기능과 검증 기록을 참고하세요.
+Android는 별도 네이티브 WebView 시험 앱이며 모바일 멀티뷰와 iOS 버전은 없습니다. **기존 공개 preview.4 APK와 preview.5 APK는 서명이 달라 덮어 설치할 수 없습니다.** 삭제하면 로컬 탭·보관 글·로그인이 지워지므로, 필요한 URL과 자료를 먼저 별도로 보관하세요. preview.5부터 배포 APK는 보관된 동일 키로 서명하도록 분리했습니다. CI 임시 키 APK는 업데이트용으로 배포하지 않습니다. [Android 설치·서명 안내](mobile/android/README.md)
 
-[다운로드 · Plynt 0.1.0-preview.4](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.4) · [빌드 상태](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [오류 제보](https://github.com/leemh-dev/naru/issues)
+데스크톱 설치 파일은 공인 코드 서명과 Apple 공증을 하지 않은 프리뷰입니다. OS 정책에 따라 실행이 제한될 수 있습니다. 설치 파일 생성, 앱 실행, 설치 관리자의 전체 동작은 서로 다른 검사입니다.
 
-## 다운로드와 실행
-
-Releases에서 **Assets**를 펼쳐 운영체제와 CPU에 맞는 파일을 받으세요. `Source code.zip`은 설치 파일이 아닌 개발 소스입니다.
-
-**Plynt 설치 파일은 `v0.1.0-preview.4` 릴리스에서 확인합니다.** 기존 `v0.1.0-preview.1`·`preview.2`의 Naru 설치 파일은 과거 버전으로 보존합니다. Releases에 실제로 첨부된 파일만 배포 완료된 파일입니다.
-
-| 환경 | 배포 파일 | 실행 방법 |
-|---|---|---|
-| Windows x64 | `plynt-…-win-x64.exe` | 설치 마법사로 설치합니다. |
-| Windows x64, 무설치 | `plynt-…-win-x64.zip` | 폴더 전체를 풀고 `Plynt.exe`를 실행합니다. |
-| Mac Apple Silicon | `plynt-…-mac-arm64.dmg` 또는 `.zip` | DMG에서 앱을 Applications로 옮기거나 ZIP의 `Plynt.app`을 옮깁니다. |
-| Mac Intel | `plynt-…-mac-x64.dmg` 또는 `.zip` | Intel용 앱을 위와 같은 방식으로 사용합니다. |
-| Linux x64 | `plynt-…-linux-x86_64.AppImage` | 파일에 실행 권한을 부여한 뒤 실행합니다. |
-| Debian·Ubuntu x64 | `plynt-…-linux-amd64.deb` | 배포판 패키지 설치기로 설치합니다. |
-| Android 호환성 시험용 | `plynt-…-android-test.apk` | 디버그 서명 시험 앱입니다. 아래 검증 한계를 확인하세요. |
-
-Android APK는 데스크톱과 기능이 같지 않은 별도 시험 앱입니다. 에뮬레이터에서 앱 시작과 진단 기록은 확인했지만 WebView 종료·네트워크 오류로 **길게 누르기 전달과 로그인 완료는 미검증**입니다. [Android 범위와 빌드](mobile/android/README.md) · [실제 시험 결과](docs/preview.2-validation.md)
-
-릴리스에 실제로 첨부된 파일이 배포 완료된 파일입니다. 함께 제공하는 `SHA256SUMS.txt`로 다운로드 파일의 체크섬을 확인할 수 있습니다.
-
-Linux에서 `libfuse.so.2`가 없다는 오류가 나오면 AppImage 런타임의 추출 실행 옵션을 사용할 수 있습니다.
+AppImage에서 FUSE가 없다는 오류가 나면 다음 런타임 옵션을 사용할 수 있습니다.
 
 ```sh
-chmod +x plynt-0.1.0-preview.4-linux-x86_64.AppImage
-./plynt-0.1.0-preview.4-linux-x86_64.AppImage --appimage-extract-and-run
+chmod +x plynt-0.1.0-preview.5-linux-x86_64.AppImage
+./plynt-0.1.0-preview.5-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
-이 방법으로 Debian 13의 사용자 폴더에 둔 **0.1.0-preview.1 릴리스 AppImage**를 실행해 확인했습니다. 시스템 전체에 deb를 설치한 시험은 아닙니다. [Linux 실행 시험과 화면 증거](docs/linux-installed-test-2026-11-17.md)를 참고하세요.
+## 처음 사용하는 순서
 
-프리뷰는 **코드 서명·Apple 공증을 하지 않았습니다.** 운영체제 보안 정책이 설치·실행을 제한할 수 있습니다. 이런 경우 경고와 발생 단계를 기록하고 시스템 보호 기능을 일괄 해제하지 마세요. 설치 파일 생성 성공과 해당 OS에서 앱이 정상 실행되는지는 별도의 검증 항목입니다.
+1. `+`에서 서비스나 웹 주소를 엽니다. 기존 비공개 대화 URL도 사용할 수 있습니다.
+2. 각 서비스의 정상 로그인 화면에서 직접 로그인합니다. 같은 서비스의 탭은 해당 기기의 세션을 공유합니다.
+3. 탭 별칭은 데스크톱에서 더블클릭, Android에서 길게 눌러 변경합니다.
+4. 글을 선택해 **다른 탭에 넣기**를 누르거나, 서비스의 복사 버튼을 누른 뒤 상단 `↗`의 복사한 글 보내기를 엽니다.
+5. 내용을 확인하고 대상 탭을 고릅니다. 입력칸이 등록되지 않았다면 목적지의 **빈 칸을 터치 → 여기에 넣기**로 진행합니다. 등록한 칸은 다시 사용할 수 있습니다.
+6. 입력 결과와 줄바꿈을 확인합니다. Suno의 가사·스타일처럼 여러 입력칸이 있으면 각각 등록하세요. Canva 검색칸에 글을 넣은 것은 디자인 편집 완료와 다릅니다.
+7. `··· → 워크스페이스`에서 이름을 붙이고 저장합니다. 탭 구성은 변경할 때 자동 저장하며, 저장 상태도 표시합니다.
 
-## 구현된 기능
+탭 URL과 배치는 복원하지만 웹사이트 내부의 작성 중인 초안·스크롤·편집 상태까지 복원하지는 않습니다. 웹페이지가 입력칸을 교체하거나 이동하면 다시 지정해야 합니다. iframe 안의 입력칸 등 일부 편집기는 지원하지 않습니다.
 
-`+`에서 **챗·검색 / 음악 / 이미지 / 동영상 / 디자인·발표 / 개발 / 문서·리서치 / 음성·더빙**으로 나눈 **47개 서비스**를 찾을 수 있습니다. ChatGPT·Claude·Gemini, Suno·Udio, Midjourney·Firefly, Runway·Kling, Canva 등으로 바로 이동합니다. 한글·영문 이름 검색을 지원하며, 여러 용도를 가진 서비스는 관련 분류에도 나타납니다. 목록에 없는 서비스와 비공개 대화는 웹 주소로 직접 열 수 있습니다.
+## 로그인·저장·진단
 
-바로가기는 원본 웹사이트를 여는 기능이며 서비스별 로그인·생성·입력 전달 지원을 보장하지 않습니다. [전체 목록과 공식 출처](docs/ai-shortcuts.md) · [preview.4 변경·검증 기록](docs/preview.4-validation.md)
+정상 로그인으로 웹 엔진에 저장된 쿠키와 웹 저장소는 다음 실행에서도 재사용합니다. 이는 **세션 저장 기능**이며 비밀번호 저장·다른 브라우저 쿠키 가져오기·로그인 우회가 아닙니다. 서비스가 세션을 만료시키거나 내장 브라우저 로그인을 제한하면 다시 로그인해야 합니다. `···` 메뉴에서 확인 후 로그인 데이터를 지울 수 있습니다. 워크스페이스를 전환해도 같은 기기의 서비스 세션을 공유합니다.
 
-![분류별 AI 서비스 바로가기 · 실제 Linux 앱의 합성 시험 모드](docs/evidence/preview.4/07-service-catalog.png)
+워크스페이스와 보관 글은 기기 내에 저장합니다. 자체 계정·클라우드 동기화·기기간 공유는 없습니다. 사생활 보호가 필요한 URL과 글이 포함될 수 있으므로 작업 저장 파일이나 앱 프로필을 공개하지 마세요. 이전 단일 작업 저장본은 새 워크스페이스 저장소로 읽어 들이며, 손상된 저장본은 백업 복원 또는 쓰기 중단으로 보호합니다.
 
-| 기능 | 현재 동작 |
-|---|---|
-| AI 바로가기 | 8개 분류, 47개 서비스, 한글·영문 검색, 웹 주소 직접 입력 |
-| 작업 탭 | 동일 서비스를 여러 번 열기, 고정된 서비스 표시와 사용자 별칭, 좌우 스크롤·드래그 |
-| 화면 배치 | 단일 화면, 가로 **2×2**, 세로 **좌우 1×4**; 1~3개 자동 배치 |
-| 패널 이동 | 머리글 핸들로 위치 교환·가장자리 분할, 경계 드래그로 비율 조절 |
-| 작업 복원 | URL·별칭·표시 패널·배치·보관한 글을 이 PC에 자동 저장 |
-| 글 전달 | 받을 칸을 먼저 지정한 뒤 선택 글 우클릭 → 대상 탭·필드 선택 |
-| 원문 보호 | 입력 결과를 원문과 비교하고, 기존 글이 있으면 덮어쓰지 않고 중단 |
-| 글 보관 | 선택한 글을 명시적으로 복사·보관하고 다른 작업에서 재사용 |
-| 진단 | 로컬 로그, 미리 보기, JSON 내보내기, 수집 중지·삭제 |
+`··· → 진단 보고서`에서 미리 보고 JSON으로 내보낼 수 있습니다. 자동 업로드하지 않습니다.
 
-작업 탭은 최대 **30개**, 멀티뷰는 최대 **4개 패널**입니다. `멀티뷰`에서 함께 볼 탭을 직접 고릅니다. 구성에 없는 탭은 작업 영역 전체로 열리며, 구성원 탭을 다시 선택하면 저장된 멀티뷰와 조절한 너비로 돌아옵니다. 활성 탭은 은은하게 강조되며 글을 전달하면 대상 탭과 입력칸으로 이동합니다. 보관한 글은 최대 50개, 한 항목과 한 번의 전달은 최대 5만 자입니다.
+- 포함: 앱·OS·웹 엔진 버전, 허용된 동작·결과·오류 코드, 글자 수 등.
+- 제외: 대화·프롬프트 원문, URL, 별칭, 비밀번호, 쿠키·토큰, 페이지 콘솔, 원본 오류 스택, 화면 캡처.
+- 수집 중지와 기록 삭제가 가능합니다. 캡처는 별도의 합성 시험 스크립트에서만 만듭니다.
 
-아래는 **비민감 합성 화면으로 실제 앱을 실행한 증거**입니다. 실제 AI 서비스 로그인 후 동작을 보여 주는 화면은 아닙니다.
+## 확인된 범위
 
-| 가로 2×2 | 세로 좌우 1×4 |
-|---|---|
-| ![합성 화면의 2×2 배치](docs/evidence/preview.2/01-grid.png) | ![합성 화면의 좌우 4열 배치](docs/evidence/preview.2/02-columns.png) |
+Windows·macOS·Linux의 실제 Electron 실행에서 새 전달 흐름·분류·워크스페이스·합성 쿠키 재시작 검사를 실행했습니다. Android는 실제 에뮬레이터의 네이티브 메뉴와 WebView로 별도 검사합니다. **합성 쿠키 복원 성공이 실제 ChatGPT·Suno·Canva 로그인 성공을 의미하지는 않습니다.** 정확한 항목별 결과와 화면은 [preview.5 검증 기록](docs/preview.5-validation.md)에 있습니다.
 
-## 첫 사용과 입력 시험
+실제 서비스 로그인 후 입력, 파일 전달, 일반 브라우저 대비 조작·시간 절감, 시장 수요는 검증되지 않았습니다. Codex 바로가기는 Codex Cloud 웹 화면이며 데스크톱 원격 Codex의 모든 기능을 지원한다는 뜻이 아닙니다.
 
-1. 중앙 또는 상단의 `+`에서 서비스나 웹 주소를 추가합니다. 기존 비공개 대화 주소도 사용할 수 있습니다.
-2. 각 서비스 화면에서 본인이 직접 정상 로그인합니다. 동일 서비스의 탭들은 로그인 세션을 공유합니다. 다른 브라우저에서 쿠키·비밀번호를 가져오지 않습니다.
-3. 탭을 더블클릭해 별칭을 정합니다. 원본 대화 제목은 바꾸지 않습니다. 상단 `멀티뷰`에서 최대 4개 탭과 배치를 선택합니다. `한 화면으로 보기`로 잠시 확대해도 멀티뷰 구성은 유지됩니다.
-4. 목적지의 **빈 텍스트 입력칸을 클릭한 다음 우클릭 → 받을 입력칸 지정 → 프롬프트·가사·스타일** 중 하나를 선택합니다.
-5. 원문에서 필요한 부분을 선택하고 **우클릭 → 다른 작업에 넣기 → 대상 탭·입력칸**을 선택합니다.
-6. 원문·줄바꿈 일치 여부와 실제 입력 결과를 확인합니다. **Plynt는 메시지 전송·음악 생성·외부 게시 버튼을 자동으로 누르지 않습니다.**
-7. 반복해서 쓸 글은 **우클릭 → 복사하고 보관**을 선택합니다. `··· → 보관한 글`에서 복사하거나 지정한 칸에 다시 넣습니다.
+[이전 preview.4 검증](docs/preview.4-validation.md) · [초기 Android 제한 기록](docs/preview.2-validation.md) · [서비스 목록과 출처](docs/ai-shortcuts.md) · [번들 아이콘 출처](src/assets/services/sources.json)
 
-Suno의 가사와 스타일은 각각 다른 칸으로 지정하고 시험하세요. Canva는 실제 사용할 AI 기능의 프롬프트 칸을 지정하세요. 검색창에 글을 넣은 것을 디자인 편집 성공으로 판단하지 않습니다. 페이지가 이동하거나 입력 요소가 교체되면 받을 칸을 다시 지정해야 합니다.
+## 개발과 배포
 
-시험에는 비민감 문구를 사용하세요. 기존 대화를 공개 공유하거나 기존 내용·설정을 변경할 필요는 없습니다. 입력 확인에서 멈추며 유료 생성 크레딧을 소비하지 않습니다. 로그인 차단·CAPTCHA·요금제 제한은 우회하지 않고 해당 단계의 제한으로 기록합니다.
-
-## 문제 발생 시 진단 보고서
-
-**`··· → 진단 보고서 → 내용을 확인 → 이 내용으로 파일 저장`** 순서로 JSON을 내보냅니다. 보고서는 자동 업로드되지 않습니다.
-
-- **기록:** 앱·Electron·OS 버전, 서비스 종류, 실행 내 탭 번호, 오류 코드, 로딩·전달 시간, 원문 일치 결과, 글자 수·줄바꿈 수.
-- **제외:** 대화·프롬프트 원문, 비공개 URL, 탭 별칭, 비밀번호·토큰·쿠키, 스크린샷, 서비스 콘솔 메시지와 원본 오류 스택.
-- 수집은 기본으로 켜져 있으며 메뉴에서 끄거나 삭제할 수 있습니다. 로그는 약 512 KiB 파일 4개로 순환합니다.
-- 실제 서비스가 표시한 오류나 로그인 성공 여부를 자동으로 해석하지 않습니다. 실패한 단계와 개인정보가 없는 오류 문구를 별도로 기록해 주세요.
-
-[진단 수집 명세](docs/diagnostics.md) · [시험 기록 양식](docs/test-template.md) · [진단 화면 예시](docs/evidence/03-diagnostics.png)
-
-이 저장소와 Issues는 공개되어 있습니다. 공개 제보 전 보고서를 확인하고 **브라우저 프로필·앱 데이터 폴더 전체·개인 대화 캡처는 첨부하지 마세요.**
-
-## 저장 방식과 현재 한계
-
-작업 URL·별칭·배치와 사용자가 보관한 원문은 로컬 `workspace.json`에 저장합니다. 로그인은 Electron의 서비스 세션 저장소에서 처리합니다. 이 데이터는 진단 내보내기에 포함하지 않습니다.
-
-초기 `AI Workspace Preview` 버전과의 연속성을 위해 내부 앱 식별자와 데이터 폴더 이름을 유지했습니다. 표시 이름은 Plynt지만 기본 데이터 폴더 이름은 `AI Workspace Preview`입니다. 사용자 계정·OS에 따라 상위 경로가 달라집니다.
-
-- **자체 계정·클라우드 동기화:** 아직 없습니다. 현재 작업 공간 하나를 PC에 저장합니다.
-- **종료 후 복원:** URL·별칭·배치를 다시 엽니다. 입력 중인 글·스크롤·생성 진행 상태는 Plynt가 저장하거나 복원을 보장하지 않습니다. 서비스 자체에서 일부 초안을 복구할 수 있습니다.
-- **자동 입력 범위:** 받을 칸을 수동 지정합니다. iframe·새 팝업 창의 칸 지정, 자동 프롬프트 분류, 자연어 앱 명령은 지원하지 않습니다.
-- **자료 종류:** 현재는 글 전달·보관입니다. 이미지·음악·파일 전달은 아직 구현하지 않았습니다.
-- **클립보드:** 앱 밖 클립보드를 감시하지 않습니다. `복사하고 보관`을 선택한 글만 저장합니다.
-- **배치:** 좁은 창에서 패널 최소 폭에 따른 가로 스크롤, 배치 되돌리기는 아직 없습니다. 단일 패널 확대를 이용할 수 있습니다.
-- **권한:** 마이크·카메라 등 추가 권한은 이 시험판에서 허용하지 않습니다.
-- **플랫폼:** 주 앱은 데스크톱 대상입니다. [Android 호환성 시험 앱](mobile/android/README.md)을 별도로 추가했습니다. 데스크톱과 기능이 같지 않으며 모바일 멀티뷰·iOS 앱은 아직 구현하지 않았습니다.
-- **Codex:** Codex Cloud 웹 화면을 엽니다. 원격 데스크톱 Codex와 다르며, 모든 Codex 기능의 지원을 의미하지 않습니다.
-
-## 검증 범위
-
-| 항목 | 현재 근거 |
-|---|---|
-| 개인정보 제외·로그 순환·배치·복원 데이터 | 자동 검사 |
-| Linux 실제 Electron 창·네이티브 메뉴·원문 전달·재시작 | 0.1.0-preview.2 합성 화면 검사 30개·재시작 6개 통과 |
-| Linux 릴리스 AppImage의 실행·공개 서비스 화면 | Debian 13에서 실제 창 확인; FUSE 없이 추출 실행 옵션 사용 |
-| ChatGPT 입력칸의 시험 글 → Canva 공개 AI Image Generator 입력칸 | 한 줄 원문 일치 확인; 여러 줄은 줄바꿈 소실을 감지. 생성 답변·로그인 후 편집기 시험은 아님 |
-| 릴리스 앱의 배치·글 보관·진단 내보내기·정상 종료 후 복원 | 공개 서비스 화면에서 확인; 서비스 초안은 복원 결과가 서로 다름 |
-| 초기 Linux deb의 실행 파일 | 임시 추출 후 창 표시 확인; 시스템 설치 시험은 아님 |
-| OS별 설치 파일 생성 | 해당 릴리스와 Actions 결과에서 확인 |
-| Windows·macOS에서 실제 앱 실행 | 사용자 시험 필요 |
-| ChatGPT → Suno·Canva의 로그인 후 전달 | **미검증** |
-| 일반 브라우저보다 줄어든 조작·시간, 시장 수요 | **미검증** |
-
-[Linux 릴리스 실행 기록](docs/linux-installed-test-2026-11-17.md)에 공개 서비스 시험과 한계를 기록했습니다. [초기 검증 기록](docs/build-results.md)에는 이름 확정 전 수행한 시험과 증거를 보존했습니다. 구현·패키징 성공만으로 실제 서비스 호환성이나 개발 가치가 입증되는 것은 아닙니다.
-
-[0.1.0-preview.2 변경·검증 기록](docs/preview.2-validation.md)에서 탭·멀티뷰 변경과 Android 시험 범위를 확인할 수 있습니다.
-
-## 개발 환경
-
-Node.js **22.12 이상**이 필요하며 CI는 Node.js 24를 사용합니다.
+Node.js 22.12 이상이 필요합니다.
 
 ```sh
 git clone https://github.com/leemh-dev/naru.git plynt
@@ -163,251 +90,91 @@ cd plynt
 npm ci
 npm run setup
 npm start
+npm test
+npm run fixtures
 ```
 
-Electron 45의 실행 파일 다운로드는 별도 단계이므로 `npm run setup`을 실행해야 합니다. 개발 의존성 버전은 잠금 파일에 고정합니다.
+실제 창 검사는 로그인된 사용자 프로필을 사용하지 않고 임시 프로필과 합성 페이지로 실행합니다.
 
 ```sh
-npm test                 # 진단·배치·저장 검사
-npm run fixtures         # 실제 서비스에 접속하지 않는 합성 화면
-```
-
-Linux에서 실제 창 검사를 하려면 Xvfb, Python, Pillow, X11/Xtst 라이브러리가 필요합니다.
-
-```sh
-python tests/run-desktop-linux.py
-python tests/check-packaged-linux.py  # 현재 버전 deb를 먼저 빌드해야 함
-```
-
-자동 캡처는 합성 화면 시험 스크립트에만 있습니다. 일반 앱은 자동으로 화면을 캡처하지 않습니다.
-
-## 빌드와 릴리스
-
-각 OS의 원래 환경에서 다음 명령으로 빌드합니다.
-
-```sh
+node tests/run-cross-platform.cjs       # Windows / macOS
+xvfb-run -a node tests/run-cross-platform.cjs  # Linux
+python tests/run-desktop-linux.py      # 추가 배치·메뉴 검사; Xvfb/Pillow/X11 필요
 npm run dist -- --win --x64
 npm run dist -- --mac --x64 --arm64
 npm run dist -- --linux --x64
 ```
 
-[GitHub Actions](.github/workflows/build.yml)는 Windows·macOS·Linux에서 각각 검사와 빌드를 수행하고, 별도 작업에서 Android 시험 APK를 빌드합니다. 수동 실행은 설치 파일을 Actions Artifacts에 올리고, `v*` 태그는 데스크톱 세 빌드와 Android 빌드가 모두 성공한 뒤 파일과 체크섬을 사전 릴리스에 올립니다. 자동 업데이트 기능은 없습니다.
+[GitHub Actions](.github/workflows/build.yml)는 각 데스크톱 OS에서 앱 실행 검사 후 설치 파일을 만들고, 별도로 Android 15 에뮬레이터 검사를 실행합니다. `v*` 태그의 검사가 모두 통과하면 데스크톱 파일을 사전 릴리스에 올립니다. Android APK는 보관 키로 별도 빌드하고 `scripts/publish-android-preview.py`로 서명을 확인한 뒤 첨부하며, 9개 설치 파일의 체크섬을 갱신합니다. 자동 업데이트는 없습니다.
 
-릴리스 태그는 `package.json`의 버전 앞에 `v`를 붙인 값이어야 합니다. 태그를 푸시하기 전에 `docs/releases/<태그>.md`에 해당 버전의 릴리스 노트를 작성합니다.
+릴리스 태그는 `package.json` 버전과 일치해야 하며 `docs/releases/<태그>.md`가 필요합니다. Android 빌드는 [별도 안내](mobile/android/README.md)를 따릅니다. 서명 키·작업 파일·브라우저 프로필·로그를 커밋하지 마세요.
 
 ```text
-src/                    Electron 앱, 탭·패널 UI, 입력 전달, 저장·진단
-mobile/android/         Android 호환성 시험 앱과 공식 SDK 빌드 스크립트
-tests/                  개인정보 검사와 합성 화면·패키지 시험
-docs/                   사용 기록 양식, 진단 명세, 검증 증거
-.github/workflows/      세 OS 빌드와 릴리스 자동화
+src/              데스크톱, 공통 입력 코드·서비스 목록·아이콘
+mobile/android/   Android Java 앱과 SDK 빌드
+build/            데스크톱 패키징 아이콘
+scripts/          아이콘 출처 수집과 Android 배포 보조
+tests/            저장·진단·합성 UI 검사
+docs/             검증 기록과 안전한 합성 화면 증거
 ```
 
-현재 별도의 오픈소스 라이선스는 지정하지 않았습니다. 공개 저장소라는 사실만으로 자유로운 재배포 라이선스를 부여하지 않습니다.
+프로젝트 코드에는 별도의 오픈소스 라이선스를 지정하지 않았습니다. 서비스 로고는 각 권리자의 식별 표지이며 제휴를 의미하지 않습니다. 번들 아이콘의 출처·라이선스는 별도 기록합니다.
 
 ---
 
 ## English
 
-[한국어로 돌아가기](#plynt--플린트) · [Download Plynt 0.1.0-preview.4](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.4) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml) · [Report an issue](https://github.com/leemh-dev/naru/issues)
+**Plynt brings AI task screens and reusable text together so you can continue working across services.**
 
-**Plynt is a desktop app that brings your AI conversations, task screens, and reusable text into one place so you can continue your work across services.**
+Switching between ChatGPT chats, projects, Codex tasks, Suno and Canva often means repeatedly finding the right screen, copying text and finding its destination. Plynt opens original websites in tabs, saves named workspaces and inserts user-chosen text into a receiving field. It is a desktop preview for Windows, macOS and Linux, with a separate Android compatibility app. It does not embed other companies’ installed native apps.
 
-The project has been renamed from **Naru to Plynt**. Its GitHub repository is currently still `leemh-dev/naru`. Existing profile locations and app identifiers are retained; historical test reports and screenshots keep the name used at the time.
+[Installers · preview.5](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.5) · [Validation record, Korean](docs/preview.5-validation.md) · [Build status](https://github.com/leemh-dev/naru/actions/workflows/build.yml)
 
-[Rename and validation record, in Korean](docs/plynt-rename.md)
+Formerly Naru; the repository is currently `leemh-dev/naru`. App identifiers and profile paths are retained.
 
-[0.1.0-preview.4 changes, validation, and installer publication, in Korean](docs/preview.4-validation.md)
+### Features
 
-### Why Plynt exists
+- Up to 30 tabs, editable aliases and an active-tab highlight. Desktop multiview supports up to four panels in a 2×2 grid or four columns from left to right. Other tabs open in a single view.
+- Select text and use the context menu, or copy a whole response with the service’s copy button and use the top `↗` menu. Preview the text, choose a tab, touch its empty field and press **여기에 넣기** (insert here). Unregistered tabs are included. Registered fields and recent destinations can be reused.
+- Named local workspaces: save, save as, new empty workspace, switch and restore. URLs, aliases, tab order, active tab, saved text and recent targets persist; desktop also saves layouts.
+- 47 service shortcuts across eight categories, bundled icons and monograms. Drag the horizontal category row, select several categories, or reset with `All`. Google is pinned above the results to open an ordinary browsing tab.
+- Explicitly save up to 50 text items, each up to 50,000 characters. The clipboard is read only when requested, not continuously monitored.
 
-A single task can span several AI services. You may switch between regular ChatGPT conversations, project conversations, and Codex tasks, then open another service for a particular model. To reuse lyrics or a prompt in Suno or Canva, you have to find the source text, copy it, and locate the right destination field.
+The experimental ChatGPT answer importer offers loaded assistant responses for selection and preview. It is tested on synthetic pages only and may break when the actual service changes. Using the service’s copy button is also supported.
 
-Plynt was created to reduce two recurring frustrations: **switching screens to find an ongoing task, and repeatedly finding and moving text between services.** The idea grew out of using multiple AI tools on a phone. The current implementation starts with a desktop preview for Windows, macOS, and Linux.
+Plynt does not automatically send, generate or publish. Existing destination text is protected. Failed transfers remain pending. Image, audio and file transfer are not implemented.
 
-The goal is to keep task screens and useful text together so you can pick up where you left off. Whether this is more convenient than a regular browser or separate apps still needs comparative user testing.
+### Installation
 
-### What you can do with Plynt
+Choose the matching file under **Assets** in the release, not `Source code.zip`.
 
-- **Keep ongoing tasks in view.** Open the original websites of ChatGPT, Codex Cloud, Claude, Suno, Midjourney, and Canva in tabs. Give each task an alias and arrange up to four panels side by side or in a grid. You can open the same service in multiple tabs.
-- **Insert selected text into another task's input field.** Register the destination field, select the source text, and choose a target tab from the context menu. Plynt compares the inserted text with the source and stops if the destination already contains text.
-- **Reuse text and restore your setup.** Save selected text for later use in other tasks. When you reopen the app, it restores saved tab URLs, aliases, and panel layout.
-
-For example, keep a writing screen next to the input screen for your next task, then select only the text you want to transfer. Save recurring style instructions or writing rules in the text collection to reuse them later.
-
-This is a **preview for installation and compatibility testing**. Compatibility with each service's sign-in flow and input fields after sign-in still needs verification. Plynt displays original websites; it does not run other companies' native apps inside a virtual machine.
-
-In an earlier preview, a single-line test draft was successfully transferred from a ChatGPT input field to Canva's public input field. **This does not establish support for authenticated Suno or Canva workflows, image/audio/file transfers, or synchronization between devices.** The scope and evidence are detailed below.
-
-### Download and run
-
-Open **Assets** on the [Releases page](https://github.com/leemh-dev/naru/releases) and choose the file for your operating system and CPU. `Source code.zip` contains source code, not an installer.
-
-**Look for the Plynt installers in release `v0.1.0-preview.4`.** The Naru installers in `v0.1.0-preview.1` and `preview.2` are retained as historical versions. Only files actually attached to a release are published downloads.
-
-| Platform | Release file | How to run |
-|---|---|---|
-| Windows x64 | `plynt-…-win-x64.exe` | Run the installer. |
-| Windows x64, portable | `plynt-…-win-x64.zip` | Extract the entire folder and run `Plynt.exe`. |
-| Mac, Apple Silicon | `plynt-…-mac-arm64.dmg` or `.zip` | Move the app from the DMG, or the extracted `Plynt.app`, into Applications. |
-| Mac, Intel | `plynt-…-mac-x64.dmg` or `.zip` | Use the Intel build with the same steps. |
-| Linux x64 | `plynt-…-linux-x86_64.AppImage` | Make the file executable and run it. |
-| Debian / Ubuntu x64 | `plynt-…-linux-amd64.deb` | Install using your distribution's package installer. |
-| Android compatibility test | `plynt-…-android-test.apk` | A debug-signed test app; see the verification limits below. |
-
-The Android APK is a separate compatibility preview, not a feature-equivalent mobile release. App startup and diagnostics were observed on the emulator, but WebView termination and network errors left **long-press transfer and completed sign-in unverified**. See the [Android scope and build instructions](mobile/android/README.md) and [test record](docs/preview.2-validation.md).
-
-Only files actually attached to a release are published downloads. Use the accompanying `SHA256SUMS.txt` to verify their checksums.
-
-If Linux reports that `libfuse.so.2` is missing, use the AppImage runtime's extraction option:
-
-```sh
-chmod +x plynt-0.1.0-preview.4-linux-x86_64.AppImage
-./plynt-0.1.0-preview.4-linux-x86_64.AppImage --appimage-extract-and-run
-```
-
-The **0.1.0-preview.1 released AppImage** was run this way from a user folder on Debian 13. This was not a system-wide deb installation test. See the [Linux runtime report and screenshots, in Korean](docs/linux-installed-test-2026-11-17.md).
-
-The preview is **not code-signed or notarized by Apple**. OS security policies may restrict installation or execution. Record the warning and the stage where it occurs; do not broadly disable system protections. Building an installer and running the app successfully on that OS are separate checks.
-
-### Implemented features
-
-The `+` menu offers **47 services in eight categories**: chat/search, music, images, video, design/presentations, development, documents/research, and voice/dubbing. Search by Korean or English names; services can appear in multiple relevant categories. Open other sites and private conversations by entering their URLs. Desktop and Android use the same bundled catalog.
-
-Shortcuts open original websites; inclusion does not guarantee sign-in, generation, or text-transfer compatibility. [Full catalog and official sources, in Korean](docs/ai-shortcuts.md) · [preview.4 validation record, in Korean](docs/preview.4-validation.md)
-
-| Feature | Current behavior |
+| Platform | File |
 |---|---|
-| AI shortcuts | Eight categories, 47 services, Korean/English search, and custom URLs |
-| Task tabs | Multiple tabs for the same service, fixed service indicator, editable aliases, horizontal scrolling and dragging |
-| Layout | Single panel, **2×2 grid**, or **1×4 columns from left to right**; automatic layout for one to three panels |
-| Panel arrangement | Drag headers to swap panels or split at an edge; drag dividers to resize |
-| Workspace restoration | Save URLs, aliases, visible panels, layout, and saved text locally on this computer |
-| Text transfer | Register a receiving field, then right-click selected text and choose a target tab and field |
-| Text checks | Compare inserted text with the source; stop rather than overwrite a nonempty destination |
-| Text collection | Explicitly copy and save selected text, then reuse it in another task |
-| Diagnostics | Local logs, preview, JSON export, collection toggle, and deletion |
+| Windows x64 | `*-win-x64.exe` or portable `.zip` |
+| Mac Apple Silicon / Intel | `*-mac-arm64.dmg` / `*-mac-x64.dmg`, or `.zip` |
+| Linux x64 | `*-linux-x86_64.AppImage` or `*-linux-amd64.deb` |
+| Android compatibility preview | `*-android-test.apk` |
 
-Plynt keeps up to **30 task tabs**, with up to **four panels in a multiview**. Use `멀티뷰` to choose its members explicitly. Tabs outside the group open across the whole content area; selecting a member restores the saved arrangement and divider sizes. The active tab has a subtle highlight. Text transfer activates the destination and brings its tab and input field into view. The text collection holds up to 50 items, with a limit of 50,000 characters per item or transfer.
+Only attached assets are published downloads. Check `SHA256SUMS.txt`. Desktop installers are not publicly code-signed or Apple-notarized, so OS policies may restrict execution. Successful app execution is separate from testing every installer flow.
 
-These screenshots show **the actual app running non-sensitive synthetic test pages**. They are not evidence of authenticated AI service workflows.
+**The public preview.4 Android APK and preview.5 APK have different signing certificates and cannot update in place.** Uninstalling deletes local workspaces, text and sessions; separately preserve needed URLs and material before considering removal. From preview.5 onward, release APKs use a retained key; ephemeral CI APKs are excluded from release publication. See the [Android guide](mobile/android/README.md). There is no iOS app or mobile multiview.
 
-| 2×2 grid | Four columns, left to right |
-|---|---|
-| ![Grid layout with synthetic pages](docs/evidence/preview.2/01-grid.png) | ![Four-column layout with synthetic pages](docs/evidence/preview.2/02-columns.png) |
+### Use and privacy
 
-### First use and text transfer
+Open a service with `+`, sign in through its normal login flow, then choose text to transfer. Desktop tabs can be renamed by double-clicking; Android tabs by long press. Use `··· → 워크스페이스` to save or switch named workspaces. Receiving fields may need registration again after navigation. Suno lyrics and style fields should be registered separately. Inserting a Canva search prompt does not prove that a design has been edited.
 
-The menu labels below are shown in Korean as they appear in the current app, with English explanations.
+Normal engine-managed cookies and web storage persist across launches. This is session persistence, not password storage, cookie import or an authentication bypass. Services can expire sessions or reject embedded browsers. A confirmation-gated menu clears login data. Workspaces on the same device share service sessions.
 
-1. Use `+` in the center or top bar to add a service or web URL. Existing private conversation URLs can be used without publishing them.
-2. Sign in yourself through each service's normal sign-in flow. Tabs for the same service share a session. Plynt does not import passwords or cookies from other browsers.
-3. Double-click a tab to set its alias. This does not rename the original conversation. Use `멀티뷰` to choose up to four tabs and a layout. Maximizing one panel preserves the saved multiview.
-4. Click an **empty destination text field**, then right-click → `받을 입력칸 지정` (register receiving field) → `프롬프트`, `가사`, or `스타일` (prompt, lyrics, or style).
-5. Select the source text, then right-click → `다른 작업에 넣기` (insert into another task) → choose the target tab and field.
-6. Check the actual inserted text and the comparison result, including line breaks. **Plynt does not automatically send messages, generate music, or publish content.**
-7. To keep text for later, right-click → `복사하고 보관` (copy and save). Open `··· → 보관한 글` (saved text) to copy it or insert it into a registered field.
+Workspace storage is local; there is no Plynt account or cloud synchronization. Site drafts, scroll position and editor state are not guaranteed to restore. Workspaces and saved text can contain private material and must not be shared as diagnostic files.
 
-For Suno, register and test lyrics and style fields separately. For Canva, use the prompt field for the feature you actually intend to use. Inserting text into a search field is not proof of successful design editing. Re-register the receiving field after navigation or replacement of the input element.
+`··· → 진단 보고서` previews and exports local diagnostics. Reports contain permitted events, outcomes, versions, error codes and counts, but exclude text, URLs, aliases, credentials, cookies, tokens, screenshots and page console output. There is no automatic upload; collection can be disabled and records deleted.
 
-Use non-sensitive test text and stop at verifying insertion, without consuming generation credits. There is no need to publish existing conversations or change their content or settings. Record sign-in, CAPTCHA, or plan restrictions at the point they occur; do not bypass them.
+Native Electron checks run on Windows, macOS and Linux. Android uses a real Android 15 emulator and synthetic WebViews. **A synthetic persistent-cookie check is not proof of real-service sign-in compatibility.** Authenticated ChatGPT → Suno/Canva insertion, file transfer, comparative efficiency and demand remain unverified. Codex shortcuts open Codex Cloud, not every remote desktop Codex feature.
 
-### Diagnostic reports
+### Development and release
 
-Open **`··· → 진단 보고서` (diagnostic report)**, review the preview, and choose **`이 내용으로 파일 저장` (save this content to a file)** to export JSON. Reports are not uploaded automatically.
+Use Node.js 22.12+, `npm ci`, `npm run setup`, then `npm start`. `npm test` checks storage and diagnostics; `npm run fixtures` opens synthetic pages. `node tests/run-cross-platform.cjs` runs isolated native UI checks (use `xvfb-run -a` on Linux). See the Korean section for build commands and directory layout.
 
-- **Included:** App, Electron, and OS versions; service type; tab number within a run; error codes; loading and transfer timing; text comparison results; character and line-break counts.
-- **Excluded:** Conversation and prompt text, private URLs, tab aliases, passwords, tokens, cookies, screenshots, service console messages, and raw error stacks.
-- Collection is enabled by default and can be disabled or cleared from the menu. Logs rotate across four files of roughly 512 KiB each.
-- Plynt does not automatically interpret service error messages or sign-in success. Describe the failed step and any non-sensitive error message separately.
+Actions builds desktop installers after native checks and runs separate Android emulator checks. Tagged releases publish desktop assets after all checks pass. The Android publisher verifies the retained certificate, attaches the separately signed APK and refreshes checksums for all nine installer assets. Automatic updates are not implemented. Keys, browser profiles, workspace files and runtime logs must stay outside Git.
 
-[Diagnostics specification](docs/diagnostics.md) · [Test report template](docs/test-template.md) · [Diagnostic screen](docs/evidence/03-diagnostics.png). The linked documents are in Korean.
-
-This repository and its Issues are public. Review reports before posting, and **do not attach browser profiles, entire app data folders, or screenshots of private conversations**.
-
-### Storage and current limitations
-
-Task URLs, aliases, layout, and explicitly saved text are stored locally in `workspace.json`. Sign-in sessions use Electron's service session storage. These data are not included in diagnostic exports.
-
-For continuity with the earlier `AI Workspace Preview` version, the internal app identifier and profile folder name remain unchanged. The displayed app name is Plynt, but the default data folder is still named `AI Workspace Preview`; its parent location depends on your OS and user account.
-
-- **Plynt accounts and cloud sync:** Not implemented. One workspace is stored on this computer.
-- **Restoration after exit:** URLs, aliases, and layout reopen. Plynt does not save or guarantee restoration of unsent drafts, scroll positions, or generation progress. Individual services may restore some drafts themselves.
-- **Input automation:** Receiving fields must be registered manually. Registration inside iframes or new popup windows, automatic prompt classification, and natural-language app commands are not supported.
-- **Content types:** Text transfer and storage only. Image, music, and file transfer are not implemented.
-- **Clipboard:** Plynt does not monitor the clipboard outside the app. Only text explicitly saved with `복사하고 보관` is stored.
-- **Layout:** Horizontal scrolling to enforce a minimum panel width in narrow windows, and layout undo, are not implemented. Switch to a single panel when needed.
-- **Permissions:** Additional permissions such as microphone and camera access are not enabled in this preview.
-- **Platforms:** The main app targets desktop. A separate [Android compatibility preview](mobile/android/README.md) is available in source. It is not feature-equivalent to the desktop app; mobile multiview and an iOS app are not implemented.
-- **Codex:** Opens the Codex Cloud website. This is separate from remote desktop Codex and does not imply support for every Codex capability.
-
-### What has been verified
-
-| Item | Evidence |
-|---|---|
-| Diagnostic exclusions, log rotation, layout, and restoration data | Automated checks |
-| Actual Linux Electron window, native menus, text transfer, and restart | 0.1.0-preview.2: 30 synthetic-page checks and six restart checks passed |
-| Released Linux AppImage and public service pages | Actual window on Debian 13 using extraction mode without FUSE |
-| ChatGPT test draft → Canva public AI Image Generator input | Exact single-line transfer; multiline newline loss detected. Not a generated answer or an authenticated editor test |
-| Released app's layout, saved text, diagnostic export, and restart restoration | Verified with public service pages; draft restoration varied by service |
-| Early Linux deb executable | Window opened after temporary extraction; not a system package installation test |
-| Platform installer builds | See the corresponding release and Actions results |
-| Actual app execution on Windows and macOS | User testing still needed |
-| Authenticated ChatGPT → Suno / Canva transfer | **Unverified** |
-| Fewer actions or less time than a regular browser; market demand | **Unverified** |
-
-The [Linux release runtime report](docs/linux-installed-test-2026-11-17.md) records public-page tests and their limits. The [initial test record](docs/build-results.md) preserves results from the initial AI Workspace Preview version. Both reports are in Korean. Successful implementation and packaging alone do not establish service compatibility or product value.
-
-See the [0.1.0-preview.2 change and validation record, in Korean](docs/preview.2-validation.md) for tab behavior and Android test scope.
-
-### Development
-
-Requires Node.js **22.12 or later**. CI uses Node.js 24.
-
-```sh
-git clone https://github.com/leemh-dev/naru.git plynt
-cd plynt
-npm ci
-npm run setup
-npm start
-```
-
-`npm run setup` downloads the Electron 45 executable as a separate step. Development dependency versions are pinned in the lockfile.
-
-```sh
-npm test                 # Diagnostic, layout, and storage checks
-npm run fixtures         # Synthetic pages without contacting real services
-```
-
-Linux window tests require Xvfb, Python, Pillow, and the X11/Xtst libraries.
-
-```sh
-python tests/run-desktop-linux.py
-python tests/check-packaged-linux.py  # Build the current version's deb first
-```
-
-Automatic screenshots are limited to the synthetic-page test scripts. The regular app does not automatically capture your screen.
-
-### Builds and releases
-
-Build on each target operating system:
-
-```sh
-npm run dist -- --win --x64
-npm run dist -- --mac --x64 --arm64
-npm run dist -- --linux --x64
-```
-
-[GitHub Actions](.github/workflows/build.yml) runs checks and builds on Windows, macOS, and Linux, with a separate Android compatibility APK build. Manual runs upload installers to Actions Artifacts. Tags matching `v*` publish a prerelease with files and checksums after the three desktop builds and Android build succeed. Automatic app updates are not implemented.
-
-The release tag must equal the version in `package.json` prefixed with `v`. Before pushing a tag, write its release notes in `docs/releases/<tag>.md`.
-
-```text
-src/                    Electron app, tabs/panels, text transfer, storage, diagnostics
-mobile/android/         Android compatibility preview and official SDK build script
-tests/                  Privacy checks and synthetic-page/package tests
-docs/                   Test templates, diagnostics specification, test evidence
-.github/workflows/      Builds and release automation for three operating systems
-```
-
-No open-source license has been assigned yet. A public repository does not itself grant permission for unrestricted redistribution.
+The project has no separate open-source code license. Service icons identify their respective owners and do not imply affiliation; [icon provenance](src/assets/services/sources.json) is recorded separately.

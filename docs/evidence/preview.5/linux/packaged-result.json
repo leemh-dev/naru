@@ -1,0 +1,1 @@
+{"package": "plynt-0.1.0-preview.5-linux-amd64.deb", "platform": "linux", "startup_process_alive": true, "screenshot": "05-packaged-startup.png", "scope": "offline fixture startup; no authenticated service test", "container_fixture_sandbox_workaround": true}
