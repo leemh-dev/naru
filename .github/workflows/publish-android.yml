@@ -24,7 +24,7 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-22.04
-    timeout-minutes: 10
+    timeout-minutes: 25
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
@@ -59,7 +59,7 @@ jobs:
           java-version: '21'
       - name: Prepare public APK reconstruction tools
         run: |
-          python -m pip install bsdiff4==1.2.6
+          python -m pip install bsdiff4==1.2.6 websocket-client
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "build-tools;35.0.0"
       - name: Reconstruct only the signed public APK and verify its digest
         env:
@@ -80,5 +80,28 @@ jobs:
           output.parent.mkdir(parents=True,exist_ok=True);output.write_bytes(apk)
           print('Public APK reconstructed; SHA-256 matches the locally signed file.')
           PY
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: qa-source
+      - name: Download the previous official APK for an in-place update check
+        run: |
+          gh release download v0.1.0-preview.5 --pattern '*-android-test.apk' --dir previous-apk
+          sudo chmod 666 /dev/kvm
+      - name: Check public APK update and launcher on Android
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: default
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+          script: python qa-source/tests/android-upgrade.py previous-apk/*.apk dist/android/*-android-test.apk
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: checks-android-upgrade
+          path: test-output/android-upgrade/
       - name: Verify retained certificate, publish APK and refresh checksums
         run: ANDROID_SDK_ROOT="$ANDROID_HOME" python scripts/publish-android-preview.py
