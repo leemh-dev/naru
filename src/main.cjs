@@ -35,6 +35,12 @@ function switchWorkspace(id){
  if(busy||!library.entries.some(e=>e.id===id)||!saveNow())return false;
  for(const t of views.values()){win.contentView.removeChildView(t.view);t.view.webContents.close();}views.clear();pending=null;library.current=id;state=workspace.normalize(library.entries.find(e=>e.id===id).state);for(const tab of state.tabs)create(tab);push();return true;
 }
+function renameWorkspace(id,name){
+ if(storageBlocked||typeof name!=='string'||!name.trim()||name.trim().length>60||!library.entries.some(e=>e.id===id))return false;
+ if(!saveNow())return false;const changed=JSON.parse(JSON.stringify(library));if(!libraryStore.rename(changed,id,name))return false;
+ try{libraryStore.save(libraryFile,changed);}catch{notice('이름을 저장하지 못했습니다. 기존 이름은 유지됩니다.');return false;}
+ library=changed;if(id===library.current)state.name=name.trim();lastSaved=new Date().toISOString();push();return true;
+}
 function snapshot(){return {...state,revision,lastSaved,storageBlocked,workspaceId:library.current,workspaces:library.entries.map(e=>({id:e.id,name:e.state.name,count:e.id===library.current?state.tabs.length:e.state.tabs.length,updatedAt:e.updatedAt})),pending:pending?{preview:pending.text.slice(0,120),chars:pending.text.length,target:pending.target}:null,clips:state.clips.map(c=>({id:c.id,preview:c.text.slice(0,100),chars:c.text.length})),services:workspace.SERVICES,categories:workspace.CATEGORIES,fixtureMode,diagnosticError:diag?.storageError||false,tabs:state.tabs.map(t=>({...t,registered:[...(views.get(t.id)?.fields||[])],loading:views.get(t.id)?.loading||false}))};}
 function push(){revision++;if(win&&!win.isDestroyed())win.webContents.send('state',snapshot());persist();}
 function listed(id){return state.tabs.find(t=>t.id===id);}
@@ -141,6 +147,7 @@ async function action(type,data={}){
       case 'send-save':if(pending)clip(pending.text);return true;
       case 'clip-stage':{const c=state.clips.find(c=>c.id===data.id);return c?stage(c.text,null):false;}
       case 'workspace-save':return saveNow();
+      case 'workspace-rename':return renameWorkspace(data.id,data.name);
       case 'workspace-switch':return switchWorkspace(data.id);
       case 'workspace-create':{if(!saveNow())return false;const previous=library.current;const id=libraryStore.create(library,data.copy?state:workspace.empty(),data.name);if(!id)return false;const created=library.entries.find(e=>e.id===id);library.current=previous;return switchWorkspace(created.id);}
       case 'session-clear':{if(data.confirm!==true)return false;const sess=session.fromPartition(partition);await sess.clearStorageData();await sess.cookies.flushStore();notice('사이트 로그인 정보를 지웠습니다. 워크스페이스는 유지됩니다.');return true;}

@@ -1,9 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="dev.naru.mobile.preview" android:versionCode="5" android:versionName="0.1.0-preview.5">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="dev.naru.mobile.preview" android:versionCode="6" android:versionName="0.1.0-preview.6">
   <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35" />
   <uses-permission android:name="android.permission.INTERNET" />
   <application android:icon="@drawable/plynt_icon" android:roundIcon="@drawable/plynt_icon" android:label="Plynt Mobile Preview" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:allowBackup="false" android:usesCleartextTraffic="false" android:debuggable="true">
-    <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
+    <activity android:name="dev.plynt.mobile.preview.MainActivity" android:exported="false" android:windowSoftInputMode="adjustResize" android:configChanges="orientation|screenSize|smallestScreenSize|keyboardHidden" />
+    <!-- Preserve the installed launcher component and application ID for in-place updates. -->
+    <activity-alias android:name="dev.naru.mobile.preview.MainActivity" android:targetActivity="dev.plynt.mobile.preview.MainActivity" android:exported="true">
       <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
-    </activity>
+    </activity-alias>
   </application>
 </manifest>

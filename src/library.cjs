@@ -15,4 +15,5 @@ function load(file,legacy){
 function save(file,lib){const valid=normalize(lib);fs.mkdirSync(path.dirname(file),{recursive:true});if(fs.existsSync(file)){try{normalize(JSON.parse(fs.readFileSync(file,'utf8')));fs.copyFileSync(file,file+'.bak');fs.chmodSync(file+'.bak',0o600);}catch{}}const tmp=file+'.tmp';fs.writeFileSync(tmp,JSON.stringify(valid),{mode:0o600});fs.renameSync(tmp,file);}
 function checkpoint(lib,state){const e=lib.entries.find(e=>e.id===lib.current);e.state=workspace.normalize(state);e.updatedAt=new Date().toISOString();}
 function create(lib,state,name){if(lib.entries.length>=50)return null;const next=workspace.normalize(state);next.name=String(name||'새 워크스페이스').trim().slice(0,60)||'새 워크스페이스';const id=randomUUID();lib.entries.push({id,state:next,updatedAt:new Date().toISOString()});lib.current=id;return id;}
-module.exports={empty,normalize,load,save,checkpoint,create};
+function rename(lib,id,name){if(typeof name!=='string'||!name.trim()||name.trim().length>60)return false;const entry=lib.entries.find(e=>e.id===id);if(!entry)return false;entry.state.name=name.trim();entry.updatedAt=new Date().toISOString();return true;}
+module.exports={empty,normalize,load,save,checkpoint,create,rename};

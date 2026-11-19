@@ -29,7 +29,7 @@ def run(args): subprocess.run([str(x) for x in args], check=True)
 
 run([tools / 'aapt2', 'compile', '--dir', project / 'res', '-o', out / 'resources.zip'])
 run([tools / 'aapt2', 'link', '-R', out / 'resources.zip', '-I', android, '--manifest', project / 'AndroidManifest.xml', '-A', out / 'assets', '-o', out / 'base.apk'])
-run(['javac', '-encoding', 'UTF-8', '-source', '17', '-target', '17', '-classpath', android, '-d', out / 'classes', project / 'src/dev/naru/mobile/preview/MainActivity.java'])
+run(['javac', '-encoding', 'UTF-8', '-source', '17', '-target', '17', '-classpath', android, '-d', out / 'classes', project / 'src/dev/plynt/mobile/preview/MainActivity.java'])
 run([tools / 'd8', '--min-api', '26', '--lib', android, '--output', out / 'dex', *sorted((out / 'classes').rglob('*.class'))])
 with zipfile.ZipFile(out / 'base.apk', 'a') as archive:
     for p in (out / 'dex').glob('*.dex'): archive.write(p, p.name)

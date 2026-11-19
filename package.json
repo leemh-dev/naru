@@ -1,18 +1,18 @@
 {
   "name": "plynt",
   "productName": "Plynt",
-  "version": "0.1.0-preview.5",
+  "version": "0.1.0-preview.6",
   "userDataDirectory": "AI Workspace Preview",
   "private": true,
   "description": "Plynt: a desktop workspace for AI services with private local diagnostics",
   "author": "Plynt contributors",
-  "homepage": "https://github.com/leemh-dev/naru",
+  "homepage": "https://github.com/leemh-dev/plynt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/leemh-dev/naru.git"
+    "url": "https://github.com/leemh-dev/plynt.git"
   },
   "bugs": {
-    "url": "https://github.com/leemh-dev/naru/issues"
+    "url": "https://github.com/leemh-dev/plynt/issues"
   },
   "main": "src/main.cjs",
   "engines": {

@@ -56,6 +56,8 @@ jobs:
             test-output/09-*.png
             test-output/10-*.png
             test-output/11-*.png
+            test-output/12-*.png
+            test-output/13-*.png
       - run: npm run dist -- ${{ matrix.args }}
       - name: Upload installers
         uses: actions/upload-artifact@v4
@@ -100,12 +102,16 @@ jobs:
           profile: pixel_2
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
-          script: python tests/android-smoke.py dist/android/plynt-*-android-test.apk
+          script: |
+            python tests/android-smoke.py dist/android/plynt-*-android-test.apk
+            python tests/android-tablet.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: checks-android
-          path: test-output/android/
+          path: |
+            test-output/android/
+            test-output/android-tablet/
       - uses: actions/upload-artifact@v4
         with:
           name: installers-android
