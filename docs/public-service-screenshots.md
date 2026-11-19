@@ -27,3 +27,4 @@ Canva는 `https://www.canva.com/ai-image-generator/`, 다른 서비스는 `https
 - 이미지 파일 무결성·크기(1600×1000), HTML의 이미지 크기·대체 텍스트, 로컬 링크·파일 존재 여부와 기존 사진 참조 제거를 확인했습니다.
 - [촬영 메타데이터·입력칸 상태·이미지 SHA-256](evidence/public-service-screenshots/capture.json)을 기록했습니다. 브라우저 프로필·쿠키·원본 페이지 로그는 공개하지 않습니다.
 - 소개 페이지 자체의 브라우저 렌더링 시각 검사는 이번 범위에 포함하지 않았습니다. 앱 화면 확인과 정적 사이트 파일 검사를 구분합니다.
+- [Pages 배포](https://github.com/leemh-dev/plynt/actions/runs/44464989164)가 성공했습니다. [공개 HTTP 확인 결과](evidence/public-service-screenshots/deployment.json)에서 소개 페이지와 새 사진 2장의 HTTP 200 및 저장소 원본과의 바이트 일치를 확인했습니다.

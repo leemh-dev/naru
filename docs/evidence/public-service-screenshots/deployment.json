@@ -1,0 +1,30 @@
+{
+  "verifiedAt": "2026-11-19T05:25:44.858699+00:00",
+  "deployedCommit": "ecf9d0bdbe03ddbeba136021d71c2c9274ae7020",
+  "workflow": "https://github.com/leemh-dev/plynt/actions/runs/44464989164",
+  "workflowConclusion": "success",
+  "checks": [
+    {
+      "url": "https://leemh-dev.github.io/plynt/",
+      "status": 200,
+      "bytes": 11213,
+      "sha256": "26ead2f406f4e4d4375bf1d1b16fdd6d54e0591ef4f5510942ed80e999da2db7",
+      "matchesRepository": true
+    },
+    {
+      "url": "https://leemh-dev.github.io/plynt/assets/desktop-chatgpt-canva.png",
+      "status": 200,
+      "bytes": 403433,
+      "sha256": "763de604cb01df865e7665bfbbf4d61f200ffcc42d59ede4b8113ef1c7ba7865",
+      "matchesRepository": true
+    },
+    {
+      "url": "https://leemh-dev.github.io/plynt/assets/desktop-four-ai.png",
+      "status": 200,
+      "bytes": 175522,
+      "sha256": "e7565abd00509f80c1a7210c34c7f0256cf0f4ea83cb0b0ccd18d0f0c4ca3d8c",
+      "matchesRepository": true
+    }
+  ],
+  "scope": "Public HTTP responses match committed files; not a browser rendering test."
+}
