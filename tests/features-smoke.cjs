@@ -13,6 +13,13 @@ function check(name,value){assert.ok(value,name);checks.push({name,passed:true})
   fs.writeFileSync(path.join(out,'features-restore-results.json'),JSON.stringify({scope:'Synthetic workspace and synthetic cookie only; no real sign-in',checks},null,2));app.quit();return;
  }
  await c.action('add',{service:'chatgpt'});await c.action('add',{service:'suno'});await settle();let [a,b]=c.snapshot().tabs;
+ // A real page Copy button must write the OS clipboard, not just Electron's own API.
+ const fixtureSession=session.fromPartition('persist:fixture-session');
+ await fixtureSession.protocol.handle('https',()=>new Response(`<!doctype html><button id="copy" onclick="navigator.clipboard.writeText('PAGE_COPY_SYNTHETIC').catch(()=>{})">Copy fixture text</button>`,{headers:{'content-type':'text/html'}}));
+ const copyPage=c.views.get(a.id).view.webContents,originalSource=copyPage.getURL();await copyPage.loadURL('https://fixture.example.test/copy');await c.action('activate',{id:a.id});await pause(150);
+ const pos=await copyPage.executeJavaScript("(()=>{const r=document.querySelector('#copy').getBoundingClientRect();return {x:Math.round(r.x+r.width/2),y:Math.round(r.y+r.height/2)}})()");
+ copyPage.sendInputEvent({type:'mouseDown',button:'left',clickCount:1,...pos});copyPage.sendInputEvent({type:'mouseUp',button:'left',clickCount:1,...pos});await pause(350);
+ check('site-copy-button-writes-system-clipboard',await clipboard.readText()==='PAGE_COPY_SYNTHETIC');check('site-cannot-read-system-clipboard',await copyPage.executeJavaScript("navigator.clipboard.readText().then(()=>false,()=>true)"));await c.action('activate',{id:b.id});check('background-site-cannot-overwrite-clipboard',await copyPage.executeJavaScript("navigator.clipboard.writeText('BACKGROUND_SYNTHETIC').then(()=>false,()=>true)"));await copyPage.loadURL(originalSource);await settle();
  const text='CANARY_SYNTHETIC_TRANSFER\nSecond line 🎵';await clipboard.writeText(text);await ui('sendDialog()');await pause(100);await ui(`[...document.querySelectorAll('#dialog-body button')].find(b=>b.textContent==='복사한 글 가져오기').click()`);for(let i=0;i<30&&!await ui("!!document.querySelector('.transfer-preview')");i++)await pause(100);
  check('clipboard-preview-preserves-text',await ui(`document.querySelector('.transfer-preview').textContent===${JSON.stringify(text)}`));check('unregistered-tabs-are-listed',await ui(`document.querySelectorAll('.destination-row').length===2`));await shot('09-send-preview');await ui('closeDialog()');await c.action('send-target',{id:b.id});await pause(200);
  check('target-activated-before-field-registration',c.snapshot().active===b.id&&c.snapshot().pending.target===b.id);

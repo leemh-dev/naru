@@ -100,7 +100,7 @@ public final class MainActivity extends Activity {
     HorizontalScrollView scroller=new HorizontalScrollView(this);scroller.setHorizontalScrollBarEnabled(false);LinearLayout filters=new LinearLayout(this);scroller.addView(filters);box.addView(scroller,new LinearLayout.LayoutParams(-1,dp(44)));
     LinkedHashSet<String> selected=new LinkedHashSet<>();ArrayList<String> categoryIds=new ArrayList<>(),categoryNames=new ArrayList<>();categoryIds.add("all");categoryNames.add("All");
     for(int i=0;i<serviceCategories.length();i++){JSONObject c=serviceCategories.optJSONObject(i);categoryIds.add(c.optString("id"));categoryNames.add(c.optString("name"));}
-    Button google=button("브라우저 · Google",v->{});google.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);Drawable g=serviceIcon("google");if(g!=null){g.setBounds(0,0,dp(24),dp(24));google.setCompoundDrawables(g,null,null,null);}box.addView(google,new LinearLayout.LayoutParams(-1,dp(48)));
+    Button google=button("브라우저 · Google",v->{});google.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);Drawable g=serviceIcon("google");if(g!=null){g.setBounds(0,0,dp(24),dp(24));google.setCompoundDrawables(g,null,null,null);google.setCompoundDrawablePadding(dp(8));}box.addView(google,new LinearLayout.LayoutParams(-1,dp(48)));
     TextView count=new TextView(this);count.setTextSize(11);count.setPadding(0,dp(6),0,dp(6));box.addView(count);
     ArrayList<String> all=new ArrayList<>(),visible=new ArrayList<>();Iterator<String> keys=services.keys();while(keys.hasNext()){String key=keys.next();if(!key.equals("web"))all.add(key);}
     // Preserve curated catalog category order instead of an alphabetical dump.

@@ -176,7 +176,14 @@ async function action(type,data={}){
 async function boot(){
   await app.whenReady();
   diag=new Diagnostics(path.join(profile,fixtureMode?'fixture-diagnostics':'diagnostics'),{appVersion:manifest.version,electron:process.versions.electron,chromium:process.versions.chrome,platform:process.platform,arch:process.arch,osRelease:os.release()});diag.enabled=state.diagnostics;diag.log('app.start');
-  const sess=session.fromPartition(partition);sess.setPermissionRequestHandler((_wc,_permission,cb)=>cb(false));
+  const sess=session.fromPartition(partition);
+  // Service Copy buttons need write permission; pages never get clipboard read access.
+  sess.setPermissionCheckHandler(()=>false);
+  sess.setPermissionRequestHandler((wc,permission,cb,details)=>{
+    const active=views.get(state.active);
+    if(permission!=='clipboard-sanitized-write'||!details.isMainFrame||!/^https:\/\//.test(details.requestingUrl)||!active?.displayed||active.view.webContents!==wc||modal||!wc.isFocused()){cb(false);return;}
+    wc.executeJavaScriptInIsolatedWorld(WORLD,[{code:'navigator.userActivation.isActive'}]).then(activated=>cb(activated===true&&views.get(state.active)?.view.webContents===wc&&!modal)).catch(()=>cb(false));
+  });
   const proxy=process.env.HTTPS_PROXY||process.env.HTTP_PROXY;if(proxy)await sess.setProxy({proxyRules:proxy});
   win=new BrowserWindow({width:1440,height:980,minWidth:1000,minHeight:650,backgroundColor:'#f3f5f2',title:app.getName(),icon:path.join(__dirname,'assets/brand/icon.png'),webPreferences:{preload:path.join(__dirname,'preload.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true}});win.setMenu(null);
   ipcMain.handle('action',(e,p)=>e.sender===win.webContents&&p&&typeof p.type==='string'?action(p.type,p.data):null);

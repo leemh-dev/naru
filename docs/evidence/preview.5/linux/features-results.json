@@ -1,6 +1,21 @@
 {
-  "scope": "Linux Electron synthetic pages only; actual authenticated services not tested",
+  "scope": "Native Electron synthetic pages only; actual authenticated services not tested",
+  "platform": "linux",
+  "arch": "x64",
+  "electron": "45.3.3",
   "checks": [
+    {
+      "name": "site-copy-button-writes-system-clipboard",
+      "passed": true
+    },
+    {
+      "name": "site-cannot-read-system-clipboard",
+      "passed": true
+    },
+    {
+      "name": "background-site-cannot-overwrite-clipboard",
+      "passed": true
+    },
     {
       "name": "clipboard-preview-preserves-text",
       "passed": true
