@@ -1,0 +1,203 @@
+{
+  "reviewedOn": "2026-11-19",
+  "icons": {
+    "chatgpt": {
+      "source": "https://chatgpt.com/cdn/assets/favicon.6a33781f61.svg",
+      "file": "assets/services/chatgpt.png"
+    },
+    "claude": {
+      "source": "https://claude.ai/apple-touch-icon.png",
+      "file": "assets/services/claude.png"
+    },
+    "gemini": {
+      "source": "https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png",
+      "file": "assets/services/gemini.png"
+    },
+    "copilot": {
+      "source": "https://res.cdn.office.net/officehub/images/content/images/unauth-copilotcom/favicon-copilot-brand-refresh-23392c1f66.ico",
+      "file": "assets/services/copilot.png"
+    },
+    "perplexity": {
+      "source": "https://www.perplexity.ai/favicon.svg",
+      "file": "assets/services/perplexity.png"
+    },
+    "grok": {
+      "source": "https://x.ai/icon.png?icon.2jebtfdg6783w.png?dpl=7e4ac1a613528a63d6bc1cbc3cbac42783ebee5a",
+      "file": "assets/services/grok.png"
+    },
+    "deepseek": {
+      "source": "https://cdn.simpleicons.org/deepseek",
+      "file": "assets/services/deepseek.png",
+      "license": "Simple Icons CC0; brand rights remain with their owners"
+    },
+    "qwen": {
+      "source": "https://cdn.simpleicons.org/qwen",
+      "file": "assets/services/qwen.png",
+      "license": "Simple Icons CC0; brand rights remain with their owners"
+    },
+    "mistral": {
+      "source": "https://chat.mistral.ai/favicons/favicon-16x16.png",
+      "file": "assets/services/mistral.png"
+    },
+    "poe": {
+      "source": "https://psc2.cf2.poecdn.net/assets/apple-touch-icon.png",
+      "file": "assets/services/poe.png"
+    },
+    "suno": {
+      "source": "https://cdn-o.suno.com/favicon-192x192.png",
+      "file": "assets/services/suno.png"
+    },
+    "udio": {
+      "source": "https://www.udio.com/favicon.ico?favicon.0wbc3vz33genq.ico",
+      "file": "assets/services/udio.png"
+    },
+    "aiva": {
+      "source": "https://www.aiva.ai/assets/img/favicon.ico",
+      "file": "assets/services/aiva.png"
+    },
+    "soundraw": {
+      "source": "https://soundraw.io/apple-touch-icon.png",
+      "file": "assets/services/soundraw.png"
+    },
+    "boomy": {
+      "source": "https://boomy.com/apple-touch-icon.png",
+      "file": "assets/services/boomy.png"
+    },
+    "midjourney": {
+      "source": "https://www.midjourney.com/public/apple-touch-icon.png",
+      "file": "assets/services/midjourney.png"
+    },
+    "firefly": {
+      "source": "https://firefly.adobe.com/releases/56879b48b92eecf1ccb84056f0befaf1b1e52209/assets/fi_touch_icon_80-CYMZMllL.png",
+      "file": "assets/services/firefly.png"
+    },
+    "leonardo": {
+      "source": "https://app.leonardo.ai/favicon-light.png",
+      "file": "assets/services/leonardo.png"
+    },
+    "ideogram": {
+      "source": "https://ideogram.ai/favicon.png?v=new-brand-20261020",
+      "file": "assets/services/ideogram.png"
+    },
+    "recraft": {
+      "source": "https://www.recraft.ai/apps/icon.png",
+      "file": "assets/services/recraft.png"
+    },
+    "krea": {
+      "source": "https://www.krea.ai/favicon/favicon-32.png",
+      "file": "assets/services/krea.png"
+    },
+    "runway": {
+      "source": "https://app.runwayml.com/apple-touch-icon.png",
+      "file": "assets/services/runway.png"
+    },
+    "kling": {
+      "source": "https://kling.ai/logo-180x180.png",
+      "file": "assets/services/kling.png"
+    },
+    "luma": {
+      "source": "https://lumalabs.ai/favicons/favicon-black.ico",
+      "file": "assets/services/luma.png"
+    },
+    "pika": {
+      "source": "https://pika.art/icon.svg?icon.3bty87qirfeg8.svg",
+      "file": "assets/services/pika.png"
+    },
+    "flow": {
+      "source": "https://www.gstatic.com/aitestkitchen/website/flow/favicon/flow_icon_192.png",
+      "file": "assets/services/flow.png"
+    },
+    "hailuo": {
+      "source": "https://cdn.hailuoai.video/open-hailuo-video-web/public_assets/favicon.png",
+      "file": "assets/services/hailuo.png"
+    },
+    "heygen": {
+      "source": "https://www.heygen.com/favicon.ico?favicon.2m321y0geyyfh.ico",
+      "file": "assets/services/heygen.png"
+    },
+    "synthesia": {
+      "source": "https://cdn.prod.website-files.com/65e89895c5a4b8d764c0d710/664f0f482fa5a4d527d892bc_Favicon-Web-Security%201.png",
+      "file": "assets/services/synthesia.png"
+    },
+    "canva": {
+      "source": "https://static.canva.com/domain-assets/canva/static/images/android-192x192-2.png",
+      "file": "assets/services/canva.png"
+    },
+    "figma": {
+      "source": "https://cdn.simpleicons.org/figma",
+      "file": "assets/services/figma.png",
+      "license": "Simple Icons CC0; brand rights remain with their owners"
+    },
+    "gamma": {
+      "source": "https://static.gamma.app/favicons/apple-touch-icon.png",
+      "file": "assets/services/gamma.png"
+    },
+    "express": {
+      "source": "https://www.adobe.com/apple-touch-icon.png",
+      "file": "assets/services/express.png"
+    },
+    "codex": {
+      "source": "https://chatgpt.com/cdn/assets/favicon-c80e01a96037.svg",
+      "file": "assets/services/codex.png"
+    },
+    "githubcopilot": {
+      "source": "https://github.com/apple-touch-icon.png",
+      "file": "assets/services/githubcopilot.png"
+    },
+    "aistudio": {
+      "source": "https://www.gstatic.com/images/branding/productlogos/ai_studio/v1/web-32dp/logo_ai_studio_color_1x_web_32dp.png",
+      "file": "assets/services/aistudio.png"
+    },
+    "replit": {
+      "source": "https://replit.com/public/icons/favicon-prompt-192-rebrand.png",
+      "file": "assets/services/replit.png"
+    },
+    "bolt": {
+      "source": "https://cdn.simpleicons.org/stackblitz",
+      "file": "assets/services/bolt.png",
+      "license": "Simple Icons CC0; brand rights remain with their owners"
+    },
+    "lovable": {
+      "source": "https://lovable.dev/favicon.ico",
+      "file": "assets/services/lovable.png"
+    },
+    "v0": {
+      "source": "https://v0.app/assets/icon-light-32x32.png",
+      "file": "assets/services/v0.png"
+    },
+    "notebooklm": {
+      "source": "https://www.gstatic.com/tailwind/_/static/branding/v6/light_mode/favicon/favicon-32x32.png",
+      "file": "assets/services/notebooklm.png"
+    },
+    "elicit": {
+      "source": "https://framerusercontent.com/images/GBpaTmhagvahuZIt8uDryBpioi4.png",
+      "file": "assets/services/elicit.png"
+    },
+    "consensus": {
+      "source": "https://consensus.app/favicon.svg",
+      "file": "assets/services/consensus.png"
+    },
+    "notion": {
+      "source": "https://www.notion.com/front-static/logo-ios.png",
+      "file": "assets/services/notion.png"
+    },
+    "elevenlabs": {
+      "source": "https://cdn.simpleicons.org/elevenlabs",
+      "file": "assets/services/elevenlabs.png",
+      "license": "Simple Icons CC0; brand rights remain with their owners"
+    },
+    "murf": {
+      "source": "https://cdn.prod.website-files.com/66b3765153a8a0c399c70981/67065c22d34646f3bb23b232_android-chrome-256x256.png",
+      "file": "assets/services/murf.png"
+    },
+    "speechify": {
+      "source": "https://speechify.com/apple-icon.png?apple-icon.0ek7crgmoxfjk.png",
+      "file": "assets/services/speechify.png"
+    },
+    "google": {
+      "source": "https://cdn.simpleicons.org/google",
+      "file": "assets/services/google.png",
+      "license": "Simple Icons CC0; brand rights remain with their owners"
+    }
+  }
+}

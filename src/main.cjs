@@ -1,7 +1,7 @@
 const {app,BrowserWindow,WebContentsView,Menu,ipcMain,session,clipboard,dialog}=require('electron');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),{randomUUID}=require('node:crypto');
 const workspace=require('./workspace.cjs'),layout=require('./layout.cjs'),{Diagnostics}=require('./diagnostics.cjs');
-const navigation=require('./navigation.cjs'),input=require('./input-bridge.js');
+const navigation=require('./navigation.cjs'),input=require('./input-bridge.js'),libraryStore=require('./library.cjs');
 const manifest=require('../package.json');
 const fixtureMode=process.argv.includes('--fixtures'),WORLD=1873,views=new Map();
 // Keep the initial preview's local workspace and normal browser session in place
@@ -9,13 +9,33 @@ const fixtureMode=process.argv.includes('--fixtures'),WORLD=1873,views=new Map()
 app.setPath('userData',path.join(app.getPath('appData'),manifest.userDataDirectory));
 if(process.env.WORKSPACE_TEST_PROFILE&&fixtureMode)app.setPath('userData',process.env.WORKSPACE_TEST_PROFILE);
 const profile=app.getPath('userData'),stateFile=path.join(profile,fixtureMode?'fixture-workspace.json':'workspace.json');
-let state=workspace.load(stateFile),win,diag,modal=false,busy=false,nextNumber=0,lastReport=null,persistTimer,revision=0,boundsRevision=-1;
-const partition=fixtureMode?'fixture-session':'persist:workspace';
+const libraryFile=path.join(profile,fixtureMode?'fixture-library.json':'library.json'),loaded=libraryStore.load(libraryFile,stateFile);
+let library=loaded.library,state=library.entries.find(e=>e.id===library.current).state,storageBlocked=!!loaded.blocked,lastSaved=null,pending=null,answerCache=[],answerSource=null,win,diag,modal=false,busy=false,nextNumber=0,lastReport=null,persistTimer,revision=0,boundsRevision=-1;
+const partition=fixtureMode?'persist:fixture-session':'persist:workspace';
 const sample='[Verse]\n오늘의 작은 시작 🎵\n[Style] 잔잔한 피아노, 80 BPM';
-const fixtureURL=name=>'data:text/html;charset=utf-8,'+encodeURIComponent('<!doctype html><meta charset="utf-8"><style>body{font:18px/1.7 system-ui;padding:24px;background:#fff;color:#203b35}pre{white-space:pre-wrap;background:#f1f5f2;padding:16px}textarea{width:90%;height:150px;font:inherit}label{display:block;margin-top:15px}</style><h2>'+name+' — 합성 시험 화면</h2><p>실제 AI 서비스가 아닙니다. 생성·전송 기능 없음.</p><pre id="sample">'+sample+'</pre><label>프롬프트<textarea id="prompt"></textarea></label><label>가사<textarea id="lyrics"></textarea></label><label>스타일<textarea id="style"></textarea></label>');
+const fixtureURL=name=>'data:text/html;charset=utf-8,'+encodeURIComponent('<!doctype html><meta charset="utf-8"><style>body{font:18px/1.7 system-ui;padding:24px;background:#fff;color:#203b35}pre{white-space:pre-wrap;background:#f1f5f2;padding:16px}textarea{width:90%;height:150px;font:inherit}label{display:block;margin-top:15px}</style><h2>'+name+' — 합성 시험 화면</h2><p>실제 AI 서비스가 아닙니다. 생성·전송 기능 없음.</p><pre data-message-author-role="assistant" id="sample">'+sample+'</pre><label>프롬프트<textarea id="prompt"></textarea></label><label>가사<textarea id="lyrics"></textarea></label><label>스타일<textarea id="style"></textarea></label>');
 function notice(message){if(win&&!win.isDestroyed())win.webContents.send('notice',message);}
-function persist(){clearTimeout(persistTimer);persistTimer=setTimeout(()=>{try{workspace.save(stateFile,state);}catch{diag?.log('app.error',{reason:'storage'});notice('작업 목록을 저장하지 못했습니다. 진단 로그를 확인하세요.');}},150);}
-function snapshot(){return {...state,revision,clips:state.clips.map(c=>({id:c.id,preview:c.text.slice(0,100),chars:c.text.length})),services:workspace.SERVICES,categories:workspace.CATEGORIES,fixtureMode,diagnosticError:diag?.storageError||false,tabs:state.tabs.map(t=>({...t,registered:[...(views.get(t.id)?.fields||[])],loading:views.get(t.id)?.loading||false}))};}
+function saveNow(){
+  if(storageBlocked){notice('저장 파일을 읽지 못해 원본을 보존했습니다. 진단 보고서를 확인해 주세요.');return false;}
+  try{libraryStore.checkpoint(library,state);libraryStore.save(libraryFile,library);workspace.save(stateFile,state);lastSaved=new Date().toISOString();return true;}catch{diag?.log('app.error',{reason:'storage'});notice('워크스페이스 저장 실패 · 원본을 보존합니다.');return false;}
+}
+function persist(){clearTimeout(persistTimer);persistTimer=setTimeout(saveNow,150);}
+function stage(text,source){if(typeof text!=='string'||!text.length||text.length>50000){notice('전달할 텍스트가 없거나 5만 자를 넘었습니다.');return false;}pending={text,source,target:null};push();return true;}
+function openSend(text,source){if(stage(text,source))win.webContents.send('open-send');}
+async function chooseDestination(id,field){
+  if(!pending||!listed(id))return false;pending.target=id;modal=false;reveal(id);await focusDisplayed(id);
+  const t=views.get(id);if(field&&t.fields.has(field))return await transfer(pending.text,id,field);
+  if(!field&&t.fields.size===1)return await transfer(pending.text,id,[...t.fields][0]);
+  notice('받을 입력칸을 클릭한 뒤 상단의 ‘여기에 넣기’를 누르세요.');push();return true;
+}
+async function insertPending(field='prompt'){
+  if(!pending||!listed(pending.target))return false;const id=pending.target,t=views.get(id);await register(id,field,t.view.webContents.mainFrame);if(t.fields.has(field))return await transfer(pending.text,id,field);return false;
+}
+function switchWorkspace(id){
+ if(!library.entries.some(e=>e.id===id)||!saveNow())return false;
+ for(const t of views.values()){win.contentView.removeChildView(t.view);t.view.webContents.close();}views.clear();pending=null;library.current=id;state=workspace.normalize(library.entries.find(e=>e.id===id).state);for(const tab of state.tabs)create(tab);push();return true;
+}
+function snapshot(){return {...state,revision,lastSaved,storageBlocked,workspaceId:library.current,workspaces:library.entries.map(e=>({id:e.id,name:e.state.name,count:e.id===library.current?state.tabs.length:e.state.tabs.length,updatedAt:e.updatedAt})),pending:pending?{preview:pending.text.slice(0,120),chars:pending.text.length,target:pending.target}:null,clips:state.clips.map(c=>({id:c.id,preview:c.text.slice(0,100),chars:c.text.length})),services:workspace.SERVICES,categories:workspace.CATEGORIES,fixtureMode,diagnosticError:diag?.storageError||false,tabs:state.tabs.map(t=>({...t,registered:[...(views.get(t.id)?.fields||[])],loading:views.get(t.id)?.loading||false}))};}
 function push(){revision++;if(win&&!win.isDestroyed())win.webContents.send('state',snapshot());persist();}
 function listed(id){return state.tabs.find(t=>t.id===id);}
 function visible(){return navigation.visible(state);}
@@ -58,13 +78,13 @@ async function transfer(text,id,field){
     result=await wc.executeJavaScriptInIsolatedWorld(WORLD,[{code:input.script('inspect',{field,text})}]);
   }catch{result={status:'error'};}
   finally{
-    busy=false;logFor('transfer.result',id,{field,...result,chars:text.length,elapsedMs:Date.now()-start});
+    busy=false;if(result.status==='exact'){state.recent=[{id,field},...(state.recent||[]).filter(r=>r.id!==id||r.field!==field)].slice(0,8);pending=null;push();}logFor('transfer.result',id,{field,...result,chars:text.length,elapsedMs:Date.now()-start});
     const messages={exact:'입력 완료 · 원문과 줄바꿈이 일치합니다. 전송·생성은 누르지 않았습니다.',changed:'입력 결과가 원문과 다릅니다. 줄바꿈·글자 제한을 확인하세요.',occupied:'기존 입력을 보호해 전달을 멈췄습니다. 빈 입력칸을 지정하세요.',login:'로그인 후 입력칸을 다시 지정하세요.',gone:'입력칸이 바뀌었습니다. 다시 지정하세요.'};notice(messages[result.status]||'입력하지 못했습니다. 진단 보고서에 결과를 기록했습니다.');
   }
   return result;
 }
 function clip(text){if(!text||text.length>50000)return;state.clips.unshift({id:randomUUID(),text});state.clips=state.clips.slice(0,50);diag.log('clip.saved',{chars:text.length,count:state.clips.length});push();notice('선택한 글을 이 PC에 보관했습니다. 메뉴의 보관한 글에서 다시 쓸 수 있습니다.');}
-function destinations(text){return state.tabs.flatMap(tab=>[...(views.get(tab.id)?.fields||[])].map(field=>({label:`${tab.alias} · ${{prompt:'프롬프트',lyrics:'가사',style:'스타일'}[field]}`,enabled:!!text&&!busy,click:()=>void transfer(text,tab.id,field)})));}
+function destinations(text,source){return state.tabs.filter(tab=>tab.id!==source).map(tab=>({label:tab.alias,enabled:!!text&&!busy,click:()=>{if(stage(text,source))void chooseDestination(tab.id);}}));}
 function bind(id,view){
   const wc=view.webContents,t=views.get(id);
   wc.on('focus',()=>{if(t.displayed&&!modal&&state.active!==id&&visible().includes(id)){navigation.activate(state,id,{focusOnly:true});push();}});
@@ -78,10 +98,11 @@ function bind(id,view){
   wc.on('did-fail-load',(_e,code,_description,_url,main)=>{if(main&&code!==-3){t.failed=true;logFor('page.failure',id,{status:'error',reason:'network',errorCode:code});notice('페이지를 열지 못했습니다. 메뉴에서 새로고침하거나 진단 보고서를 확인하세요.');}});
   wc.on('render-process-gone',(_e,details)=>{logFor('page.crash',id,{reason:'renderer',exitCode:details.exitCode});t.fields.clear();push();});
   wc.on('context-menu',(event,p)=>{
-    event.preventDefault();const text=p.selectionText||'';const dest=destinations(text);
+    event.preventDefault();const text=p.selectionText||'';const dest=destinations(text,id);
     const entries=[{label:'받을 입력칸 지정',enabled:p.isEditable,submenu:['prompt','lyrics','style'].map(field=>({label:{prompt:'프롬프트',lyrics:'가사',style:'스타일'}[field],click:()=>void register(id,field,p.frame)}))},
-      {label:'다른 작업에 넣기',enabled:!!text&&dest.length>0,submenu:dest.length?dest:[{label:'먼저 받을 칸을 지정하세요',enabled:false}]},
-      {label:'복사하고 보관',enabled:!!text,click:()=>{clipboard.writeText(text);clip(text);}},{type:'separator'},{role:'copy'},{role:'paste'},{role:'selectAll'}];
+      {label:'다른 작업에 넣기',enabled:!!text&&dest.length>0,submenu:dest.length?dest:[{label:'먼저 다른 탭을 열어 주세요',enabled:false}]},
+      {label:'복사한 글 보내기',click:async()=>openSend(await clipboard.readText(),id)},
+      {label:'복사하고 보관',enabled:!!text,click:async()=>{await clipboard.writeText(text);clip(text);}},{type:'separator'},{role:'copy'},{role:'paste'},{role:'selectAll'}];
     Menu.buildFromTemplate(entries).popup({window:win});
   });
 }
@@ -110,6 +131,20 @@ async function action(type,data={}){
   try{
     switch(type){
       case 'get':return snapshot();
+      case 'send-clipboard':return stage(await clipboard.readText(),null);
+      case 'send-answers':{const t=views.get(state.active);if(!t||(!fixtureMode&&!/^https:\/\/chatgpt\.com(?:\/|$)/.test(t.view.webContents.getURL())))return [];answerSource=state.active;answerCache=await t.view.webContents.executeJavaScriptInIsolatedWorld(WORLD,[{code:input.script('answers')}]);return answerCache.map((a,index)=>({index,preview:a.text.slice(0,180)}));}
+      case 'send-answer':return answerCache[data.index]?stage(answerCache[data.index].text,answerSource):false;
+      case 'send-get':return pending?{text:pending.text,source:pending.source,target:pending.target}:null;
+      case 'send-target':return chooseDestination(data.id,data.field);
+      case 'send-insert':return insertPending(['prompt','lyrics','style'].includes(data.field)?data.field:'prompt');
+      case 'send-cancel':pending=null;push();return true;
+      case 'send-save':if(pending)clip(pending.text);return true;
+      case 'clip-stage':{const c=state.clips.find(c=>c.id===data.id);return c?stage(c.text,null):false;}
+      case 'workspace-save':return saveNow();
+      case 'workspace-switch':return switchWorkspace(data.id);
+      case 'workspace-create':{if(!saveNow())return false;const previous=library.current;const id=libraryStore.create(library,data.copy?state:workspace.empty(),data.name);if(!id)return false;const created=library.entries.find(e=>e.id===id);library.current=previous;return switchWorkspace(created.id);}
+      case 'session-clear':{if(data.confirm!==true)return false;const sess=session.fromPartition(partition);await sess.clearStorageData();await sess.cookies.flushStore();notice('사이트 로그인 정보를 지웠습니다. 워크스페이스는 유지됩니다.');return true;}
+
       case 'modal':modal=!!data.open;for(const t of views.values())if(modal){t.view.setVisible(false);t.displayed=false;}return true;
       case 'add':return add(data.service,data.url);
       case 'activate':reveal(data.id);await focusDisplayed(data.id);break;
@@ -123,7 +158,7 @@ async function action(type,data={}){
       case 'layout':if(data.mode==='single'){state.presentation='single';push();}else if(['grid','columns'].includes(data.mode)&&state.tree){state.mode=data.mode;state.tree=layout.preset(layout.ids(state.tree),data.mode);state.presentation='multi';if(!layout.ids(state.tree).includes(state.active))state.active=layout.ids(state.tree)[0];diag.log('layout.change',{layout:data.mode,count:visible().length});push();}break;
       case 'move':state.tree=layout.move(state.tree,data.from,data.to,data.edge);state.mode='custom';state.presentation='multi';diag.log('layout.change',{layout:'custom',count:visible().length});push();break;
       case 'resize':if(typeof data.path==='string'&&Number.isFinite(data.ratio)){state.tree=layout.resize(state.tree,data.path,data.ratio);state.mode='custom';push();}break;
-      case 'clip-copy':{const c=state.clips.find(c=>c.id===data.id);if(c)clipboard.writeText(c.text);break;}
+      case 'clip-copy':{const c=state.clips.find(c=>c.id===data.id);if(c)await clipboard.writeText(c.text);break;}
       case 'clip-send':{const c=state.clips.find(c=>c.id===data.id);if(c)await transfer(c.text,data.target,data.field);break;}
       case 'clip-delete':state.clips=state.clips.filter(c=>c.id!==data.id);push();break;
       case 'report':lastReport=diag.report();return lastReport;
@@ -143,17 +178,18 @@ async function boot(){
   diag=new Diagnostics(path.join(profile,fixtureMode?'fixture-diagnostics':'diagnostics'),{appVersion:manifest.version,electron:process.versions.electron,chromium:process.versions.chrome,platform:process.platform,arch:process.arch,osRelease:os.release()});diag.enabled=state.diagnostics;diag.log('app.start');
   const sess=session.fromPartition(partition);sess.setPermissionRequestHandler((_wc,_permission,cb)=>cb(false));
   const proxy=process.env.HTTPS_PROXY||process.env.HTTP_PROXY;if(proxy)await sess.setProxy({proxyRules:proxy});
-  win=new BrowserWindow({width:1440,height:980,minWidth:1000,minHeight:650,backgroundColor:'#f3f5f2',title:app.getName(),webPreferences:{preload:path.join(__dirname,'preload.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true}});win.setMenu(null);
+  win=new BrowserWindow({width:1440,height:980,minWidth:1000,minHeight:650,backgroundColor:'#f3f5f2',title:app.getName(),icon:path.join(__dirname,'assets/brand/icon.png'),webPreferences:{preload:path.join(__dirname,'preload.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true}});win.setMenu(null);
   ipcMain.handle('action',(e,p)=>e.sender===win.webContents&&p&&typeof p.type==='string'?action(p.type,p.data):null);
   ipcMain.on('bounds',(e,data)=>{if(e.sender===win.webContents)bounds(data);});
   await win.loadFile(path.join(__dirname,'index.html'));
   for(const tab of state.tabs)create(tab);diag.log('workspace.restore',{count:state.tabs.length});push();
   app.on('child-process-gone',(_event,details)=>diag.log('app.error',{reason:'process',exitCode:details.exitCode}));
+  win.on('blur',()=>{saveNow();sess.flushStorageData();void sess.cookies.flushStore();});
   win.webContents.on('render-process-gone',(_event,details)=>diag.log('app.error',{reason:'renderer',exitCode:details.exitCode}));
   return {win,views,action,register,transfer,clip,snapshot,diag,profile,fixtureMode};
 }
 const ready=boot();ready.catch(()=>{dialog.showErrorBox('시작 오류','앱을 시작하지 못했습니다.');app.quit();});
-app.on('before-quit',()=>{clearTimeout(persistTimer);try{workspace.save(stateFile,state);}catch{}diag?.log('app.stop');});
+let flushing=false;app.on('before-quit',e=>{clearTimeout(persistTimer);saveNow();if(!flushing&&app.isReady()){e.preventDefault();flushing=true;session.fromPartition(partition).flushStorageData();session.fromPartition(partition).cookies.flushStore().finally(()=>app.quit());}diag?.log('app.stop');});
 app.on('window-all-closed',()=>app.quit());
 process.on('uncaughtExceptionMonitor',()=>diag?.log('app.error',{reason:'process'}));
 module.exports={ready};

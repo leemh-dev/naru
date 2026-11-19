@@ -14,8 +14,9 @@ with tempfile.TemporaryDirectory(prefix='workspace-ui-test-') as temp:
     if x.poll() is not None:raise RuntimeError('Xvfb failed')
     if Path('/tmp/.X11-unix/X96').exists():break
     time.sleep(.1)
-   for script,extra in [('desktop-smoke.cjs',[]),('desktop-smoke.cjs',['--restore-check']),('service-picker-smoke.cjs',[])]:
-    env['WORKSPACE_TEST_PROFILE']=temp+('/catalog-profile' if script=='service-picker-smoke.cjs' else '/profile')
+   for script,extra in [('desktop-smoke.cjs',[]),('desktop-smoke.cjs',['--restore-check']),('service-picker-smoke.cjs',[]),('features-smoke.cjs',[]),('features-smoke.cjs',['--restore-check'])]:
+    if os.environ.get('TEST_ONLY') and script!=os.environ['TEST_ONLY']:continue
+    env['WORKSPACE_TEST_PROFILE']=temp+('/features-profile' if script=='features-smoke.cjs' else '/catalog-profile' if script=='service-picker-smoke.cjs' else '/profile')
     p=subprocess.Popen([electron,str(root/'tests'/script),'--disable-dev-shm-usage',*extra],cwd=root,env=env,stdout=ef,stderr=subprocess.STDOUT)
     try:rc=p.wait(timeout=45)
     except subprocess.TimeoutExpired:p.terminate();rc=p.wait(timeout=5)

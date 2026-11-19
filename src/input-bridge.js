@@ -17,6 +17,20 @@
         return e.value.slice(e.selectionStart, e.selectionEnd);
       return window.getSelection()?.toString() || '';
     }
+    if (name === 'answers') {
+      // Read only rendered assistant bodies, never the whole page or hidden history.
+      // This adapter is opt-in and offered only for ChatGPT and synthetic fixtures.
+      if (document.querySelector('[data-testid="stop-button"]')) return [];
+      function read(node) {
+        if (node.nodeType === 3) return node.textContent;
+        if (node.nodeType !== 1 || node.matches('button,script,style,nav,[aria-hidden="true"],svg')) return '';
+        if (node.tagName === 'BR') return '\n';
+        if (node.tagName === 'PRE') return (node.querySelector('code') || node).textContent + '\n';
+        const text = [...node.childNodes].map(read).join('');
+        return text + (/^(P|DIV|LI|H[1-6]|BLOCKQUOTE|TR)$/.test(node.tagName) ? '\n' : '');
+      }
+      return [...document.querySelectorAll('[data-message-author-role="assistant"]')].filter(e=>e.getClientRects().length).slice(-20).map(e=>({text:read(e.querySelector('.markdown')||e).trim()})).filter(e=>e.text.length&&e.text.length<=50000).slice(-10);
+    }
     const fields = globalThis.__plyntReceivingFields ||= Object.create(null);
     if (name === 'register') {
       const e = document.activeElement;

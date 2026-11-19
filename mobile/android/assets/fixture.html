@@ -1,8 +1,8 @@
 <!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Plynt 합성 시험</title>
 <style>body{font:16px/1.7 system-ui;padding:18px;color:#30394e;background:#fafbfd}h1{font-size:20px}pre{white-space:pre-wrap;background:#edf0ff;padding:16px;border-radius:10px}textarea{box-sizing:border-box;width:100%;height:95px;font:16px/1.5 system-ui;border:1px solid #cbd2e5;border-radius:8px;padding:10px}label{display:block;margin-top:18px}small{color:#7c8293}</style>
 <h1>길게 눌러 다른 탭으로</h1><small>실제 AI 서비스가 아닌 합성 시험입니다. 전송·생성 버튼이 없습니다.</small>
-<pre id="sample">Plynt mobile test
-Second line</pre>
+<pre data-message-author-role="assistant" id="sample">Plynt mobile test
+Second line</pre><button id="copy" onclick="navigator.clipboard.writeText(document.querySelector('#sample').textContent)">시험 글 복사</button>
 <label>프롬프트<textarea id="prompt" placeholder="빈 입력칸을 길게 눌러 지정하세요"></textarea></label>
 <label>가사<textarea id="lyrics"></textarea></label><label>스타일<textarea id="style"></textarea></label>
 </html>

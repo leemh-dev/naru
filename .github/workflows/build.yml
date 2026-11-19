@@ -35,6 +35,21 @@ jobs:
       - run: npm ci
       - run: npm run setup
       - run: npm test
+      - name: Native desktop fixture checks
+        if: runner.os != 'Linux'
+        run: node tests/run-cross-platform.cjs
+      - name: Native Linux fixture checks
+        if: runner.os == 'Linux'
+        run: xvfb-run -a node tests/run-cross-platform.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: checks-${{ matrix.platform }}
+          path: |
+            test-output/features-*.json
+            test-output/09-*.png
+            test-output/10-*.png
+            test-output/11-*.png
       - run: npm run dist -- ${{ matrix.args }}
       - name: Upload installers
         uses: actions/upload-artifact@v4
@@ -49,7 +64,7 @@ jobs:
             dist/*.deb
   android-preview:
     runs-on: ubuntu-22.04
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -65,6 +80,25 @@ jobs:
         env:
           PLYNT_ANDROID_DEBUG_KEY: ${{ runner.temp }}/plynt-debug.keystore
         run: ANDROID_SDK_ROOT="$ANDROID_HOME" python mobile/android/build.py
+      - name: Prepare Android UI test
+        run: |
+          python -m pip install websocket-client
+          sudo chmod 666 /dev/kvm
+      - name: Native Android fixture checks
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: default
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+          script: python tests/android-smoke.py dist/android/plynt-*-android-test.apk
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: checks-android
+          path: test-output/android/
       - uses: actions/upload-artifact@v4
         with:
           name: installers-android
@@ -93,5 +127,5 @@ jobs:
           test "$RELEASE_TAG" = "v$(node -p 'require("./package.json").version')"
           test -f "docs/releases/$RELEASE_TAG.md"
           cd installers
-          find . -maxdepth 1 -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
-          gh release create "$RELEASE_TAG" ./* --verify-tag --title "Plynt $RELEASE_TAG" --prerelease --notes-file "../docs/releases/$RELEASE_TAG.md"
+          find . -maxdepth 1 -type f ! -name '*-android-test.apk' ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+          gh release create "$RELEASE_TAG" ./*.exe ./*.zip ./*.dmg ./*.deb ./*.AppImage ./SHA256SUMS.txt --verify-tag --title "Plynt $RELEASE_TAG" --prerelease --notes-file "../docs/releases/$RELEASE_TAG.md"

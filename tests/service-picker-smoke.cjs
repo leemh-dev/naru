@@ -21,7 +21,7 @@ function check(name,ok){assert.ok(ok,name);checks.push({name,passed:true});}
   await ui(`document.querySelector('[data-category="music"]').click()`);
   check('music-filter-includes-suno-and-udio-only-relevant-services',await ui(`!!document.querySelector('[data-service="suno"]')&&!!document.querySelector('[data-service="udio"]')&&!document.querySelector('[data-service="claude"]')`));
   await capture('08-music-shortcuts');
-  await search('미드저니');
+  await ui(`document.querySelector('[data-category="all"]').click()`);await search('미드저니');
   check('korean-search-crosses-category',await ui(`document.querySelectorAll('[data-service]').length===1&&!!document.querySelector('[data-service="midjourney"]')&&document.querySelector('[data-category="all"]').getAttribute('aria-pressed')==='true'`));
   await ui(`document.querySelector('[data-service="midjourney"]').click()`);await waitFor('!document.querySelector("#dialog").open');
   check('shortcut-opens-and-activates-destination',c.snapshot().tabs.length===1&&c.snapshot().tabs[0].service==='midjourney'&&c.snapshot().active===c.snapshot().tabs[0].id);
@@ -33,7 +33,7 @@ function check(name,ok){assert.ok(ok,name);checks.push({name,passed:true});}
   await search('');await ui(`document.querySelector('[data-category="code"]').click()`);
   check('development-filter-includes-cloud-tools',await ui(`!!document.querySelector('[data-service="codex"]')&&!!document.querySelector('[data-service="githubcopilot"]')&&!!document.querySelector('[data-service="replit"]')`));
   for(let i=0;i<2;i++){
-    if(i)await open();await search('제미나이');await ui(`document.querySelector('[data-service="gemini"]').click()`);await waitFor('!document.querySelector("#dialog").open');
+    if(i)await open();await ui(`document.querySelector('[data-category="all"]').click()`);await search('제미나이');await ui(`document.querySelector('[data-service="gemini"]').click()`);await waitFor('!document.querySelector("#dialog").open');
   }
   const gemini=c.snapshot().tabs.filter(t=>t.service==='gemini');check('same-new-service-opens-independent-tabs',gemini.length===2&&gemini[0].id!==gemini[1].id);
   check('new-service-icons-remain-on-tabs',await ui(`document.querySelectorAll('#tabs .icon.gemini').length===2&&document.querySelector('#tabs .icon.gemini').textContent==='Ge'`));

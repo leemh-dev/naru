@@ -1,7 +1,7 @@
 {
   "name": "plynt",
   "productName": "Plynt",
-  "version": "0.1.0-preview.4",
+  "version": "0.1.0-preview.5",
   "userDataDirectory": "AI Workspace Preview",
   "private": true,
   "description": "Plynt: a desktop workspace for AI services with private local diagnostics",
@@ -47,7 +47,8 @@
         "nsis",
         "zip"
       ],
-      "signExecutable": false
+      "signExecutable": false,
+      "icon": "build/icon.ico"
     },
     "nsis": {
       "oneClick": false,
@@ -60,7 +61,8 @@
         "zip"
       ],
       "category": "public.app-category.productivity",
-      "identity": null
+      "identity": null,
+      "icon": "build/icon.png"
     },
     "linux": {
       "target": [
@@ -68,7 +70,9 @@
         "deb"
       ],
       "category": "Office",
-      "maintainer": "Plynt contributors"
-    }
+      "maintainer": "Plynt contributors",
+      "icon": "build/icon.png"
+    },
+    "icon": "build/icon.png"
   }
 }

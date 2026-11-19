@@ -22,10 +22,13 @@ for name in ['classes', 'dex', 'assets']:
 shutil.copytree(project / 'assets', out / 'assets', dirs_exist_ok=True)
 shutil.copyfile(root / 'src/input-bridge.js', out / 'assets/input-bridge.js')
 shutil.copyfile(root / 'src/services.json', out / 'assets/catalog.json')
+shutil.copytree(root / 'src/assets/services', out / 'assets/services', dirs_exist_ok=True)
+shutil.copyfile(root / 'src/assets/brand/icon.png', out / 'assets/brand.png')
 
 def run(args): subprocess.run([str(x) for x in args], check=True)
 
-run([tools / 'aapt2', 'link', '-I', android, '--manifest', project / 'AndroidManifest.xml', '-A', out / 'assets', '-o', out / 'base.apk'])
+run([tools / 'aapt2', 'compile', '--dir', project / 'res', '-o', out / 'resources.zip'])
+run([tools / 'aapt2', 'link', '-R', out / 'resources.zip', '-I', android, '--manifest', project / 'AndroidManifest.xml', '-A', out / 'assets', '-o', out / 'base.apk'])
 run(['javac', '-encoding', 'UTF-8', '-source', '17', '-target', '17', '-classpath', android, '-d', out / 'classes', project / 'src/dev/naru/mobile/preview/MainActivity.java'])
 run([tools / 'd8', '--min-api', '26', '--lib', android, '--output', out / 'dex', *sorted((out / 'classes').rglob('*.class'))])
 with zipfile.ZipFile(out / 'base.apk', 'a') as archive:
