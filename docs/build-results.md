@@ -1,6 +1,6 @@
 # 2026-11-17 시험판 생성 결과
 
-이 문서는 프로젝트명을 확정하기 전 `AI Workspace Preview` 0.1.0에서 수행한 시험의 **과거 기록**입니다. 이후 이름을 **Naru**로 정하고 사용자가 [leemh-dev/naru](https://github.com/leemh-dev/naru) 저장소를 만들었습니다. 현재 사용 방법과 배포 현황은 [README](../README.md), [Releases](https://github.com/leemh-dev/naru/releases), [Actions](https://github.com/leemh-dev/naru/actions)에서 확인합니다. 아래 초기 빌드의 성공·실패를 이후 버전의 결과로 간주하지 않습니다.
+이 문서는 프로젝트명을 확정하기 전 `AI Workspace Preview` 0.1.0에서 수행한 시험의 **과거 기록**입니다. 이후 이름을 **Naru**로 정하고 사용자가 [leemh-dev/naru](https://github.com/leemh-dev/plynt) 저장소를 만들었습니다. 현재 사용 방법과 배포 현황은 [README](../README.md), [Releases](https://github.com/leemh-dev/plynt/releases), [Actions](https://github.com/leemh-dev/plynt/actions)에서 확인합니다. 아래 초기 빌드의 성공·실패를 이후 버전의 결과로 간주하지 않습니다.
 
 ## 생성한 파일
 

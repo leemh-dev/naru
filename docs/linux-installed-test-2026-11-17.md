@@ -11,7 +11,7 @@ GitHub Releases의 **0.1.0-preview.1 AppImage를 내려받아 실제 Linux 창�
 | 시험 날짜 | 2026-11-17 UTC |
 | OS | Debian GNU/Linux 13.6, Linux 6.18.57, x86_64 |
 | 앱 | Naru 0.1.0-preview.1, Electron 45.3.3, Chromium 156.0.8078.100 |
-| 배포 원본 | [GitHub 사전 릴리스](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.1) |
+| 배포 원본 | [GitHub 사전 릴리스](https://github.com/leemh-dev/plynt/releases/tag/v0.1.0-preview.1) |
 | 실행 파일 | `naru-0.1.0-preview.1-linux-x86_64.AppImage` — 다운로드한 릴리스 파일을 그대로 사용 |
 | 사용자 폴더 설치 | `/workspace/naru-installed/Naru.AppImage`에 배치·실행 권한 부여, 시험용 사용자 런처 작성 |
 | 화면 | Xvfb X11 가상 디스플레이 1500×1050, 실제 Electron 앱 창 1440×980 |

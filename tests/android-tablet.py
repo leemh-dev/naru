@@ -28,7 +28,9 @@ try:
  tap('◈ 시험 E');check('non-member-tab-uses-whole-screen',len(boxes())==1 and node('패널 이동 · 시험 A') is None)
  tap('◈ 시험 A');check('member-tab-returns-to-four-panels',len(boxes())==4);check('switching-preserves-live-draft',js(page,"document.querySelector('#prompt').value==='TABLET_DRAFT_SYNTHETIC'"))
  ui.open_menu('Plynt 메뉴','워크스페이스 관리');ui.shot('02-tablet-sidebar');tap('닫기');check('sidebar-preserves-four-panels-and-draft',len(boxes())==4 and js(page,"document.querySelector('#prompt').value==='TABLET_DRAFT_SYNTHETIC'"))
- choose('좌우 열 배치');tap('적용');r=boxes();check('columns-run-left-to-right-not-top-to-bottom',len(r)==4 and len(set(b[1] for b in r))==1 and all(r[i][0]<r[i+1][0] for i in range(3)));ui.shot('03-tablet-columns')
+ choose('2×2 배치');tap('멀티뷰 패널 · 시험 D');tap('적용');r=boxes();check('three-panels-auto-arrange-two-plus-one',len(r)==3 and r[0][1]==r[1][1] and r[2][1]>r[0][1] and r[2][2]-r[2][0]>r[0][2]-r[0][0])
+ choose('2×2 배치');tap('멀티뷰 패널 · 시험 C');tap('적용');r=boxes();check('two-panels-share-one-row',len(r)==2 and r[0][1]==r[1][1])
+ choose('좌우 열 배치');tap('멀티뷰 패널 · 시험 C');tap('멀티뷰 패널 · 시험 D');tap('적용');r=boxes();check('columns-run-left-to-right-not-top-to-bottom',len(r)==4 and len(set(b[1] for b in r))==1 and all(r[i][0]<r[i+1][0] for i in range(3)));ui.shot('03-tablet-columns')
  before=current_book();order=next(e for e in before['entries'] if e['id']==before['current'])['state']['multiIds']
  start=ui.bounds(node('패널 이동 · 시험 A'));target_box=boxes()[1];end=((target_box[0]+target_box[2])//2,target_box[1]+60)
  shell('input','motionevent','DOWN',str(start[0]),str(start[1]));time.sleep(.9);shell('input','motionevent','MOVE',str(end[0]),str(end[1]));time.sleep(.7);shell('input','motionevent','UP',str(end[0]),str(end[1]));time.sleep(.8)

@@ -1,0 +1,127 @@
+{
+  "scope": "Linux offline fixtures only; real authenticated services untested",
+  "electron": "45.3.3",
+  "chromium": "156.0.8078.100",
+  "checks": [
+    {
+      "name": "four-webviews-created",
+      "passed": true
+    },
+    {
+      "name": "new-tabs-open-alone",
+      "passed": true
+    },
+    {
+      "name": "multiview-picker-applies-four-members",
+      "passed": true
+    },
+    {
+      "name": "grid-is-two-by-two",
+      "passed": true
+    },
+    {
+      "name": "columns-are-left-to-right",
+      "passed": true
+    },
+    {
+      "name": "fifth-tab-is-full-content-area",
+      "passed": true
+    },
+    {
+      "name": "fifth-tab-leaves-multiview-intact",
+      "passed": true
+    },
+    {
+      "name": "multiview-picker-disables-fifth-member",
+      "passed": true
+    },
+    {
+      "name": "member-click-restores-multiview",
+      "passed": true
+    },
+    {
+      "name": "native-menu-registers-prompt",
+      "passed": true
+    },
+    {
+      "name": "native-menu-transfers-selection",
+      "passed": true
+    },
+    {
+      "name": "destination-exact",
+      "passed": true
+    },
+    {
+      "name": "transfer-activates-member",
+      "passed": true
+    },
+    {
+      "name": "existing-input-preserved",
+      "passed": true
+    },
+    {
+      "name": "other-target-still-empty",
+      "passed": true
+    },
+    {
+      "name": "shared-dom-register",
+      "passed": true
+    },
+    {
+      "name": "shared-dom-insert",
+      "passed": true
+    },
+    {
+      "name": "shared-dom-exact",
+      "passed": true
+    },
+    {
+      "name": "shared-dom-preserves-existing-text",
+      "passed": true
+    },
+    {
+      "name": "moving-keeps-existing-webcontents",
+      "passed": true
+    },
+    {
+      "name": "moving-keeps-input",
+      "passed": true
+    },
+    {
+      "name": "transfer-activates-standalone-destination",
+      "passed": true
+    },
+    {
+      "name": "standalone-transfer-exact",
+      "passed": true
+    },
+    {
+      "name": "transfer-preserves-multiview",
+      "passed": true
+    },
+    {
+      "name": "active-tab-is-highlighted",
+      "passed": true
+    },
+    {
+      "name": "thirty-tabs-allowed",
+      "passed": true
+    },
+    {
+      "name": "thirty-first-tab-rejected",
+      "passed": true
+    },
+    {
+      "name": "last-active-tab-scrolls-into-view",
+      "passed": true
+    },
+    {
+      "name": "report-has-transfer-outcomes",
+      "passed": true
+    },
+    {
+      "name": "report-excludes-content-and-alias",
+      "passed": true
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Plynt Android 호환성 시험 앱
 
-표시 이름은 Naru에서 Plynt로 변경했습니다. 기존 설치의 로컬 작업·WebView 데이터에 계속 접근할 수 있도록 Android 패키지 ID와 Java 경로는 `dev.naru.mobile.preview`로 유지합니다. APK 업데이트에는 기존 설치와 같은 서명 키도 필요합니다.
+표시 이름과 Java 소스 네임스페이스는 **Plynt / `dev.plynt.mobile.preview`**입니다. 기존 설치의 로컬 작업·WebView 데이터와 홈 화면 바로가기를 유지하도록 앱 ID와 런처 별칭만 `dev.naru.mobile.preview`를 유지합니다. APK 업데이트에는 기존 설치와 같은 서명 키도 필요합니다.
 
 Android WebView에서 실제 서비스 화면과 **길게 누른 글 선택 → 다른 탭으로 넣기**를 검증하기 위한 별도 시험 앱입니다. 완성된 모바일 제품이나 데스크톱과 기능이 같은 앱으로 소개하지 않습니다. iOS 앱은 포함하지 않습니다.
 
@@ -9,9 +9,11 @@ Android WebView에서 실제 서비스 화면과 **길게 누른 글 선택 → 
 ## 구현 범위
 
 - 최대 30개 탭, 활성 탭의 은은한 하이라이트와 자동 가로 스크롤.
+- 플린트 아이콘의 사이드바, 저장된 워크스페이스별 이름 변경.
+- Android 태블릿의 최대 4개 멀티뷰와 패널 이동·배치 저장.
 - 탭을 길게 눌러 별칭 변경·닫기.
 - 웹의 글을 길게 눌러 선택한 뒤 Android 선택 메뉴에서 `다른 탭에 넣기`, `입력칸 지정`, `복사하고 보관` 이용.
-- 입력칸을 먼저 터치하고 길게 눌러 지정하거나, 선택 메뉴가 나타나지 않으면 `··· → 현재 입력칸 지정` 이용.
+- 입력칸을 먼저 터치하고 길게 눌러 지정하거나, 선택 메뉴가 나타나지 않으면 `플린트 아이콘 → 현재 입력칸 지정` 이용.
 - 전달할 때 대상 탭 활성화, 빈 칸 확인, 원문 일치 검사. 전송·생성 버튼은 누르지 않음.
 - 이름 붙인 워크스페이스 저장·다른 이름으로 저장·새 빈 작업·전환. URL·별칭·순서·활성 탭·보관 글·최근 목적지를 기기 내 자동 저장. 입력 중인 글·스크롤·편집 상태 복원은 보장하지 않음.
 - 입력칸을 아직 등록하지 않은 탭도 목적지 목록에 표시. 대상 활성화 → 빈 칸 터치 → 상단 `여기에 넣기`.
@@ -19,9 +21,9 @@ Android WebView에서 실제 서비스 화면과 **길게 누른 글 선택 → 
 - `All` 기본 선택, 가로 스크롤 다중 분류, 47개 서비스 아이콘과 약자, Google 브라우저 바로가기.
 - 스파크 P 런처 아이콘과 빈 작업 화면. 정상 로그인 쿠키·웹 저장소 유지, 명시적 로그인 데이터 삭제.
 - 진단 미리 보기·JSON 파일 저장·수집 중지·기록 삭제. 자동 업로드 없음.
-- `··· → 합성 화면 2개 열기`로 계정 없이 입력·선택 동작을 시험할 수 있음.
+- `플린트 아이콘 → 합성 화면 2개 열기`로 계정 없이 입력·선택 동작을 시험할 수 있음.
 
-모바일 멀티뷰, 이미지·음악·파일 업로드, 동기화, iOS 버전, 완전한 서비스 로그인 호환성은 구현·검증 범위에 포함하지 않습니다. 서비스의 iframe 입력칸은 지원하지 않습니다. 로그인 페이지에서는 입력칸 지정을 중단합니다.
+휴대폰 멀티뷰, Android 패널 비율 조절, 이미지·음악·파일 업로드, 동기화, iOS 버전, 완전한 서비스 로그인 호환성은 구현·검증 범위에 포함하지 않습니다. 서비스의 iframe 입력칸은 지원하지 않습니다. 로그인 페이지에서는 입력칸 지정을 중단합니다.
 
 ## 인증과 진단
 
@@ -48,11 +50,11 @@ python mobile/android/build.py
 기존 서명 키를 `PLYNT_ANDROID_DEBUG_KEY`에 지정하세요. 이전 `NARU_ANDROID_DEBUG_KEY` 설정도 호환되며, 둘 다 지정하면 새 설정을 우선합니다. 환경 변수가 없으면 기존 `/workspace/naru-android-test/naru-debug.keystore`를 사용합니다. 키가 없으면 기본적으로 빌드를 중단합니다. 개발용 새 키 생성에만 `PLYNT_INIT_DEBUG_KEY=1`을 명시하세요. 새 키는 기존 설치를 업데이트할 수 없습니다. CI 임시 키는 합성 검사 전용이며 공개 릴리스 APK에서 제외합니다.
 
 ```sh
-adb install --no-incremental -r dist/android/plynt-0.1.0-preview.5-android-test.apk
+adb install --no-incremental -r dist/android/plynt-0.1.0-preview.6-android-test.apk
 adb shell am start -n dev.naru.mobile.preview/.MainActivity
 ```
 
-최소 SDK 선언은 Android 8(API 26)이며, 모든 Android 버전의 호환성을 뜻하지는 않습니다. 새 동작은 Android 15(API 35), Pixel 2 x86_64 에뮬레이터와 합성 HTTPS WebView로 검사합니다. 실제 서비스 로그인 후 동작은 미검증입니다. [preview.5 검증 기록](../../docs/preview.5-validation.md)
+최소 SDK 선언은 Android 8(API 26)이며, 모든 Android 버전의 호환성을 뜻하지는 않습니다. 새 동작은 Android 15(API 35), Pixel 2 x86_64 에뮬레이터와 합성 HTTPS WebView로 검사합니다. 실제 서비스 로그인 후 동작은 미검증입니다. [preview.6 검증 기록](../../docs/preview.6-validation.md)
 
 ## preview.5 업데이트와 서명
 
@@ -80,3 +82,9 @@ gh api repos/OWNER/REPO/actions/workflows/publish-android.yml/dispatches --input
 ```
 
 APK·차이 파일·입력 JSON은 저장소에 커밋하지 않습니다. 이 경로도 APK 자체에 포함된 공개 서명만 전달하며 서명 개인 키를 CI에 저장하지 않습니다.
+
+## preview.6 사이드바·태블릿
+
+탭 맨 앞의 플린트 아이콘이 관리 메뉴를 엽니다. 워크스페이스 목록의 이름 변경은 현재 작업을 다시 열지 않습니다. Android 태블릿(최소 화면 폭 600dp 이상)은 `▦`에서 최대 4개 패널을 선택해 2×2 또는 좌우 열로 배치합니다. 제목을 길게 끌어 두 패널 위치를 교환할 수 있습니다. 포함하지 않은 탭은 단독 화면으로 열리고, 구성·순서는 기기에 저장됩니다. 휴대폰은 단일 패널이며 iPad 앱은 없습니다. Android의 패널 크기 비율 조절은 미지원입니다.
+
+preview.6은 preview.5 공개 APK의 앱 ID·서명 인증서를 유지하고 versionCode를 6으로 올립니다. Java 클래스는 Plynt로 변경하되 이전 런처 이름을 activity-alias로 연결하므로 홈 화면 바로가기 경로도 유지합니다.

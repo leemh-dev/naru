@@ -11,7 +11,7 @@
 
 기존 설치와의 연속성을 위해 데스크톱의 `dev.aiworkspace.preview` 식별자와 `AI Workspace Preview` 데이터 폴더, Android의 `dev.naru.mobile.preview` 패키지 ID·Java 경로를 유지했습니다. 사용자 프로필·로그인 세션을 복사하거나 변환하지 않았습니다. Android 빌드는 기존 서명 키와 `NARU_ANDROID_DEBUG_KEY` 환경 변수도 계속 지원합니다.
 
-GitHub 저장소 주소는 현재 `https://github.com/leemh-dev/naru`입니다. 기존 릴리스 파일·과거 검증 보고서·캡처에는 당시 이름을 보존했습니다. 이 이름들은 현재 제품 표시가 아니라 실제 주소, 호환성 식별자 또는 과거 증거입니다.
+GitHub 저장소 주소는 현재 `https://github.com/leemh-dev/plynt`입니다. 기존 릴리스 파일·과거 검증 보고서·캡처에는 당시 이름을 보존했습니다. 이 이름들은 현재 제품 표시가 아니라 실제 주소, 호환성 식별자 또는 과거 증거입니다.
 
 ## 확인 결과
 
@@ -39,3 +39,7 @@ Linux 실행 환경은 Electron 45.3.3 / Chromium 156.0.8078.100 및 Xvfb입니�
 ![Plynt Linux 패키징 결과의 합성 모드 시작 화면](evidence/plynt-rename/01-startup.png)
 
 [화면·입력 검사](evidence/plynt-rename/desktop-results.json) · [재시작 검사](evidence/plynt-rename/restore-results.json) · [표시 이름·브라우저 입력 코드 검사](evidence/plynt-rename/branding-results.json)
+
+## 2026-11-19 후속 통일
+
+저장소는 `leemh-dev/plynt`로 변경됐고 Git 원격·현재 문서 링크·패키지 메타데이터를 갱신했습니다. Java 소스를 `dev.plynt.mobile.preview`로 옮기고 기존 런처는 호환 별칭으로 연결합니다. Android 앱 ID·런처 별칭과 이전 서명 설정, 과거 증거의 옛 이름은 설치·업데이트 및 기록 호환성 때문에 남깁니다. [현재 검증](preview.6-validation.md)

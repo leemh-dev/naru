@@ -90,7 +90,10 @@ def tap_selection_action(page):
 def set_name(text):
  tree=dump();n=next(n for n in tree.iter('node') if n.attrib.get('class')=='android.widget.EditText');x,y=bounds(n);shell('input','tap',str(x),str(y));shell('input','keyevent','KEYCODE_MOVE_END');shell('input','keyevent','--longpress','KEYCODE_DEL')
  # Select all using native key shortcut; synthetic ASCII test name only.
- shell('input','keycombination','113','29');shell('input','text',text.replace(' ','%s'));shell('input','keyevent','4')
+ shell('input','keycombination','113','29')
+ if text:shell('input','text',text.replace(' ','%s'))
+ else:shell('input','keyevent','KEYCODE_DEL')
+ shell('input','keyevent','4')
 def book():return json.loads(shell('run-as',APP,'cat','files/workspaces.json'))
 def workspaces():open_menu('Plynt 메뉴','워크스페이스 관리');open_menu('워크스페이스 관리','워크스페이스 이름')
 if __name__=="__main__":
@@ -108,7 +111,7 @@ if __name__=="__main__":
   before=book();inactive=next(e for e in before['entries'] if e['id']!=before['current'])
   open_menu('Plynt 메뉴','워크스페이스 관리');check('phone-keeps-multiview-hidden',node('멀티뷰 설정') is None);check('leading-brand-replaces-overflow-menu',node('···') is None);shot('05-sidebar');shell('input','keyevent','4');check('sidebar-back-preserves-live-draft-scroll',js(target,"document.querySelector('#prompt').value==='SIDEBAR_DRAFT_SYNTHETIC'&&scrollY===160"))
   workspaces();tap('Empty QA 이름 변경');set_name('Archive QA');tap('이름 저장');after=book();check('inactive-rename-keeps-current-and-tab-data',after['current']==before['current'] and next(e for e in after['entries'] if e['id']==inactive['id'])['state']==dict(inactive['state'],name='Archive QA'));check('rename-does-not-reload-webview',js(target,"document.querySelector('#prompt').value==='SIDEBAR_DRAFT_SYNTHETIC'&&scrollY===160"))
-  tap('Mobile QA 이름 변경');set_name('Cancelled QA');tap('취소');check('cancel-keeps-name',node('● Mobile QA · 2개 탭') is not None)
+  tap('Mobile QA 이름 변경');set_name('');tap('이름 저장');check('empty-workspace-name-stays-open',node('이름을 입력해 주세요.') is not None);set_name('Cancelled QA');tap('취소');check('cancel-keeps-name',node('● Mobile QA · 2개 탭') is not None)
   tap('Mobile QA 이름 변경');set_name('Renamed Mobile QA');shot('06-rename');tap('이름 저장');tap('닫기')
   shell('input','keyevent','KEYCODE_HOME');time.sleep(.5);shell('am','force-stop',APP);shell('am','start','-W','-n',APP+'/.MainActivity');time.sleep(1);pages=connect();check('workspace-tabs-survive-process-restart',node('◈ 시험 A') is not None and node('◈ 시험 B') is not None);page=active_page();check('synthetic-login-cookie-survives-restart',js(page,"document.cookie.includes('plynt_fixture=synthetic')"));check('synthetic-web-storage-survives-restart',js(page,"localStorage.getItem('plynt_fixture')==='synthetic'"));workspaces();check('named-current-workspace-survives-restart',node('● Renamed Mobile QA',True) is not None);tap('닫기')
   report=json.loads(shell('run-as',APP,'cat','files/diagnostics.json'));check('diagnostics-exclude-text-and-workspace-names',all(x not in json.dumps(report) for x in ['Plynt mobile test','Mobile QA','fixture.plynt.test','plynt_fixture']))

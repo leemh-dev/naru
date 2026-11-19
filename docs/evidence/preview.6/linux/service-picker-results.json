@@ -1,0 +1,61 @@
+{
+  "scope": "Linux Electron synthetic pages only; no actual service sign-in or generation",
+  "checks": [
+    {
+      "name": "all-services-visible-once",
+      "passed": true
+    },
+    {
+      "name": "eight-categories-and-all",
+      "passed": true
+    },
+    {
+      "name": "dialog-and-url-entry-fit-window",
+      "passed": true
+    },
+    {
+      "name": "music-filter-includes-suno-and-udio-only-relevant-services",
+      "passed": true
+    },
+    {
+      "name": "korean-search-crosses-category",
+      "passed": true
+    },
+    {
+      "name": "shortcut-opens-and-activates-destination",
+      "passed": true
+    },
+    {
+      "name": "former-product-name-searches-current-shortcut",
+      "passed": true
+    },
+    {
+      "name": "former-korean-name-is-searchable",
+      "passed": true
+    },
+    {
+      "name": "no-results-retains-custom-url-entry",
+      "passed": true
+    },
+    {
+      "name": "development-filter-includes-cloud-tools",
+      "passed": true
+    },
+    {
+      "name": "same-new-service-opens-independent-tabs",
+      "passed": true
+    },
+    {
+      "name": "new-service-icons-remain-on-tabs",
+      "passed": true
+    },
+    {
+      "name": "custom-url-still-opens-outside-catalogue",
+      "passed": true
+    },
+    {
+      "name": "search-text-is-not-diagnosed",
+      "passed": true
+    }
+  ]
+}

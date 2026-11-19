@@ -25,7 +25,7 @@
 - Android: Google 공식 API 35 x86_64 시스템 이미지, Pixel 2 프로필, KVM 에뮬레이터, 실제 네이티브 메뉴·WebView. 휴대폰 크기 데스크톱 브라우저를 사용하지 않았습니다. 테스트 전용 HTTPS 호스트를 앱 내부에서 합성 HTML로 응답하게 하며 실제 서비스의 TLS 검증은 그대로 유지합니다.
 - 합성 쿠키와 합성 localStorage만 사용합니다. 인증정보를 추출하지 않았으며 실제 ChatGPT·Suno·Canva 로그인과 완료된 인증 후 입력은 **미검증**입니다.
 
-[초기 데스크톱 3 OS 성공 실행](https://github.com/leemh-dev/naru/actions/runs/44433750588)에서 새 UI·전달·워크스페이스 검사를 통과했습니다. Android 초기 실패는 접근성 트리의 누락·오래된 덤프, 네이티브 떠 있는 선택 메뉴의 접근성 누락을 조사하여 검사기가 새 화면을 읽도록 보완했습니다. 고정 에뮬레이터의 메뉴는 화면 증거에 근거한 좌표 터치도 사용합니다.
+[초기 데스크톱 3 OS 성공 실행](https://github.com/leemh-dev/plynt/actions/runs/44433750588)에서 새 UI·전달·워크스페이스 검사를 통과했습니다. Android 초기 실패는 접근성 트리의 누락·오래된 덤프, 네이티브 떠 있는 선택 메뉴의 접근성 누락을 조사하여 검사기가 새 화면을 읽도록 보완했습니다. 고정 에뮬레이터의 메뉴는 화면 증거에 근거한 좌표 터치도 사용합니다.
 
 ## 결과
 
@@ -43,7 +43,7 @@
 
 Linux는 기존 50개(30+6+14)와 신규 25개(22+3), 합계 **75개 합성 UI·복원 검사**를 통과했습니다. `npm test`는 저장·복구·진단·배치 검사를 통과했습니다. [Linux 결과와 화면](evidence/preview.5/linux)
 
-Android 네이티브·WebView **19개 검사 통과**: 분류·선택 메뉴·미등록 탭·정확한 입력·줄바꿈·초안 보호·답변 후보·이름 저장·빈 작업·전환·프로세스 재시작·합성 쿠키·localStorage·진단 원문 제외. Android 15, Android SDK built for x86_64, x86_64, WebView 124.0.6367.219. [성공 실행](https://github.com/leemh-dev/naru/actions/runs/44436242672) · [항목별 결과](evidence/preview.5/android/results.json)
+Android 네이티브·WebView **19개 검사 통과**: 분류·선택 메뉴·미등록 탭·정확한 입력·줄바꿈·초안 보호·답변 후보·이름 저장·빈 작업·전환·프로세스 재시작·합성 쿠키·localStorage·진단 원문 제외. Android 15, Android SDK built for x86_64, x86_64, WebView 124.0.6367.219. [성공 실행](https://github.com/leemh-dev/plynt/actions/runs/44436242672) · [항목별 결과](evidence/preview.5/android/results.json)
 
 | Android 대상 목록 | Android 작업 저장 |
 |---|---|
@@ -77,10 +77,10 @@ Linux deb를 임시 디렉터리에 풀어 포함된 실행 파일도 실행했�
 
 최종 버전 **v0.1.0-preview.5**, 앱 코드 커밋 `959e31706550e166e644b64eea6a9885fa444b81`입니다.
 
-- [최종 태그 실행](https://github.com/leemh-dev/naru/actions/runs/44436947932): Windows·macOS·Linux 신규 기능 22개+재시작 3개씩, Android 19개, 전체 빌드·릴리스 성공.
+- [최종 태그 실행](https://github.com/leemh-dev/plynt/actions/runs/44436947932): Windows·macOS·Linux 신규 기능 22개+재시작 3개씩, Android 19개, 전체 빌드·릴리스 성공.
 - Windows x64 EXE/ZIP 2개, macOS arm64/x64 DMG/ZIP 4개, Linux AppImage/DEB 2개, Android APK 1개: **설치 파일 9개와 SHA256SUMS.txt 게시 완료**.
-- 로컬 APK 직접 업로드는 연결 인증이 업로드 호스트에서 401을 반환해 실패했습니다. 대안으로 [별도 게시 워크플로](https://github.com/leemh-dev/naru/actions/runs/44438114120)가 성공한 CI APK와 공개 서명 APK 사이의 4,157바이트 차이를 받아 최종 APK를 복원했습니다. 빌드 성공·정확한 태그 커밋·전체 파일 SHA-256·보관 인증서 지문을 모두 검사했습니다. 개인 키는 전달·업로드하지 않았습니다.
+- 로컬 APK 직접 업로드는 연결 인증이 업로드 호스트에서 401을 반환해 실패했습니다. 대안으로 [별도 게시 워크플로](https://github.com/leemh-dev/plynt/actions/runs/44438114120)가 성공한 CI APK와 공개 서명 APK 사이의 4,157바이트 차이를 받아 최종 APK를 복원했습니다. 빌드 성공·정확한 태그 커밋·전체 파일 SHA-256·보관 인증서 지문을 모두 검사했습니다. 개인 키는 전달·업로드하지 않았습니다.
 - 모든 설치 파일의 GitHub 자산 SHA-256과 체크섬 목록이 일치했습니다. 게시된 Android APK를 다시 다운로드해 로컬 서명 APK와 **바이트 단위로 동일함**도 확인했습니다.
-- [다운로드](https://github.com/leemh-dev/naru/releases/tag/v0.1.0-preview.5) · [게시 파일·체크섬](evidence/preview.5/release-verification.json) · [CI 실행 기록](evidence/preview.5/ci-results.json)
+- [다운로드](https://github.com/leemh-dev/plynt/releases/tag/v0.1.0-preview.5) · [게시 파일·체크섬](evidence/preview.5/release-verification.json) · [CI 실행 기록](evidence/preview.5/ci-results.json)
 
 태그 이후 변경은 공개 APK 게시 보조 워크플로와 검증 문서이며 앱 기능 코드는 바꾸지 않았습니다. 실제 인증 계정과 실물 휴대폰에서의 최종 호환성 시험은 별도입니다.
