@@ -1,16 +1,21 @@
 """Update the official retained-key preview.5 APK in place; synthetic data only."""
-import importlib.util,sys,time,json,subprocess
+import importlib.util,sys,time,json,subprocess,re
 from pathlib import Path
 spec=importlib.util.spec_from_file_location('phone',Path(__file__).with_name('android-smoke.py'));ui=importlib.util.module_from_spec(spec);spec.loader.exec_module(ui)
 ui.out=Path('test-output/android-upgrade');ui.out.mkdir(parents=True,exist_ok=True)
 APP=ui.APP
 
 def launch(fixtures=False):
- args=['am','start','-W','-a','android.intent.action.MAIN','-c','android.intent.category.LAUNCHER','-p',APP]
+ # Launchers query MAIN/LAUNCHER entries and then start an explicit component.
+ # A generic implicit start may require CATEGORY_DEFAULT, which launcher entries lack.
+ query=ui.shell('cmd','package','query-activities','--brief','--components','-a','android.intent.action.MAIN','-c','android.intent.category.LAUNCHER','-p',APP)
+ components=sorted(set(re.findall(re.escape(APP)+r'/[A-Za-z0-9_.$]+',query)))
+ ui.check('one-launcher-entry-'+('previous' if fixtures else 'updated'),len(components)==1)
+ args=['am','start','-W','-n',components[0],'-a','android.intent.action.MAIN','-c','android.intent.category.LAUNCHER']
  if fixtures:args+=['--ez','test_fixtures','true']
  result=subprocess.run(['adb','shell',*args],text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
  if result.returncode:raise AssertionError('Synthetic launcher command failed: '+result.stdout)
- result=result.stdout;ui.check('launcher-intent-resolves-'+('previous' if fixtures else 'updated'),'Error' not in result and 'Status: ok' in result)
+ ui.check('launcher-component-starts-'+('previous' if fixtures else 'updated'),'Error' not in result.stdout and 'Status: ok' in result.stdout)
 def state():
  b=json.loads(ui.shell('run-as',APP,'cat','files/workspaces.json'));return b['current'],next(e['state'] for e in b['entries'] if e['id']==b['current'])
 try:
@@ -26,4 +31,4 @@ except Exception as e:
  except Exception:pass
  (ui.out/'failure.txt').write_text(str(e));raise
 finally:
- (ui.out/'results.json').write_text(json.dumps({'scope':'Official preview.5 APK to retained-key preview.6 update on Android 15 emulator; launcher intent, synthetic workspace/cookie/localStorage only','checks':ui.checks},indent=2)+'\n')
+ (ui.out/'results.json').write_text(json.dumps({'scope':'Official preview.5 APK to retained-key preview.6 update on Android 15 emulator; launcher component discovery/start, synthetic workspace/cookie/localStorage only','checks':ui.checks},indent=2)+'\n')
