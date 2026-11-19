@@ -1,0 +1,28 @@
+{
+  "url": "https://leemh-dev.github.io/plynt/",
+  "workflowRun": 44462828236,
+  "commit": "75b1b282570ca7a5462056e8369ce7d4a2599660",
+  "checks": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "matches_source": true
+    },
+    {
+      "path": "privacy.html",
+      "status": 200,
+      "matches_source": true
+    },
+    {
+      "path": "style.css",
+      "status": 200,
+      "matches_source": true
+    },
+    {
+      "path": "assets/favicon.png",
+      "status": 200,
+      "matches_source": true
+    }
+  ],
+  "scope": "HTTP status and deployed source byte comparison; not browser visual QA"
+}

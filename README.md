@@ -12,7 +12,7 @@ Windows·macOS·Linux용 데스크톱 프리뷰와 Android 호환성 시험 앱�
 
 프로젝트와 저장소 이름은 **Plynt**입니다. 기존 설치의 작업과 로그인 상태를 유지하도록 데이터 경로와 앱 식별자는 유지합니다. [이름 변경 기록](docs/plynt-rename.md)
 
-[소개 페이지 소스](site/) · [작업 계획·진행 상태](docs/modification-plan.md) · [소개 페이지·스토어 배포 검토](docs/landing-and-store-review.md)
+[소개 페이지](https://leemh-dev.github.io/plynt/) · [페이지 소스](site/) · [작업 계획·진행 상태](docs/modification-plan.md) · [소개 페이지·스토어 배포 검토](docs/landing-and-store-review.md)
 
 ## 무엇을 할 수 있나요?
 
@@ -84,7 +84,7 @@ Windows·macOS·Linux의 실제 Electron 실행에서 새 전달 흐름·분류�
 
 ## 소개 페이지
 
-소개·다운로드·개인정보 안내는 [site/](site/)에 있습니다. 목표 주소는 `https://leemh-dev.github.io/plynt/`입니다. 현재 연결에는 최초 Pages 활성화 권한이 없어, 저장소 소유자의 **Settings → Pages → Source: GitHub Actions** 설정이 필요합니다. 이후 [Pages 배포 워크플로](.github/workflows/pages.yml)를 실행합니다. 아직 공개 접속 성공을 확인하지 않았습니다.
+소개 페이지는 **[https://leemh-dev.github.io/plynt/](https://leemh-dev.github.io/plynt/)** 에 공개돼 있습니다. 개인정보 안내·스타일·파비콘까지 HTTP 200 응답과 저장소 원본 일치를 확인했습니다. `site/` 또는 [Pages 배포 워크플로](.github/workflows/pages.yml)를 변경해 `main`에 올리면 자동으로 다시 배포합니다.
 
 ## 개발과 배포
 
@@ -134,7 +134,7 @@ docs/             검증 기록과 안전한 합성 화면 증거
 
 Switching between ChatGPT chats, projects, Codex tasks, Suno and Canva often means repeatedly finding the right screen, copying text and finding its destination. Plynt opens original websites in tabs, saves named workspaces and inserts user-chosen text into a receiving field. It is a desktop preview for Windows, macOS and Linux, with a separate Android compatibility app. It does not embed other companies’ installed native apps.
 
-[Installers · preview.6](https://github.com/leemh-dev/plynt/releases/tag/v0.1.0-preview.6) · [Validation record, Korean](docs/preview.6-validation.md) · [Build status](https://github.com/leemh-dev/plynt/actions/workflows/build.yml)
+[Website](https://leemh-dev.github.io/plynt/) · [Installers · preview.6](https://github.com/leemh-dev/plynt/releases/tag/v0.1.0-preview.6) · [Validation record, Korean](docs/preview.6-validation.md) · [Build status](https://github.com/leemh-dev/plynt/actions/workflows/build.yml)
 
 The project and repository are named **Plynt**. App identifiers and profile paths are retained for existing installations.
 

@@ -9,7 +9,7 @@
 | 플린트 아이콘·사이드바 | 탭 맨 앞 고정 아이콘, 기존 전역 `…` 메뉴 제거, 작업·자료·개인정보·진단 메뉴 통합 | 완료 · 3개 데스크톱 OS와 Android 합성 검사 통과 |
 | Android 태블릿 멀티뷰 | 최소 화면 폭 600dp 이상에서 최대 4개, 2×2/좌우 열 배치, 패널 제목 길게 끌어 위치 교환, 나머지 탭 전체 화면 | 완료 · Android 15 태블릿 구성 14개 검사 통과 |
 | 휴대폰 | 단일 화면 유지, 사이드바는 접이식 오버레이 | 완료 · Android 15 휴대폰 26개 검사 통과 |
-| 소개 페이지 | `site/`에 한국어 소개·영문 요약·기능·실제 합성 앱 화면·다운로드·사용법·개인정보 | 파일·Pages 워크플로 게시, Pages 활성화 권한 확인 필요 |
+| 소개 페이지 | `site/`에 한국어 소개·영문 요약·기능·실제 합성 앱 화면·다운로드·사용법·개인정보 | 완료 · GitHub Pages 공개 및 HTTP 200·원본 일치 확인 |
 | 설치 파일 | preview.6, Android versionCode 6, Windows·Mac·Linux·Android | 완료 · 설치 파일 9개, APK 덮어설치·체크섬 검증 완료 |
 | 스토어 | 정식 서명·AAB·API 대응·정책·심사, iOS 별도 구현 | 이번 개발 범위 밖 |
 
@@ -37,6 +37,6 @@ Android Java 코드는 `dev.plynt.mobile.preview`로 옮겼습니다. **앱 ID�
 
 ## 소개 페이지 배포
 
-목표 주소: `https://leemh-dev.github.io/plynt/`. 저장소 `Settings → Pages → Source: GitHub Actions` 설정 후 [소개 페이지 워크플로](../.github/workflows/pages.yml)를 실행합니다. 현재 연결의 최초 Pages 생성 요청은 `403 Resource not accessible by integration`으로 거절됐으며, 사이트가 공개됐다는 뜻은 아닙니다. 활성화 후 배포 결과를 별도로 기록합니다.
+공개 주소: [https://leemh-dev.github.io/plynt/](https://leemh-dev.github.io/plynt/). 소유자가 Source를 GitHub Actions로 설정한 뒤 배포를 완료했습니다. 초기 API 활성화 요청의 403은 해소된 과거 제약입니다. 업로드 직후 배포 파일을 조회하지 못한 오류는 빌드·배포 작업 분리와 파일 조회 대기로 수정했습니다. [배포 실행](https://github.com/leemh-dev/plynt/actions/runs/44462828236) 성공 및 홈페이지·개인정보·CSS·파비콘의 HTTP 200·원본 일치를 확인했습니다.
 
 [이번 검증 기록](preview.6-validation.md) · [스토어 검토](landing-and-store-review.md)

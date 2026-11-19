@@ -23,7 +23,7 @@
 | 공개 preview.5 → preview.6 덮어설치 | Android 15에서 14개 통과: 런처 조회·실행, 탭 ID·워크스페이스, 합성 쿠키·웹 저장소 보존 |
 | 배포 파일 | 설치 파일 9개·체크섬 대조 성공, 공개 APK는 로컬 서명 파일과 바이트 단위 일치 |
 | 실제 AI 서비스 로그인 후 입력 | 미검증 |
-| 소개 페이지 | 정적 HTML·로컬 링크·자산 검사 통과. 브라우저 제어 경로 부재로 시각 QA 미실행. Pages 활성화 관리 권한 요청 403 |
+| 소개 페이지 | 정적 HTML·로컬 링크·자산 검사 통과. Pages 공개 후 홈페이지·개인정보·CSS·파비콘 HTTP 200 및 원본 일치. 브라우저 시각 QA는 미실행 |
 
 ## 관찰과 수정
 
@@ -56,4 +56,4 @@
 - [덮어설치 14개 결과](evidence/preview.6/android-upgrade/results.json), [업데이트 후 새 사이드바](evidence/preview.6/android-upgrade/01-updated-sidebar.png).
 - [설치 파일 검증](evidence/preview.6/release-verification.json), [최종 SHA256SUMS](evidence/preview.6/SHA256SUMS.txt).
 - APK는 실제 공개 다운로드와 로컬 서명본을 바이트 단위로 비교했습니다. 데스크톱 8개 파일은 GitHub asset digest와 체크섬을 대조했으며 모든 설치 관리자 흐름을 직접 실행한 것은 아닙니다.
-- Pages는 소유자 활성화가 남아 있습니다. 현재 API의 `has_pages=false`와 활성화 요청의 403을 확인했으며, 정적 파일만 업로드한 상태를 사이트 공개로 표시하지 않습니다.
+- 소유자의 Pages 설정 후 [소개 페이지](https://leemh-dev.github.io/plynt/)를 공개했습니다. 초기 활성화 API 403과 업로드 직후 파일 조회 실패는 과거 결과입니다. 빌드·배포 분리 및 파일 조회 대기 후 [배포 실행](https://github.com/leemh-dev/plynt/actions/runs/44462828236)이 성공했습니다. [공개 HTTP 검사](evidence/preview.6/pages-verification.json)는 홈페이지·개인정보·CSS·파비콘의 HTTP 200과 원본 바이트 일치를 확인합니다. 브라우저 시각 QA를 수행했다는 뜻은 아닙니다.
